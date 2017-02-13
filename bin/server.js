@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-const config = require('config');
+const config = require('./src/server/config');
 const debug = require('debug');
 
 const app = require('../src/server/app');
-app.set('port', config.get('port'));
+app.set('port', config.get('webserver:port'));
 
 const server = require('http').createServer(app);
-server.listen(config.get('port'));
+server.listen(config.get('webserver:port'));
 server.on('error', (error) => {
   if (error.syscall !== 'listen') {
     throw error;
