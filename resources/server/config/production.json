@@ -1,14 +1,17 @@
 {
-  "turing": {
-    "logging": {
-      "transports": [
-        {
-          "module": "winston-graylog2"
-        },
-        {
-          "type": "Console"
-        }
-      ]
-    }
+  "webserver":{
+    "port": 8990,
+    "env": "local",
+    "rootPath": "",
+    "db-url": "mongodb://localhost:27017/hierdiedb",
+    "db-user": "",
+    "db-pass": ""
+  },
+  "mongo":{
+    "host":"localhost",
+    "port":"27017",
+    "db":"stupa",
+    "user":"test",
+    "password": "test"
   }
 }
