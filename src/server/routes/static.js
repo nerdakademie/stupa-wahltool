@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('../confing');
+const config = require('../config');
 const webpackClientDevConfig = require('../../../resources/client/webpack/webpack-client-dev.config.js');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
