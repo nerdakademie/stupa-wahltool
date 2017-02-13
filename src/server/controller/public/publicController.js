@@ -1,7 +1,7 @@
 'use strict';
 
 //const {logger: log} = require('turing-logging');
-//const config = require('turing-config');
+const config = require('../../../config');
 
 module.exports = class PublicController {
   static index(request, response) {
@@ -10,7 +10,7 @@ module.exports = class PublicController {
 //    log.error('Welt kaputt :-(');
     response.render('index', {
       title: 'turing-example',
-      rootPath: config.get('turing-example:server:routes:root')
+      rootPath: config.get('webserver:routes:root')
     });
   }
 };
