@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const config = require('../config');
-const {logger: log} = require('turing-logging');
+//const {logger: log} = require('turing-logging');
 
 class TuringMongo extends mongoose.Mongoose {
   setupConnection() {
@@ -16,11 +16,11 @@ class TuringMongo extends mongoose.Mongoose {
       const userAndPassword = user && password ? `${user}:${password}@` : '';
       const uri = `mongodb://${userAndPassword}${host}:{port}/${db}`;
 
-      log.info(`Mongoose connecting to ${host}`);
+    //  log.info(`Mongoose connecting to ${host}`);
       this.connect(uri);
 
       this.connection.on('connected', () => {
-        log.info(`Mongoose default connection open to ${host}`);
+      //  log.info(`Mongoose default connection open to ${host}`);
         resolve();
       });
 
@@ -29,12 +29,12 @@ class TuringMongo extends mongoose.Mongoose {
       });
 
       this.connection.on('disconnected', () => {
-        log.info('Mongoose default connection disconnected');
+        //log.info('Mongoose default connection disconnected');
       });
 
       const gracefulExit = () => {
         this.connection.close(() => {
-          log.info('Mongoose default connection disconnected through app termination');
+          //log.info('Mongoose default connection disconnected through app termination');
           process.exit(0); // eslint-disable-line no-process-exit
         });
       };

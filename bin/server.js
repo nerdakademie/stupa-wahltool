@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const config = require('./src/server/config');
+const config = require('../src/server/config');
 const debug = require('debug');
 
 const app = require('../src/server/app');
