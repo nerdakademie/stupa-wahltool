@@ -1,0 +1,53 @@
+{
+  "turing": {
+    "logging": {
+      "namespace": "turing-example",
+      "meta": {
+        "type": "turing-example"
+      },
+      "headers": [
+        "x-origin"
+      ],
+      "transports": [
+        {
+          "type": "Console",
+          "opts": {
+            "prettyPrint": true,
+            "colorize": true
+          }
+        }
+      ],
+      "accesslog": {
+        "meta": {
+          "type": "turing-example-accesslog",
+          "logformat": "COMBINEDAPACHELOG"
+        }
+      }
+    },
+    "server": {
+      "port": 8080,
+      "routes": {
+        "internal": "/turing-example/internal"
+      }
+    },
+    "status": {
+      "application": {
+        "group": "turing"
+      },
+      "team": {
+        "name": "turing",
+        "contact": {
+          "technical": "benedikt@stemmildt.com",
+          "business": "benedikt@stemmildt.com"
+        }
+      }
+    }
+  },
+  "turing-example": {
+    "server": {
+      "routes": {
+        "root": "/turing-example"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "turing": {
+    "server": {
+      "port": "{PORT}"
+    }
+  },
+  "turing-example": {
+    "activeProfile": "{ACTIVE_PROFILE}"
+  }
+}

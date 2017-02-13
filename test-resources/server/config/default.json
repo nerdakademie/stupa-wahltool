@@ -1,0 +1,21 @@
+{
+  "turing": {
+    "logging": {
+      "namespace": "turing-example-test",
+      "transports": []
+    },
+    "server": {
+      "port": 8080,
+      "routes": {
+        "internal": "/turing-example/internal"
+      }
+    }
+  },
+  "turing-example": {
+    "server": {
+      "routes": {
+        "root": "/turing-example"
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "name": "turing-example",
+  "version": "0.33.8",
+  "description": "An example of how the turing-microservice can be used.",
+  "main": "src/server/app.js",
+  "scripts": {
+    "build": "gulp build",
+    "test": "gulp test",
+    "start": "NODE_ENV=production ACTIVE_PROFILE=production TURING_CONFIG_DIR=./resources/server/config node bin/server.js",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:otto-de/turing-microservice.git"
+  },
+  "homepage": "https://github.com/otto-de/turing-microservice/tree/master/turing-example#readme",
+  "bugs": {
+    "url": "https://github.com/otto-de/turing-microservice/issues"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
+  "dependencies": {
+    "body-parser": "1.16.0",
+    "compression": "1.6.2",
+    "cookie-parser": "1.4.3",
+    "express": "4.14.1",
+    "extract-text-webpack-plugin": "1.0.1",
+    "turing-config": "0.33.8",
+    "turing-health": "0.33.8",
+    "turing-logging": "0.33.8",
+    "turing-mongo": "0.33.8",
+    "turing-server": "0.33.8",
+    "turing-status": "0.33.8",
+    "turing-vault": "0.33.8",
+    "webpack": "1.14.0",
+    "webpack-dev-middleware": "1.10.0",
+    "webpack-hot-middleware": "2.16.1",
+    "winston-graylog2": "0.6.0"
+  },
+  "devDependencies": {
+    "babel-loader": "6.2.10",
+    "babel-preset-es2015": "6.22.0",
+    "babel-preset-react": "6.22.0",
+    "babel-preset-react-hmre": "1.1.1",
+    "chai": "3.5.0",
+    "css-loader": "0.26.1",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-react": "6.9.0",
+    "gulp": "3.9.1",
+    "gulp-eslint": "3.0.1",
+    "gulp-istanbul": "1.1.1",
+    "gulp-mocha": "3.0.1",
+    "gulp-nodemon": "2.2.1",
+    "gulp-sass-lint": "1.3.2",
+    "gulp-webdriver": "2.0.3",
+    "isparta-loader": "2.0.0",
+    "jquery": "3.1.1",
+    "karma": "1.4.1",
+    "karma-babel-preprocessor": "6.0.1",
+    "karma-chai-dom": "1.1.0",
+    "karma-chai-sinon": "0.1.5",
+    "karma-coverage": "1.1.1",
+    "karma-fixture": "0.2.6",
+    "karma-html2js-preprocessor": "1.1.0",
+    "karma-mocha": "1.3.0",
+    "karma-mocha-reporter": "2.2.2",
+    "karma-phantomjs-launcher": "1.0.2",
+    "karma-webpack": "2.0.2",
+    "material-ui": "0.16.7",
+    "node-sass": "4.5.0",
+    "phantomjs-prebuilt": "2.1.14",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "react-tap-event-plugin": "2.0.1",
+    "run-sequence": "1.2.2",
+    "sass-loader": "5.0.1",
+    "sinon": "1.17.7",
+    "sinon-chai": "2.8.0",
+    "supertest": "3.0.0",
+    "wdio-mocha-framework": "0.5.8",
+    "wdio-spec-reporter": "0.0.5",
+    "webdriverio": "4.6.2",
+    "webpack-stream": "3.2.0"
+  },
+  "author": {
+    "name": "Benedikt Stemmildt",
+    "email": "benedikt.stemmildt@otto.de",
+    "url": "https://github.com/benestem"
+  },
+  "contributors": [
+    {
+      "name": "Jonathan Meyer",
+      "url": "https://github.com/JonathanMey3r"
+    }
+  ],
+  "license": "Apache-2.0",
+  "bin": {
+    "turing-example": "bin/server.js"
+  }
+}
