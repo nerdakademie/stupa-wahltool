@@ -24,7 +24,7 @@ module.exports = class StaticRoutes extends Express.Router {
       this.use(publicWebpackDevMiddleware);
       this.use(webpackHotMiddleware(compiler));
     } else {
-      this.use(config.get('webserverserver:routes:root'),
+      this.use(config.get('webserver:routes:root'),
         Express.static(`${__dirname}/../../../resources/server/public`, {maxAge: '1m'}));
     }
   }
