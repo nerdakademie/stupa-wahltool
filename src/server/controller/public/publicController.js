@@ -1,7 +1,7 @@
 'use strict';
 
 //const {logger: log} = require('turing-logging');
-const config = require('../../../config');
+const config = require('../../config');
 
 module.exports = class PublicController {
   static index(request, response) {
