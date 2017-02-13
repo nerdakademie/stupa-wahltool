@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('turing-config');
+const config = require('../confing');
 const webpackClientDevConfig = require('../../../resources/client/webpack/webpack-client-dev.config.js');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -11,7 +11,7 @@ module.exports = class StaticRoutes extends Express.Router {
   constructor() {
     super();
     if (config.get('turing-example:activeProfile') === 'local') {
-      webpackClientDevConfig.output.publicPath = config.get('turing-example:server:routes:root');
+      webpackClientDevConfig.output.publicPath = config.get('webserverserver:routes:root');
       const compiler = webpack(webpackClientDevConfig);
       const publicWebpackDevMiddleware = webpackDevMiddleware(compiler, {
         publicPath: webpackClientDevConfig.output.publicPath,
@@ -24,7 +24,7 @@ module.exports = class StaticRoutes extends Express.Router {
       this.use(publicWebpackDevMiddleware);
       this.use(webpackHotMiddleware(compiler));
     } else {
-      this.use(config.get('turing-example:server:routes:root'),
+      this.use(config.get('webserverserver:routes:root'),
         Express.static(`${__dirname}/../../../resources/server/public`, {maxAge: '1m'}));
     }
   }

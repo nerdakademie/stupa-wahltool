@@ -2,10 +2,9 @@
   "webserver":{
     "port": 8990,
     "env": "local",
-    "rootPath": "",
-    "db-url": "mongodb://localhost:27017/hierdiedb",
-    "db-user": "",
-    "db-pass": ""
+    "routes": {
+            "root": "/"
+    }
   },
   "mongo":{
     "host":"localhost",

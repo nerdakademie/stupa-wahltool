@@ -1,6 +1,6 @@
 'use strict';
 
-const turingMongo = require('turing-mongo');
+const turingMongo = require('../db');
 
 class ProductSchema extends turingMongo.Schema {
   constructor() {

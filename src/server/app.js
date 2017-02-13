@@ -3,7 +3,7 @@
 require('./model/models');
 
 const morgan = require('morgan');
-const config = require('config');
+const config = require('./config');
 const compression = require('compression');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
