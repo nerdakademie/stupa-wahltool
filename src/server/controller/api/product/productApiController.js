@@ -1,6 +1,6 @@
 'use strict';
 
-const Product = require('../....//db').model('Product');
+const Product = require('../../../db').model('Product');
 
 module.exports = class ProductApiController {
   static find(request, response, next) {
