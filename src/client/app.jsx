@@ -14,4 +14,4 @@ if (!root) {
   root = document.body;
 }
 
-render(<MuiThemeProvider><ProductList /></MuiThemeProvider>, root);
+render(<MuiThemeProvider><ContestantList /></MuiThemeProvider>, root);
