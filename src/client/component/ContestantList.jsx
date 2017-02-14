@@ -8,8 +8,8 @@ class ContestantList extends Component {
     this.state = {contestants: []};
   }
 
-  loadProducts() {
-    $.getJSON('/api/contestant/', (contestants) => {
+  loadContestants() {
+    $.getJSON('/api/contestants/', (contestants) => {
       this.setState({
         contestants
       });
@@ -17,7 +17,7 @@ class ContestantList extends Component {
   }
 
   componentDidMount() {
-    this.loadProducts();
+    this.loadContestants();
   }
 
   static createCard(contestant) {
