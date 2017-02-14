@@ -8,6 +8,6 @@ module.exports = class ApiRoutes extends Express.Router {
   constructor() {
     super();
     this.use('/products', new ProductApiRoutes());
-    this.use('/contestant', new ContestantApiRoutes());
+    this.use('/contestants', new ContestantApiRoutes());
   }
 };

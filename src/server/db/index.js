@@ -16,15 +16,19 @@ class TuringMongo extends mongoose.Mongoose {
       const userAndPassword = user && password ? `${user}:${password}@` : '';
       const uri = `mongodb://${userAndPassword}${host}:{port}/${db}`;
 
+      console.log(uri);
+
     //  log.info(`Mongoose connecting to ${host}`);
       this.connect(uri);
 
       this.connection.on('connected', () => {
       //  log.info(`Mongoose default connection open to ${host}`);
+        console.log('connected');
         resolve();
       });
 
       this.connection.on('error', (error) => {
+        console.log('error');
         reject(error);
       });
 
