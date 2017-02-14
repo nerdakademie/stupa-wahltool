@@ -3,14 +3,14 @@
     "port": 8990,
     "env": "local",
     "routes": {
-            "root": "/"
+            "root": ""
     }
   },
   "mongo":{
     "host":"localhost",
     "port":"27017",
     "db":"stupa",
-    "user":"test",
-    "password": "test"
+    "user":"",
+    "password": ""
   }
 }
