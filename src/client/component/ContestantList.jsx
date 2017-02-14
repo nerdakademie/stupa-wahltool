@@ -20,7 +20,7 @@ class ContestantList extends Component {
     this.loadProducts();
   }
 
-  static createCard(product) {
+  static createCard(contestant) {
     return (
       <Card key={contestant.name}>
         <CardHeader
