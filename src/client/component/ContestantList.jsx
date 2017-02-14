@@ -35,7 +35,7 @@ class ContestantList extends Component {
   render() {
     return (
       <div>
-        {this.state.contestants.map(Contestant.createCard)}
+        {this.state.contestants.map(ContestantList.createCard)}
       </div>
     );
   }
