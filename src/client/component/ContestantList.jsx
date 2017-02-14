@@ -22,15 +22,15 @@ class ContestantList extends Component {
   }
 
 
-  static onMouseOver() {
+  onMouseOver() {
     this.setState({shadow: 3});
   }
 
-  static onMouseOut() {
+  onMouseOut() {
     this.setState({shadow: 1});
   }
 
-  static createCard(contestant) {
+  createCard(contestant) {
     const style = {
       margin: 12,
     };
