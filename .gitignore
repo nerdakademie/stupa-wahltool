@@ -1,0 +1,3 @@
+node_modules/*
+resources/server/public/css/*
+resources/server/public/js/*

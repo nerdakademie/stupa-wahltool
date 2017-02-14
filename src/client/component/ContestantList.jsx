@@ -27,12 +27,12 @@ class ContestantList extends Component {
     const style = {
       margin: 12,
     };
-    onMouseOver() {
+    var onMouseOver = function() {
       shadow = 3;
-    }
-    onMouseOut() {
+    };
+    var onMouseOut = function() {
       shadow = 1;
-    }
+    };
     return (
       <Card key={contestant._id} containerStyle={{width: 300}} zDepth={shadow}
         onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
