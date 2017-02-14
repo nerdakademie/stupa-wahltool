@@ -20,7 +20,7 @@ app.enable('strict routing');
 app.set('view engine', 'pug');
 app.use(compression({level: 9}));
 app.set('views', `${__dirname}/../../resources/server/view`);
-app.use(favicon(`${__dirname}/../../public/favicon.ico`));
+app.use(favicon(`${__dirname}/../../resources/server/public/favicon.ico`));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
