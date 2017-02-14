@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 class ContestantList extends Component {
   constructor() {
     super();
-    this.state = {contestants: [], shadow: 1};
+    this.state = {contestants: []};
   }
 
   loadContestants() {
@@ -22,22 +22,20 @@ class ContestantList extends Component {
   }
 
 
-  static onMouseOver() {
-    this.setState({shadow: 3});
-  }
-
-  static onMouseOut() {
-    this.setState({shadow: 1});
-  }
-
-  static createCard(contestant) {
+  static createCard(contestant, shadow) {
+    var shadow = 1;
     const style = {
       margin: 12,
     };
-    this.state = {shadow: 1};
+    onMouseOver() {
+      shadow = 3;
+    }
+    onMouseOut() {
+      shadow = 1;
+    }
     return (
-      <Card key={contestant._id} containerStyle={{width: 300}} zDepth={this.state.shadow}
-        onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+      <Card key={contestant._id} containerStyle={{width: 300}} zDepth={shadow}
+        onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
         <CardHeader
           title={contestant.name}
           subtitle={`${contestant.year}`}
@@ -56,7 +54,7 @@ class ContestantList extends Component {
   render() {
     return (
       <div>
-        {this.state.contestants.map(ContestantList.createCard)}
+        {this.state.contestants.map(ContestantList.createCard, this.state.shadow)}
       </div>
     );
   }
