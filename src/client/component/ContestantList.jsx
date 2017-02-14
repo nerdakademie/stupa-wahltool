@@ -22,8 +22,13 @@ class ContestantList extends Component {
   }
 
 
-  onMouseOver = () => this.setState({shadow: 3})
-  onMouseOut = () => this.setState({shadow: 1})
+  static onMouseOver() {
+    this.setState({shadow: 3});
+  }
+
+  static onMouseOut() {
+    this.setState({shadow: 1});
+  }
 
   static createCard(contestant) {
     const style = {
