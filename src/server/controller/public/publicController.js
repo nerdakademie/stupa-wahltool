@@ -10,7 +10,7 @@ module.exports = class PublicController {
 //    log.error('Welt kaputt :-(');
     response.render('index', {
       title: 'turing-example',
-      rootPath: config.get('webserver:routes:root')
+      rootPath: '127.0.0.1:8990' + config.get('webserver:routes:root')
     });
   }
 };
