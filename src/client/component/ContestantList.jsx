@@ -22,7 +22,7 @@ class ContestantList extends Component {
 
   static createCard(contestant) {
     return (
-      <Card key={contestant.name}>
+      <Card key={contestant._id}>
         <CardHeader
           title={contestant.name}
           subtitle={`${contestant.year}`}
