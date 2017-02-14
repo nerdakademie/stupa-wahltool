@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const config = require('../config');
 //const {logger: log} = require('turing-logging');
 
-class TuringMongo extends mongoose.Mongoose {
+class Mongo extends mongoose.Mongoose {
   setupConnection() {
     return new Promise((resolve, reject) => {
       const host = config.get('mongo:host');
@@ -47,4 +47,4 @@ class TuringMongo extends mongoose.Mongoose {
   }
 }
 
-module.exports = new TuringMongo();
+module.exports = new Mongo();
