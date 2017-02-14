@@ -27,6 +27,6 @@ mongo.setupConnection().then(() => {
     debug('Stupa-Wahltool:server')(`Listening on port ${server.address().port}`);
   });
 }).catch((error) => {
-  log.error(error);
+  console.log(error);
   throw error;
 });
