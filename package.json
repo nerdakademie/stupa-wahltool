@@ -71,7 +71,7 @@
     "karma-mocha-reporter": "2.2.2",
     "karma-phantomjs-launcher": "1.0.2",
     "karma-webpack": "2.0.2",
-    "material-ui": "0.16.7",
+    "material-ui": "0.17.0",
     "node-sass": "4.5.0",
     "phantomjs-prebuilt": "2.1.14",
     "react": "15.4.2",

@@ -1,10 +1,10 @@
 'use strict';
 
-const Product = require('../../../db').model('Product');
+const Contestant = require('../../../db').model('Contestant');
 
-module.exports = class ProductApiController {
+module.exports = class ContestantApiController {
   static find(request, response, next) {
-    Product.find().exec((error, products) => {
+    Contestant.find().exec((error, products) => {
       if (error) {
         return next(error);
       }
@@ -13,8 +13,8 @@ module.exports = class ProductApiController {
   }
 
   static save(request, response, next) {
-    const product = new Product(request.body);
-    product.save((error) => {
+    const contestant = new Contestant(request.body);
+    contestant.save((error) => {
       if (error) {
         return next(error);
       }
