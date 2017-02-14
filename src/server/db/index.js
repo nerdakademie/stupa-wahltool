@@ -14,9 +14,7 @@ class Mongo extends mongoose.Mongoose {
       const password = config.get('mongo:password');
 
       const userAndPassword = user && password ? `${user}:${password}@` : '';
-      const uri = `mongodb://${userAndPassword}${host}:{port}/${db}`;
-
-      console.log(uri);
+      const uri = `mongodb://${userAndPassword}${host}:${port}/${db}`;
 
     //  log.info(`Mongoose connecting to ${host}`);
       this.connect(uri);
