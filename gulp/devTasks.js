@@ -16,7 +16,7 @@ gulp.task('watch', () => {
     ],
     env: {
       ACTIVE_PROFILE: 'local',
-      TURING_CONFIG_DIR: './resources/server/config'
+      CONFIG_DIR: './resources/server/config'
     },
     tasks: () => {
       return [];
