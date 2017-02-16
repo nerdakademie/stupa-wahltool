@@ -1,21 +1,21 @@
 {
-  "name": "turing-example",
-  "version": "0.33.8",
-  "description": "An example of how the turing-microservice can be used.",
+  "name": "StupaWahlTool2017",
+  "version": "0.0.1",
+  "description": "A tool for the Stupa Wahl 2017.",
   "main": "src/server/app.js",
   "scripts": {
     "build": "gulp build",
     "test": "gulp test",
-    "start": "NODE_ENV=production ACTIVE_PROFILE=production CONFIG_DIR=./resources/server/config node bin/server.js",
+    "start": "cross-env NODE_ENV=production ACTIVE_PROFILE=production CONFIG_DIR=./resources/server/config node bin/server.js",
     "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:otto-de/turing-microservice.git"
+    "url": "git@github.com:nerdakademie/stupa-wahltool.git"
   },
-  "homepage": "https://github.com/otto-de/turing-microservice/tree/master/turing-example#readme",
+  "homepage": "https://github.com/nerdakademie/stupa-wahltool/blob/master/README.md",
   "bugs": {
-    "url": "https://github.com/otto-de/turing-microservice/issues"
+    "url": "https://github.com/nerdakademie/stupa-wahltool/issues"
   },
   "babel": {
     "presets": [
@@ -90,14 +90,14 @@
     "webpack-stream": "3.2.0"
   },
   "author": {
-    "name": "Benedikt Stemmildt",
-    "email": "benedikt.stemmildt@otto.de",
-    "url": "https://github.com/benestem"
+    "name": "Nerdakademie",
+    "email": "nerdakademie@nordakademie.de",
+    "url": "https://github.com/nerdakademie"
   },
   "contributors": [
     {
-      "name": "Jonathan Meyer",
-      "url": "https://github.com/JonathanMey3r"
+      "name": "Michel Wohlert",
+      "url": "https://github.com/mwohlert"
     }
   ],
   "license": "Apache-2.0",
