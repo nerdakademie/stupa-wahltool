@@ -1,4 +1,4 @@
-import '../style/form.scss';
+import '../../style/form.scss';
 
 import React, {Component} from 'react';
 import $ from 'jquery';

@@ -2,13 +2,14 @@ import './style/main.scss';
 
 import React from 'react';
 import {render} from 'react-dom';
-import {Router, Route, hashHistory} from 'react-router'
+import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 //import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import ProductList from './component/ProductList';
-import Home from './component/Home';
-import ContestantList from './component/ContestantList';
-import ContestantForm from './component/ContestantForm';
+import ProductList from './component/pages/ProductList';
+import App from './component/pages/App';
+import Home from './component/pages/Home'
+import ContestantList from './component/pages/ContestantList';
+import ContestantForm from './component/pages/ContestantForm';
 
 //injectTapEventPlugin(); /* TODO Wofür ist das da? Und wird das wirklich benötigt? */
 
@@ -19,11 +20,12 @@ if (!root) {
 
 render((
     <MuiThemeProvider>
-    <Router history={hashHistory}>
-        <Route path="/" component={Home}/>
-        {/* add the routes here */}
-        <Route path="/contestantlist" component={ContestantList}/>
-        <Route path="/contestantform" component={ContestantForm}/>
-    </Router>
+        <Router history={hashHistory}>
+            <Route path="/" component={App}>
+                <IndexRoute component={Home}/>
+                <Route path="/contestantlist" component={ContestantList}/>
+                <Route path="/contestantform" component={ContestantForm}/>
+            </Route>
+        </Router>
     </MuiThemeProvider>
-), document.getElementById('app'))
+), document.getElementById('app'));
