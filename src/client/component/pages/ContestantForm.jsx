@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import DropzoneComponent from 'react-dropzone-component';
 import AutoComplete from 'material-ui/AutoComplete';
+import request from 'superagent';
 
 class ContestantForm extends Component {
   constructor() {
@@ -81,6 +82,62 @@ class ContestantForm extends Component {
 
   createContestant(e) {
     e.preventDefault();
+    const $name = $('#name');
+    const $course = $('#course');
+    const $year = $('#year');
+    const $description = $('#description');
+      this.resetErrors();
+      let errors = 0;
+      //TODO: check for image
+      if ($name.val().length < 1) {
+        this.setState({name_error: 'Bitte gebe einen Namen (Vor- und Nachname)  an'});
+        errors++;
+      }
+      if ($course.val().length < 1) {
+        this.setState({course_error: 'Bitte gebe einen Studiengang an'});
+        errors++;
+      }
+      if ($year.val().length < 1) {
+        this.setState({year_error: 'Bitte gebe einen Jahrgang an'});
+        errors++;
+      }
+      if ($description.val().length < 1) {
+        this.setState({description_error: 'Bitte gebe eine Beschreibung an'});
+        errors++;
+      }
+      if (errors === 0) {
+        const form = new FormData();
+        form.append('contestantPhoto', this.state.file);
+        form.append('name', $name.val());
+        form.append('course', $course.val());
+        form.append('year', $year.val());
+        form.append('description', $description.val());
+
+        request.post('/api/contestant')
+          .send(form)
+          .end((err, resp) => {
+            if (err) {
+              console.error(err);
+            }
+            if (resp.statusCode === 200) {
+              this.setState({
+                activeRender: this.successRender.bind(this),
+                responseBody: resp.body
+              });
+            }
+            return resp;
+          })
+          .bind(this);
+      }
+  }
+
+  resetErrors() {
+    this.setState({
+      name_error: null,
+      course_error: null,
+      year_error: null,
+      description_error: null,
+    });
   }
 
   formRender() {

@@ -91,6 +91,7 @@
     "sinon": "1.17.7",
     "sinon-chai": "2.8.0",
     "supertest": "3.0.0",
+    "superagent": "3.4.3",
     "wdio-mocha-framework": "0.5.8",
     "wdio-spec-reporter": "0.0.5",
     "webdriverio": "4.6.2",

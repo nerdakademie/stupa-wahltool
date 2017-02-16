@@ -58,14 +58,13 @@ class ContestantList extends Component {
 
     return (
       <Card
-        key={contestant._id} style={{width: '20vw',
-          height: '45vh'}} containerStyle={{width: 300}} zDepth={shadow}
-      >
+        key={contestant._id} style={{width: '320',
+          height: '500'}} containerStyle={{width: 300}} zDepth={shadow}>
         <CardHeader
           title={contestant.name}
           subtitle={`${contestant.year}`}
         />
-        <CardText expandable={true}>{contestant.description}</CardText>
+        <CardText>{contestant.description}</CardText>
         <CardActions>
           <Checkbox
             label='Wählen'
