@@ -9,7 +9,7 @@ module.exports = class PublicController {
   //  log.warn('Die Apokalypse ist nah...');
 //    log.error('Welt kaputt :-(');
     response.render('index', {
-      title: 'turing-example',
+      title: 'Stupa Wahl 2017',
       rootPath: config.get('webserver:routes:root')
     });
   }
