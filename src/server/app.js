@@ -10,10 +10,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const StaticRoutes = require('./routes/static');
 const Routes = require('./routes/routes');
-const Express = require('express');
+const express = require('express');
 
-
-const app = Express();
+const app = express();
 app.disable('x-powered-by');
 app.enable('strict routing');
 

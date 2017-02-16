@@ -1,24 +1,28 @@
 'use strict';
 
-const turingMongo = require('../db');
+const mongo = require('../db');
 
-class ProductSchema extends turingMongo.Schema {
+class StudentSchema extends mongo.Schema {
   constructor() {
     super({
       name: {
         type: String,
         required: true
       },
-      description: {
+      course: {
         type: String,
         required: true
       },
-      price: {
+      year: {
         type: Number,
+        required: true
+      },
+      email: {
+        type: String,
         required: true
       }
     });
   }
 }
 
-turingMongo.model('Product', new ProductSchema());
+mongo.model('Student', new StudentSchema());

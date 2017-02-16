@@ -1,5 +1,5 @@
 'use strict';
 
-require('./productModel');
+require('./studentModel');
 require('./contestantModel.js');
 require('./tokenModel.js');
