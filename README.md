@@ -27,7 +27,7 @@ Student
 
 {"name":"Max Winfo",
 "course":"Wirtschaftsinformatik",
-"year":"2015"",
+"year":"2015",
 "email": "max.winfo@nordakademie.de"
 }
 

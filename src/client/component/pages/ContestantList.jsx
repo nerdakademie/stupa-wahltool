@@ -57,7 +57,6 @@ class ContestantList extends Component {
       <Card
         key={contestant._id} style={{width: 300,
           height: 550}} containerStyle={{width: 300}} zDepth={shadow}
-        onMouseOver={onMouseOver} onMouseOut={onMouseOut}
       >
         <CardHeader
           title={contestant.name}
