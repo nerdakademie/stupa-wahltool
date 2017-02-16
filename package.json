@@ -98,10 +98,14 @@
     {
       "name": "Michel Wohlert",
       "url": "https://github.com/mwohlert"
+    },
+    {
+      "name": "Malte Schlünz",
+      "url": "malteschluenz"
     }
   ],
   "license": "Apache-2.0",
   "bin": {
-    "turing-example": "bin/server.js"
+    "stupa-wahltool": "bin/server.js"
   }
 }

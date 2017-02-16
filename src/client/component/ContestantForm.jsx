@@ -20,8 +20,8 @@ class ContestantForm extends Component {
         };
 
 
-        const maxImageWidth = 256,
-            maxImageHeight = 256;
+        const maxImageWidth = 1024,
+            maxImageHeight = 1024;
 
         this.djsConfig = {
             addRemoveLinks: true,
@@ -29,8 +29,6 @@ class ContestantForm extends Component {
             acceptedFiles: "image/jpeg,image/png",
             autoProcessQueue: false,
             init: function () {
-                // Register for the thumbnail callback.
-                // When the thumbnail is created the image dimensions are set.
                 this.on("thumbnail", function (file) {
                     // Do the dimension checks you want to do
                     if (file.width > maxImageWidth || file.height > maxImageHeight) {
@@ -41,18 +39,11 @@ class ContestantForm extends Component {
                     }
                 });
             },
-
-            // Instead of directly accepting / rejecting the file, setup two
-            // functions on the file that can be called later to accept / reject
-            // the file.
             accept: function (file, done) {
                 file.acceptDimensions = done;
                 file.rejectDimensions = function () {
-                    done("Image too big.");
+                    done("Bild ist zu groß.");
                 };
-                // Of course you could also just put the `done` function in the file
-                // and call it either with or without error in the `thumbnail` event
-                // callback, but I think that this is cleaner.
             }.bind(this)
         };
 
@@ -82,8 +73,6 @@ class ContestantForm extends Component {
 
         const config = this.componentConfig;
         const djsConfig = this.djsConfig;
-
-        // For a list of all possible events (there are many), see README.md!
         const eventHandlers = {
             addedfile: this.handleFileAdded.bind(this),
         };
@@ -143,7 +132,6 @@ class ContestantForm extends Component {
             </form>
         );
     }
-
 
     successRender() {
         return (
