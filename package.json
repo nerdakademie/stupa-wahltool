@@ -40,7 +40,13 @@
     "string-template": "1.0.0",
     "webpack-dev-middleware": "1.10.0",
     "webpack-hot-middleware": "2.16.1",
-    "winston-graylog2": "0.6.0"
+    "winston-graylog2": "0.6.0",
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "http-server": "^0.8.5",
+    "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
     "autoresponsive-react": "1.1.11",
@@ -77,6 +83,7 @@
     "phantomjs-prebuilt": "2.1.14",
     "react": "15.4.2",
     "react-dom": "15.4.2",
+    "react-router": "^2.0.0",
     "react-tap-event-plugin": "2.0.1",
     "react-dropzone-component": "1.2.0",
     "run-sequence": "1.2.2",
@@ -101,7 +108,7 @@
     },
     {
       "name": "Malte Schlünz",
-      "url": "malteschluenz"
+      "url": "https://github.com/malteschluenz"
     }
   ],
   "license": "Apache-2.0",
