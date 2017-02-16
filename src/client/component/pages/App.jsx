@@ -32,14 +32,14 @@ export default React.createClass({
             return (
             <div>
                 <AppBar
-                    className="topbar"
-                    title="Stupa-Wahl 2017"
+                    className='topbar'
+                    title='Stupa-Wahl 2017'
                     style={styles.appBar}
                     showMenuIconButton={false}
                     iconElementRight={<div style={styles.buttons}>
-                        <IndexLink to="/" activeClassName="active"><FlatButton label="Home / Infos" /></IndexLink>
-                        <NavLink to="/contestantlist"><FlatButton label="Liste" /></NavLink>
-                        <NavLink to="/contestantform"><FlatButton label="Formular" /></NavLink>
+                        <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
+                        <NavLink to='/contestantlist'><FlatButton label='Liste' /></NavLink>
+                        <NavLink to='/contestantform'><FlatButton label='Formular' /></NavLink>
                     </div>}
                 />
                 {this.props.children || <Home/>}

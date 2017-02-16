@@ -8,149 +8,167 @@ import DropzoneComponent from 'react-dropzone-component';
 import AutoComplete from 'material-ui/AutoComplete';
 
 class ContestantForm extends Component {
-    constructor() {
-        super();
-        this.state = {
-            file: false,
-            name_error: null,
-            course_error: null,
-            year_error: null,
-            description_error: null,
-            activeRender: this.formRender.bind(this)
+  constructor() {
+    super();
+    this.state = {
+      years: [],
+      courses: [],
+      file: false,
+      name_error: null,
+      course_error: null,
+      year_error: null,
+      description_error: null,
+      activeRender: this.formRender.bind(this)
+    };
+
+    const maxImageWidth = 1024,
+      maxImageHeight = 1024;
+
+    this.djsConfig = {
+      addRemoveLinks: true,
+      maxFiles: 1,
+      acceptedFiles: 'image/jpeg,image/png',
+      autoProcessQueue: false,
+      init() {
+        this.on('thumbnail', (file) => {
+                    // do the dimension checks you want to do
+          if (file.width > maxImageWidth || file.height > maxImageHeight) {
+            file.rejectDimensions();
+          } else {
+            file.acceptDimensions();
+          }
+        });
+      },
+      accept(file, done) {
+        file.acceptDimensions = done;
+        file.rejectDimensions = function () {
+          done('Bild ist zu groß.');
         };
+      }
+    };
 
-        const maxImageWidth = 1024,
-            maxImageHeight = 1024;
+    this.componentConfig = {
+      iconFiletypes: ['.jpg', '.png'],
+      showFiletypeIcon: true,
+      postUrl: 'no-url'
+    };
+  }
 
-        this.djsConfig = {
-            addRemoveLinks: true,
-            maxFiles: 1,
-            acceptedFiles: "image/jpeg,image/png",
-            autoProcessQueue: false,
-            init: function () {
-                this.on("thumbnail", function (file) {
-                    // Do the dimension checks you want to do
-                    if (file.width > maxImageWidth || file.height > maxImageHeight) {
-                        file.rejectDimensions();
-                    }
-                    else {
-                        file.acceptDimensions();
-                    }
-                });
-            },
-            accept: function (file, done) {
-                file.acceptDimensions = done;
-                file.rejectDimensions = function () {
-                    done("Bild ist zu groß.");
-                };
-            }.bind(this)
-        };
+  loadCourses() {
+    $.getJSON('api/students/courses', (courses) => {
+      this.setState({
+        courses
+      });
+    });
+  }
 
-        this.componentConfig = {
-            iconFiletypes: ['.jpg', '.png'],
-            showFiletypeIcon: true,
-            postUrl: 'no-url'
-        };
-    }
+  loadYears() {
+    $.getJSON('api/students/years', (years) => {
+      this.setState({
+        years
+      });
+    });
+  }
 
+  handleFileAdded(file) {
+    this.setState({file});
+  }
 
-    handleFileAdded(file) {
-        this.setState({file: file});
-    }
+  componentDidMount() {
+    this.loadCourses();
+    this.loadYears();
+  }
 
-    componentDidMount() {
-    }
+  createContestant(e) {
+    e.preventDefault();
+  }
 
-    createContestant(e) {
-        e.preventDefault();
-    }
+  formRender() {
+    const fullwidth = {
+      width: '100%'
+    };
 
-    formRender() {
-        const fullwidth = {
-            width: '100%',
-        };
-
-        const config = this.componentConfig;
-        const djsConfig = this.djsConfig;
-        const eventHandlers = {
-            addedfile: this.handleFileAdded.bind(this),
-        };
-
-        const years = ['2014', '2015', '2016'];
-        const courses = ['Angewandte Informatik', 'BWL', 'Wirtschaftsinformatik', 'Wirtschaftsingenieurwesen'];
-
-        return (
-            <form id="form" method="post">
-                <div className="group">
-                    <TextField id="name" name="name" floatingLabelText="Vor und Nachname" hintText="Max Mustermann"
-                               style={fullwidth}
-                               errorText={this.state.name_error}/>
-                </div>
-                <div className="group">
-                    <AutoComplete
-                        id="course" name="course"
-                        hintText="Wirtschaftsinformatik"
-                        floatingLabelText="Studiengang"
-                        filter={AutoComplete.caseInsensitiveFilter}
-                        dataSource={courses}
-                        maxSearchResults={4}
-                        fullWidth={true}
-                        errorText={this.state.course_error}
-                    />
-                </div>
-                <div className="group">
-                    <AutoComplete
-                        id="year" name="year"
-                        hintText="2015"
-                        floatingLabelText="Jahrgang"
-                        filter={AutoComplete.caseInsensitiveFilter}
-                        dataSource={years}
-                        maxSearchResults={3}
-                        fullWidth={true}
-                        errorText={this.state.year_error}
-                    />
-                </div>
-                <div className="group">
-                    <TextField
-                        id="description"
-                        hintText="Schreibe hier deinen tollen Text"
-                        floatingLabelText="Dein Bewerbungstext"
-                        name="description"
-                        style={fullwidth}
-                        multiLine={true}
-                        rows={3}
-                        errorText={this.state.description_error}
-                    />
-                </div>
-                <div className="group">
-                    <p>Lade ein Bild hoch</p>
-                    <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig}/>
-                </div>
-                <FlatButton label="Registrieren" onClick={this.createContestant.bind(this)} backgroundColor="#4a89dc"
-                            hoverColor="#357bd8" labelStyle={{color: '#fff'}} style={fullwidth}/>
-            </form>
-        );
-    }
-
-    successRender() {
-        return (
-            <form id="form" method="post">
-                <p>Wir haben deinen Aufstellungswunsch erhalten. <br/>
-                    Bitte bestägige deine Aufstellung mit dem Aktivierungslink in deiner Email<br/>
-                </p>
-            </form>
-        )
-    }
+    const config = this.componentConfig;
+    const djsConfig = this.djsConfig;
+    const eventHandlers = {
+      addedfile: this.handleFileAdded.bind(this)
+    };
 
 
-    render() {
-        return (
-            <div>
-                {this.state.activeRender()}
-            </div>
-        );
-    }
+    return (
+      <form id='form' method='post'>
+        <div className='group'>
+          <TextField
+            id='name' name='name' floatingLabelText='Vor und Nachname' hintText='Max Mustermann'
+            style={fullwidth}
+            errorText={this.state.name_error}
+          />
+        </div>
+        <div className='group'>
+          <AutoComplete
+            id='course' name='course'
+            hintText='Wirtschaftsinformatik'
+            floatingLabelText='Studiengang'
+            filter={AutoComplete.caseInsensitiveFilter}
+            dataSource={this.state.courses}
+            maxSearchResults={4}
+            fullWidth
+            errorText={this.state.course_error}
+          />
+        </div>
+        <div className='group'>
+          <AutoComplete
+            id='year' name='year'
+            hintText='2015'
+            floatingLabelText='Jahrgang'
+            filter={AutoComplete.caseInsensitiveFilter}
+            dataSource={this.state.years}
+            maxSearchResults={3}
+            fullWidth
+            errorText={this.state.year_error}
+          />
+        </div>
+        <div className='group'>
+          <TextField
+            id='description'
+            hintText='Schreibe hier deinen tollen Text'
+            floatingLabelText='Dein Bewerbungstext'
+            name='description'
+            style={fullwidth}
+            multiLine
+            rows={3}
+            errorText={this.state.description_error}
+          />
+        </div>
+        <div className='group'>
+          <p>Lade ein Bild hoch</p>
+          <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
+        </div>
+        <FlatButton
+          label='Registrieren' onClick={this.createContestant.bind(this)} backgroundColor='#4a89dc'
+          hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullwidth}
+        />
+      </form>
+    );
+  }
+
+  successRender() {
+    return (
+      <form id='form' method='post'>
+        <p>Wir haben deinen Aufstellungswunsch erhalten. <br />
+                    Bitte bestägige deine Aufstellung mit dem Aktivierungslink in deiner Email<br />
+        </p>
+      </form>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.activeRender()}
+      </div>
+    );
+  }
 }
-
 
 export default ContestantForm;
