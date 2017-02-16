@@ -88,12 +88,9 @@ class ContestantForm extends Component {
       width: '100%'
     };
 
-    const config = this.componentConfig;
-    const djsConfig = this.djsConfig;
     const eventHandlers = {
       addedfile: this.handleFileAdded.bind(this)
     };
-
 
     return (
       <form id='form' method='post'>
@@ -142,7 +139,7 @@ class ContestantForm extends Component {
         </div>
         <div className='group'>
           <p>Lade ein Bild hoch</p>
-          <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
+          <DropzoneComponent config={this.componentConfig} eventHandlers={eventHandlers} djsConfig={this.djsConfig} />
         </div>
         <FlatButton
           label='Registrieren' onClick={this.createContestant.bind(this)} backgroundColor='#4a89dc'
