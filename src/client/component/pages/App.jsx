@@ -15,7 +15,7 @@ export default React.createClass({
     render(){
         const styles = {
             appBar: {
-                position: 'absolute',
+                position: 'fixed',
                 top: '0',
                 left: '0'
             },
