@@ -19,7 +19,6 @@ class ContestantForm extends Component {
             activeRender: this.formRender.bind(this)
         };
 
-
         const maxImageWidth = 1024,
             maxImageHeight = 1024;
 
@@ -95,7 +94,7 @@ class ContestantForm extends Component {
                         filter={AutoComplete.caseInsensitiveFilter}
                         dataSource={courses}
                         maxSearchResults={4}
-                        style={fullwidth}
+                        fullWidth={true}
                         errorText={this.state.course_error}
                     />
                 </div>
@@ -107,7 +106,7 @@ class ContestantForm extends Component {
                         filter={AutoComplete.caseInsensitiveFilter}
                         dataSource={years}
                         maxSearchResults={3}
-                        style={fullwidth}
+                        fullWidth={true}
                         errorText={this.state.year_error}
                     />
                 </div>
@@ -137,7 +136,7 @@ class ContestantForm extends Component {
         return (
             <form id="form" method="post">
                 <p>Wir haben deinen Aufstellungswunsch erhalten. <br/>
-                    Bitte bestägige deine Aufstellung mit dem AktivierungsLink in deiner Email<br/>
+                    Bitte bestägige deine Aufstellung mit dem Aktivierungslink in deiner Email<br/>
                 </p>
             </form>
         )
