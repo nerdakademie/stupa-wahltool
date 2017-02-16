@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {IndexLink} from 'react-router'
+import {IndexLink} from 'react-router';
 import AppBar from 'material-ui/AppBar';
-import NavLink from '../NavLink'
-import Footer from '../Footer'
-import Home from './Home'
+import NavLink from '../NavLink';
+import Footer from '../Footer';
+import Home from './Home';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
