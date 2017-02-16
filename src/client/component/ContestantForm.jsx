@@ -73,8 +73,6 @@ class ContestantForm extends Component {
 
         const config = this.componentConfig;
         const djsConfig = this.djsConfig;
-
-        // For a list of all possible events (there are many), see README.md!
         const eventHandlers = {
             addedfile: this.handleFileAdded.bind(this),
         };
@@ -134,7 +132,6 @@ class ContestantForm extends Component {
             </form>
         );
     }
-
 
     successRender() {
         return (
