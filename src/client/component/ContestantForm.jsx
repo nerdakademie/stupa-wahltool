@@ -1,3 +1,5 @@
+import '../style/form.scss';
+
 import React, {Component} from 'react';
 import $ from 'jquery';
 import TextField from 'material-ui/TextField';
@@ -133,7 +135,7 @@ class ContestantForm extends Component {
                     />
                 </div>
                 <div className="group">
-                    <p>Upload application Image</p>
+                    <p>Lade ein Bild hoch</p>
                     <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig}/>
                 </div>
                 <FlatButton label="Registrieren" onClick={this.createContestant.bind(this)} backgroundColor="#4a89dc"
