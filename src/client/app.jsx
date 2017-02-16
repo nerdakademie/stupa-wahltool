@@ -2,7 +2,7 @@ import './style/main.scss';
 
 import React from 'react';
 import {render} from 'react-dom';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 //import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ProductList from './component/pages/ProductList';
@@ -20,7 +20,7 @@ if (!root) {
 
 render((
     <MuiThemeProvider>
-        <Router history={hashHistory}>
+        <Router history={browserHistory}>
             <Route path="/" component={App}>
                 <IndexRoute component={Home}/>
                 <Route path="/contestantlist" component={ContestantList}/>
