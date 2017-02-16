@@ -14,8 +14,13 @@
   padding-bottom: 70px;
   overflow-y: auto;
 }
-
 /* END Topbar */
+
+/* Scrollbar */
+body {
+  overflow-y: scroll;
+}
+/* END Scrollbar */
 
 /* Footer */
 .footer {
