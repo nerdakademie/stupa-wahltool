@@ -92,7 +92,7 @@ class ContestantForm extends Component {
                         id="course" name="course"
                         hintText="Wirtschaftsinformatik"
                         floatingLabelText="Studiengang"
-                        filter={AutoComplete.fuzzyFilter}
+                        filter={AutoComplete.caseInsensitiveFilter}
                         dataSource={courses}
                         maxSearchResults={4}
                         style={fullwidth}
@@ -104,7 +104,7 @@ class ContestantForm extends Component {
                         id="year" name="year"
                         hintText="2015"
                         floatingLabelText="Jahrgang"
-                        filter={AutoComplete.fuzzyFilter}
+                        filter={AutoComplete.caseInsensitiveFilter}
                         dataSource={years}
                         maxSearchResults={3}
                         style={fullwidth}
