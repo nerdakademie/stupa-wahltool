@@ -22,7 +22,7 @@ module.exports = class StudentApiController {
     });
   }
 
-  static validate(request, response, next){
+  static validate(request, next) {
     const year = request.body.year;
     const course = request.body.course;
     const name = request.body.name;
@@ -34,11 +34,12 @@ module.exports = class StudentApiController {
         return next(error);
       }
 
-      if (students.length > 1 || students.length <= 0) {
-        return next('error'); // TODO: fix
+      if (students.length > 1) {
+        return next(false);
       } else if (students.length === 1) {
-        return response.json('{success: true}');
+        return next(true);
       }
+      return next(false);
     });
   }
 

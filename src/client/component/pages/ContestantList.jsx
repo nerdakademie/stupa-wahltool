@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
 import AutoResponsive from 'autoresponsive-react';
 
@@ -23,7 +21,7 @@ class ContestantList extends Component {
       horizontalDirection: this.state.horizontalDirection,
       verticalDirection: this.state.verticalDirection,
       itemMargin: this.state.itemMargin,
-      containerWidth: this.state.containerWidth || this.props.containerWidth,
+      containerWidth: this.state.containerWidth,
       itemClassName: 'item',
       containerHeight: this.state.containerHeight,
       transitionDuration: '.5',
@@ -43,7 +41,7 @@ class ContestantList extends Component {
     this.loadContestants();
     window.addEventListener('resize', () => {
       this.setState({
-        containerWidth: ReactDOM.findDOMNode(this.refs.container).clientWidth
+        containerWidth: this.container.clientWidth
       });
     }, false);
   }
@@ -59,7 +57,8 @@ class ContestantList extends Component {
     return (
       <Card
         key={contestant._id} style={{width: '320',
-          height: '500'}} containerStyle={{width: 300}} zDepth={shadow}>
+          height: '500'}} containerStyle={{width: 300}} zDepth={shadow}
+      >
         <CardHeader
           title={contestant.name}
           subtitle={`${contestant.year}`}
@@ -78,7 +77,10 @@ class ContestantList extends Component {
   render() {
     return (
       <div>
-        <AutoResponsive ref='container' {...this.getAutoResponsiveProps()}>
+        <AutoResponsive
+          ref={(container) => { this.container = container; }}
+          {...this.getAutoResponsiveProps()}
+        >
           {this.state.contestants.map(ContestantList.createCard)}
         </AutoResponsive>
       </div>
