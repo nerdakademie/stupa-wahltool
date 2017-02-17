@@ -2,6 +2,7 @@
 
 const Contestant = require('../../../db').model('Contestant');
 const StudentApiController = require('../student/studentApiController');
+const xss = require('xss');
 
 module.exports = class ContestantApiController {
 
@@ -22,6 +23,11 @@ module.exports = class ContestantApiController {
         const contestantJSON = request.body;
         contestantJSON.activated = false;
         contestantJSON.image = request.file.filename;
+        // sanitize user inputs
+        contestantJSON.name = xss(contestantJSON.name);
+        contestantJSON.course = xss(contestantJSON.course);
+        contestantJSON.year = xss(contestantJSON.year);
+        contestantJSON.description = xss(contestantJSON.description);
         const contestant = new Contestant(request.body);
         contestant.save((error) => {
           if (error) {

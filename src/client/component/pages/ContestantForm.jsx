@@ -32,6 +32,7 @@ class ContestantForm extends Component {
       addRemoveLinks: true,
       maxFiles: 1,
       acceptedFiles: 'image/jpeg,image/png',
+      dictDefaultMessage: 'Ziehe die Datei hier hinein, um sie hochzuladen',
       autoProcessQueue: false,
       init() {
         this.on('thumbnail', (file) => {
@@ -202,7 +203,6 @@ class ContestantForm extends Component {
           />
         </div>
         <div className='group'>
-          <p>Lade ein Bild hoch</p>
           <DropzoneComponent config={this.componentConfig} eventHandlers={eventHandlers} djsConfig={this.djsConfig} />
         </div>
         <FlatButton

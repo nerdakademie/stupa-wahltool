@@ -51,7 +51,8 @@
     "http-server": "^0.8.5",
     "webpack-dev-server": "^1.14.1",
     "nodemailer": "^3.1.1",
-    "nodemailer-wrapper": "^1.2.0"
+    "nodemailer-wrapper": "^1.2.0",
+    "xss": "0.3.3"
   },
   "devDependencies": {
     "autoresponsive-react": "1.1.11",
