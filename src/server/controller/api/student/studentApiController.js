@@ -30,6 +30,7 @@ module.exports = class StudentApiController {
     // TODO: check if not null
 
     Student.find({'name': {$regex: StudentApiController.buildNameRegex(name), $options: 'g'}, 'year': year, 'course': course}).exec((error, students) => {
+
       if (error) {
         return next(error);
       }

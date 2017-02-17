@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import DropzoneComponent from 'react-dropzone-component';
 import AutoComplete from 'material-ui/AutoComplete';
 import request from 'superagent';
+import Snackbar from 'material-ui/Snackbar';
 
 class ContestantForm extends Component {
   constructor() {
@@ -19,7 +20,9 @@ class ContestantForm extends Component {
       course_error: null,
       year_error: null,
       description_error: null,
-      activeRender: this.formRender.bind(this)
+      activeRender: this.formRender.bind(this),
+      snackbar_open: false,
+      response_error: null
     };
 
     const maxImageWidth = 1024,
@@ -124,8 +127,11 @@ class ContestantForm extends Component {
                 activeRender: this.successRender.bind(this),
                 responseBody: resp.body
               });
-            } else {
-
+            } else if (resp.statusCode === 400) {
+              this.setState({
+                snackbar_open: true,
+                response_error: resp.body.error.text
+              });
             }
             return resp;
           });
@@ -202,6 +208,11 @@ class ContestantForm extends Component {
         <FlatButton
           label='Registrieren' onClick={this.createContestant.bind(this)} backgroundColor='#4a89dc'
           hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullwidth}
+        />
+        <Snackbar
+          open={this.state.snackbar_open}
+          message={this.state.response_error}
+          autoHideDuration={4000}
         />
       </form>
     );

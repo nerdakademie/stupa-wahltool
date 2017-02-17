@@ -27,8 +27,11 @@ module.exports = class ContestantApiController {
           if (error) {
             return next(error);
           }
-          return response.end();
+          return response.status(200).json({success: true});
         });
+      } else if (validated === false) {
+        return response.status(400).json({success: false,
+          error: {text: 'Deine Angaben konnten nicht validiert werden. \nVersuche es erneut'}});
       }
       return next('error');
     });
