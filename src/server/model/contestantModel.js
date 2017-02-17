@@ -24,6 +24,10 @@ class ContestantSchema extends mongo.Schema {
       image: {
         type: String,
         required: true
+      },
+      activated: {
+        type: Boolean,
+        required: true
       }
     });
   }
