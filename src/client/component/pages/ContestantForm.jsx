@@ -113,7 +113,7 @@ class ContestantForm extends Component {
       form.append('year', $year.val());
       form.append('description', $description.val());
 
-      request.post('/api/contestant')
+      request.post('/api/contestants/')
           .send(form)
           .end((err, resp) => {
             if (err) {
@@ -128,8 +128,7 @@ class ContestantForm extends Component {
 
             }
             return resp;
-          })
-          .bind(this);
+          });
     }
   }
 

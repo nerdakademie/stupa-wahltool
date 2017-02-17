@@ -9,8 +9,8 @@ class TokenSchema extends mongo.Schema {
         type: String,
         required: true
       },
-      contestantName: {
-        type: String,
+      votedIDs: {
+        type: Array,
         required: true
       }
     });

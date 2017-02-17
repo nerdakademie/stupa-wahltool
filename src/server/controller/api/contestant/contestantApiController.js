@@ -4,6 +4,7 @@ const Contestant = require('../../../db').model('Contestant');
 const StudentApiController = require('../student/studentApiController');
 
 module.exports = class ContestantApiController {
+
   static find(request, response, next) {
     Contestant.find().exec((error, products) => {
       if (error) {
@@ -16,19 +17,20 @@ module.exports = class ContestantApiController {
   static save(request, response, next) {
     // TODO: check if strings are empty
 
-    StudentApiController.validate(request, (validated) => {
+    StudentApiController.validate(request.body, (validated) => {
       if (validated === true) {
+        const contestantJSON = request.body;
+        contestantJSON.activated = false;
+        contestantJSON.image = request.file.filename;
         const contestant = new Contestant(request.body);
-        contestant.activated = false;
         contestant.save((error) => {
           if (error) {
             return next(error);
           }
           return response.end();
         });
-      } else {
-        return next('error');
       }
+      return next('error');
     });
   }
 

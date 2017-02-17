@@ -22,14 +22,14 @@ module.exports = class StudentApiController {
     });
   }
 
-  static validate(request, next) {
-    const year = request.body.year;
-    const course = request.body.course;
-    const name = request.body.name;
+  static validate(json, next) {
+    const year = json.year;
+    const course = json.course;
+    const name = json.name;
 
     // TODO: check if not null
 
-    Student.find({'name':{ '$regex': StudentApiController.buildNameRegex(name), '$options': 'g' }, 'year': year, 'course': course}).exec((error, students) => {
+    Student.find({'name': {$regex: StudentApiController.buildNameRegex(name), $options: 'g'}, 'year': year, 'course': course}).exec((error, students) => {
       if (error) {
         return next(error);
       }
@@ -46,12 +46,12 @@ module.exports = class StudentApiController {
   static buildNameRegex(name) {
     // TODO: make more safe
     const nameSplit = name.split(' ');
-    const regexString = `(?=.*\b${nameSplit[0]}\b)`;
+    let regexString = `(?=.*\\b${nameSplit[0]}\\b)`;
     for (let splitCount = 1; splitCount < nameSplit.length; splitCount++) {
       const part = nameSplit[splitCount];
-      regexString.concat(`(?=.*\b${part})`);
+      regexString = regexString + `(?=.*\\b${part})`;
     }
-    regexString.concat('.*$');
+    regexString = regexString + '.*$';
     return regexString;
   }
 };
