@@ -120,10 +120,10 @@ module.exports = class Mailer {
         from: 'nerdakademie@nordakademie.de',
         to: config.to,
         subject: config.subject,
-        text: pug.renderFile('../../ressources/server/view/text_' + config.template, data),
-        html: pug.renderFile('../../ressources/server/view/html_' + config.template, data)
+        text: pug.renderFile('../../ressources/server/view/text_${config.template}', data),
+        html: pug.renderFile('../../ressources/server/view/html_${config.template}', data)
       };
-/* TODO Kann man mit Pug jeweils ein html und ein text template erstellen oder geht nur html? */
+// TODO Kann man mit Pug jeweils ein html und ein text template erstellen oder geht nur html?
     mailer
       .prepareMail(mail);
 
