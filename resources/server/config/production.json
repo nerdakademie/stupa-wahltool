@@ -12,5 +12,15 @@
     "db":"stupa",
     "user":"",
     "password": ""
+  },
+  "mailer": {
+    "host": "nordakademie.de",
+    "secureConnection": true,
+    "port": 587,
+    "user": "nerdakademie@nordakademie.de",
+    "pass": "your-password",
+    "maxConnections": 20,
+    "maxMessages": 10,
+    "tlsrejectUnauthorized": false
   }
 }
