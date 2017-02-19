@@ -26,11 +26,11 @@ render(
       >
         <IndexRoute component={Home} />
         <Route
-          path='/contestantlist'
+          path='/list'
           component={ContestantList}
         />
         <Route
-          path='/contestantform'
+          path='/register'
           component={ContestantForm}
         />
 

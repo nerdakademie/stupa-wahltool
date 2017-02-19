@@ -10,7 +10,7 @@ class ContestantVerificationSchema extends mongo.Schema {
         required: true
       },
       contestantID: {
-        type: Number,
+        type: String,
         required: true
       }
     });

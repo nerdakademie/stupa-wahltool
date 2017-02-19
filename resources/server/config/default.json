@@ -4,7 +4,9 @@
     "env": "local",
     "routes": {
       "root": ""
-    }
+    },
+    "url": "127.0.0.1:8990",
+    "defaultProtocol": "http"
   },
   "mongo": {
     "host": "localhost",
@@ -14,16 +16,15 @@
     "password": ""
   },
   "mailer": {
-    "host": "nordakademie.de",
-    "secureConnection": true,
+    "host": "owa.nordakademie.de",
+    "secure": true,
     "port": 587,
-    "user": "nerdakademie@nordakademie.de",
-    "pass": "your-password",
-    "maxConnections": 20,
-    "maxMessages": 10,
-    "tlsrejectUnauthorized": false,
+    "from": "Stupa <stupa@nordakademie.de>",
+    "user": "10000",
+    "pass": "passwort",
     "templates": {
-      "contestantConfirm": "Guten Tag"
-    }
+      "contestantConfirm": "Ohai %name%, \nDanke für deine Aufstellung. Um den Prozess abzuschleißen klicke bitte auf den untenstehenden Link\n%link%\nViele Grüße\nDat Stupa"
+    },
+    "contestantSubject": "Stupa Wahl: Aufstellungsbestätigung"
   }
 }

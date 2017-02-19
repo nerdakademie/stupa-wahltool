@@ -119,9 +119,9 @@ class ContestantForm extends Component {
 
       request.post('/api/contestants/')
           .send(form)
-          .end((err, resp) => {
-            if (err) {
-              console.error(err);
+          .end((error, resp) => {
+            if (error) {
+              console.error(error);
             }
             if (resp.statusCode === 200) {
               this.setState({
@@ -220,7 +220,7 @@ class ContestantForm extends Component {
 
   successRender() {
     return (
-      <form id='form' method='post'>
+      <form id='form'>
         <p>Wir haben deinen Aufstellungswunsch erhalten. <br />
                     Bitte bestägige deine Aufstellung mit dem Aktivierungslink in deiner Email<br />
         </p>

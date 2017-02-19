@@ -38,8 +38,8 @@ export default React.createClass({
                     showMenuIconButton={false}
                     iconElementRight={<div style={styles.buttons}>
                         <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
-                        <NavLink to='/contestantlist'><FlatButton label='Liste' /></NavLink>
-                        <NavLink to='/contestantform'><FlatButton label='Formular' /></NavLink>
+                        <NavLink to='/list'><FlatButton label='Liste' /></NavLink>
+                        <NavLink to='/register'><FlatButton label='Formular' /></NavLink>
                     </div>}
                 />
                 {this.props.children || <Home/>}
