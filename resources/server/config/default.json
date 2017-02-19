@@ -21,6 +21,9 @@
     "pass": "your-password",
     "maxConnections": 20,
     "maxMessages": 10,
-    "tlsrejectUnauthorized": false
+    "tlsrejectUnauthorized": false,
+    "templates": {
+      "contestantConfirm": "Guten Tag"
+    }
   }
 }

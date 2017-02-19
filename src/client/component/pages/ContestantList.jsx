@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 import Checkbox from 'material-ui/Checkbox';
@@ -11,6 +12,7 @@ class ContestantList extends Component {
       contestants: [],
       itemMargin: 10,
       horizontalDirection: 'left',
+      gridWidth: 100,
       verticalDirection: 'top',
       containerHeight: null
     };
@@ -41,36 +43,46 @@ class ContestantList extends Component {
     this.loadContestants();
     window.addEventListener('resize', () => {
       this.setState({
-        containerWidth: this.container.clientWidth
+        containerWidth: ReactDOM.findDOMNode(this.AutoResponsiveContainer).clientWidth
       });
     }, false);
   }
 
   static createCard(contestant) {
     const shadow = 1;
-
+    let width = 300;
+    let height = 450;
     const checkbox = {
       marginBottom: 16
 
     };
-
     return (
-      <Card
-        key={contestant._id} style={{width: '320',
-          height: '500'}} containerStyle={{width: 300}} zDepth={shadow}
-      >
-        <CardHeader
-          title={contestant.name}
-          subtitle={`${contestant.year}`}
-        />
-        <CardText>{contestant.description}</CardText>
-        <CardActions>
-          <Checkbox
-            label='Wählen'
-            style={checkbox}
+        <Card
+          key={contestant._id} style={{width,
+            height}} containerStyle={{width: 300, height: 450}} zDepth={shadow}
+        >
+          <CardHeader
+            title={contestant.name}
+            subtitle={`${contestant.year}`}
           />
-        </CardActions>
-      </Card>
+          <CardText actAsExpander={true} style={{'minHeight': 100,
+            'maxHeight': 300,
+            'height': '100%',
+          'overflow': 'hidden'}}>{contestant.description.split('\n').map((item, key) => {
+            return (
+              <span key={key}>
+                {item}
+                <br />
+              </span>
+            );
+          })}</CardText>
+          <CardActions expandable={true}>
+            <Checkbox
+              label='Wählen'
+              style={checkbox}
+            />
+          </CardActions>
+        </Card>
     );
   }
 
@@ -78,7 +90,7 @@ class ContestantList extends Component {
     return (
       <div>
         <AutoResponsive
-          ref={(container) => { this.container = container; }}
+          ref={(c) => { this.AutoResponsiveContainer = c; }}
           {...this.getAutoResponsiveProps()}
         >
           {this.state.contestants.map(ContestantList.createCard)}

@@ -3,11 +3,12 @@
 const Contestant = require('../../../db').model('Contestant');
 const StudentApiController = require('../student/studentApiController');
 const xss = require('xss');
+const fs = require('fs');
 
 module.exports = class ContestantApiController {
 
   static find(request, response, next) {
-    Contestant.find().exec((error, products) => {
+    Contestant.find({activated: 1}).exec((error, products) => {
       if (error) {
         return next(error);
       }
@@ -36,6 +37,11 @@ module.exports = class ContestantApiController {
           return response.status(200).json({success: true});
         });
       } else if (validated === false) {
+        fs.unlink(request.file.path, (error) => {
+          if (error) {
+            console.log(error);
+          }
+        });
         return response.status(400).json({success: false,
           error: {text: 'Deine Angaben konnten nicht validiert werden. \nVersuche es erneut'}});
       }

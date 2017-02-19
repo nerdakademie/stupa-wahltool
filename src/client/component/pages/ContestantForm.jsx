@@ -21,12 +21,12 @@ class ContestantForm extends Component {
       year_error: null,
       description_error: null,
       activeRender: this.formRender.bind(this),
-      snackbar_open: false,
-      response_error: null
+      snackbarOpen: false,
+      responseError: null
     };
 
-    const maxImageWidth = 1024,
-      maxImageHeight = 1024;
+    const maxImageWidth = 1024;
+    const maxImageHeight = 1024;
 
     this.djsConfig = {
       addRemoveLinks: true,
@@ -94,7 +94,7 @@ class ContestantForm extends Component {
     let errors = 0;
       // TODO: check for image
     if ($name.val().length < 1) {
-      this.setState({name_error: 'Bitte gebe einen Namen (Vor- und Nachname)  an'});
+      this.setState({name_error: 'Bitte gebe einen Namen (Vor- und Nachname) an'});
       errors++;
     }
     if ($course.val().length < 1) {
@@ -130,8 +130,8 @@ class ContestantForm extends Component {
               });
             } else if (resp.statusCode === 400) {
               this.setState({
-                snackbar_open: true,
-                response_error: resp.body.error.text
+                snackbarOpen: true,
+                responseError: resp.body.error.text
               });
             }
             return resp;
@@ -210,8 +210,8 @@ class ContestantForm extends Component {
           hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullwidth}
         />
         <Snackbar
-          open={this.state.snackbar_open}
-          message={this.state.response_error}
+          open={this.state.snackbarOpen}
+          message={this.state.responseError}
           autoHideDuration={4000}
         />
       </form>
