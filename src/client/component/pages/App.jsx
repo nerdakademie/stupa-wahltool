@@ -17,7 +17,8 @@ export default React.createClass({
             appBar: {
                 position: 'fixed',
                 top: '0',
-                left: '0'
+                left: '0',
+                'background-color': '#011F53'
             },
             buttons: {
                 'margin-top': '8px',
