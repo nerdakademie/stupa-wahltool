@@ -50,25 +50,23 @@ class ContestantList extends Component {
 
   static createCard(contestant) {
     const shadow = 1;
-    let width = 300;
-    let height = 450;
+    const width = 350;
+    const height = 450;
     const checkbox = {
       marginBottom: 16
 
     };
     return (
         <Card
-          key={contestant._id} style={{width,
-            height}} containerStyle={{width: 300, height: 450}} zDepth={shadow}
+          key={contestant._id}  style={{width,
+          height}} zDepth={shadow}
         >
           <CardHeader
             title={contestant.name}
             subtitle={`${contestant.year}`}
+            avatar={`img/${contestant.image}`}
           />
-          <CardText actAsExpander={true} style={{'minHeight': 100,
-            'maxHeight': 300,
-            'height': '100%',
-          'overflow': 'hidden'}}>{contestant.description.split('\n').map((item, key) => {
+          <CardText actAsExpander={true}>{contestant.description.split('\n').map((item, key) => {
             return (
               <span key={key}>
                 {item}
@@ -76,12 +74,6 @@ class ContestantList extends Component {
               </span>
             );
           })}</CardText>
-          <CardActions expandable={true}>
-            <Checkbox
-              label='Wählen'
-              style={checkbox}
-            />
-          </CardActions>
         </Card>
     );
   }

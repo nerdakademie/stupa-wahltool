@@ -1,7 +1,7 @@
 {
   "webserver":{
     "port": 3000,
-    "env": "local",
+    "env": "production",
     "routes": {
             "root": ""
     },
@@ -17,7 +17,7 @@
   },
   "mailer": {
     "host": "owa.nordakademie.de",
-    "secure": true,
+    "secure": false,
     "port": 587,
     "from": "Stupa <stupa@nordakademie.de>",
     "user": "10000",

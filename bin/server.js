@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const config = require('../src/server/config');
 const debug = require('debug');
-const mongo = require('../src/server/db')
+const mongo = require('../src/server/db');
 
 mongo.setupConnection().then(() => {
   const app = require('../src/server/app');
@@ -15,9 +15,9 @@ mongo.setupConnection().then(() => {
     }
     switch (error.code) {
       case 'EACCES':
-        throw new Error(`Port ${config.get('port')} requires elevated privileges`);
+        throw new Error(`Port ${config.get('webserver:port')} requires elevated privileges`);
       case 'EADDRINUSE':
-        throw new Error(`Port ${config.get('port')} is already in use`);
+        throw new Error(`Port ${config.get('webserver:port')} is already in use`);
       default:
         throw error;
     }

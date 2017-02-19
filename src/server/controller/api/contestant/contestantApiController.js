@@ -65,7 +65,7 @@ module.exports = class ContestantApiController {
         error: {text: 'Missing token parameter'}});
     } else {
       ContestantVerification.findOne({token: request.query.token}).exec((error, validation) => {
-        if (error) {
+        if (error || validation === null) {
           return response.status(400).json({success: false,
             error: {text: 'Error while validating token'}});
         } else {
