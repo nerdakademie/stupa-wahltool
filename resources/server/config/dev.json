@@ -1,23 +1,23 @@
 {
-  "webserver":{
+  "webserver": {
     "port": 3000,
     "env": "local",
     "routes": {
-            "root": ""
+      "root": ""
     },
     "url": "127.0.0.1:3000",
     "defaultProtocol": "http"
   },
-  "mongo":{
-    "host":"localhost",
-    "port":"27017",
-    "db":"stupa",
-    "user":"",
+  "mongo": {
+    "host": "localhost",
+    "port": "27017",
+    "db": "stupa",
+    "user": "",
     "password": ""
   },
   "mailer": {
     "host": "owa.nordakademie.de",
-    "secure": true,
+    "secure": false,
     "port": 587,
     "from": "Stupa <stupa@nordakademie.de>",
     "user": "10000",
