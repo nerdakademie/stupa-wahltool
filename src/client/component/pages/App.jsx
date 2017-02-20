@@ -44,7 +44,7 @@ export default React.createClass({
                     </div>}
                 />
                 {this.props.children || <Home/>}
-                <Footer>(c) 2017 Nerdakademie</Footer>
+                <Footer>(c) 2017 <a href="https://www.nerdakademie.xyz">Nerdakademie</a></Footer>
             </div>
         )
     }

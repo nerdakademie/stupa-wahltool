@@ -33,14 +33,19 @@ footer p {
 }
 
 footer a {
-  color: #4a89dc;
-  text-decoration: none;
+  color: #fff;
+  text-decoration: none !important;
   transition: all .2s ease;
 }
 
 footer a:hover {
-  color: #666;
-  text-decoration: underline;
+  color: #fff;
+  text-decoration: none !important;
+}
+
+a:-webkit-any-link {
+  color: #fff !important;
+  text-decoration: none !important;
 }
 
 footer img {
