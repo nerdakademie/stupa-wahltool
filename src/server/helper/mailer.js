@@ -50,7 +50,7 @@ module.exports = class Mailer {
   }
    */
   static sendMailWithTemplate(data) {
-    const text = config.get(`mailer:templates:${data.template.name}`);
+    let text = config.get(`mailer:templates:${data.template.name}`);
     const htmlReplacements = {};
     for (const replace of data.template.replace) {
       text.replace(`%${replace.placeholder}%`, replace.value);

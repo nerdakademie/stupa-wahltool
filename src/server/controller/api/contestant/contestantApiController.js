@@ -46,7 +46,7 @@ module.exports = class ContestantApiController {
             }
           });
         });
-      } else if (validated === false) {
+      } else if (validated === false && request.file.path !== undefined) {
         fs.unlink(request.file.path, (error) => {
           if (error) {
             console.log(error);
