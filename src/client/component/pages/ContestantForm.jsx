@@ -115,6 +115,7 @@ class ContestantForm extends Component {
         snackbarOpen: true,
         responseError: 'Bitte wähle ein Bild zum Hochladen aus'
       });
+      errors++;
     }
     if (errors === 0) {
       const form = new FormData();
