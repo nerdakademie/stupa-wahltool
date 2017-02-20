@@ -173,6 +173,7 @@ class ContestantForm extends Component {
             floatingLabelText='Studiengang'
             filter={AutoComplete.caseInsensitiveFilter}
             dataSource={this.state.courses}
+            disableFocusRipple={false}
             maxSearchResults={4}
             fullWidth
             errorText={this.state.course_error}
@@ -185,6 +186,7 @@ class ContestantForm extends Component {
             floatingLabelText='Jahrgang'
             filter={AutoComplete.caseInsensitiveFilter}
             dataSource={this.state.years}
+            disableFocusRipple={false}
             maxSearchResults={3}
             fullWidth
             errorText={this.state.year_error}
