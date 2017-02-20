@@ -109,6 +109,13 @@ class ContestantForm extends Component {
       this.setState({description_error: 'Bitte gebe eine Beschreibung an'});
       errors++;
     }
+    //TODO: make picture upload optional again
+    if (!this.state.file) {
+      this.setState({
+        snackbarOpen: true,
+        responseError: 'Bitte wähle ein Bild zum Hochladen aus'
+      });
+    }
     if (errors === 0) {
       const form = new FormData();
       form.append('contestantPhoto', this.state.file);

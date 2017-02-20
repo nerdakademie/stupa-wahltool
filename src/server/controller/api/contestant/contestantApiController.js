@@ -21,6 +21,11 @@ module.exports = class ContestantApiController {
 
   static save(request, response, next) {
     // TODO: check if strings are empty
+    if (request.body.name === undefined || request.body.course === undefined || request.body.year === undefined ||
+      request.body.description === undefined || request.file === undefined) {
+      return response.status(400).json({success: false,
+        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
+    }
 
     StudentApiController.validate(request.body, (validated) => {
       if (validated === true) {
