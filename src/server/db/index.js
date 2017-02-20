@@ -11,13 +11,15 @@ class Mongo extends mongoose.Mongoose {
       const port = config.get('mongo:port');
       const db = config.get('mongo:db');
       const user = config.get('mongo:user');
-      const password = config.get('mongo:password');
+      const pass = config.get('mongo:password');
+      const uri = `mongodb://${host}:${port}/${db}`;
 
-      const userAndPassword = user && password ? `${user}:${password}@` : '';
-      const uri = `mongodb://${userAndPassword}${host}:${port}/${db}`;
-
+      if (user !== undefined && pass !== undefined) {
+        this.connect(uri, {user, pass});
+      } else {
+        this.connect(uri);
+      }
     //  log.info(`Mongoose connecting to ${host}`);
-      this.connect(uri);
 
       this.connection.on('connected', () => {
       //  log.info(`Mongoose default connection open to ${host}`);
