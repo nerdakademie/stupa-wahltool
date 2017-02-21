@@ -3,6 +3,7 @@
 const pug = require('pug');
 const config = require('../config');
 const nodemailer = require('nodemailer');
+const format = require("string-template");
 
 module.exports = class Mailer {
 
@@ -50,13 +51,12 @@ module.exports = class Mailer {
   }
    */
   static sendMailWithTemplate(data) {
-    let text = config.get(`mailer:templates:${data.template.name}`);
-    const htmlReplacements = {};
+    const replacements = {};
     for (const replace of data.template.replace) {
-      text.replace(`%${replace.placeholder}%`, replace.value);
-      htmlReplacements[replace.placeholder] = replace.value;
+      replacements[replace.placeholder] = replace.value;
     }
-    const html = pug.renderFile(`resources/server/template/${data.template.name}.pug`, htmlReplacements);
+    const html = pug.renderFile(`resources/server/template/${data.template.name}.pug`, replacements);
+    const text = format(config.get(`mailer:templates:${data.template.name}`), replacements);
     Mailer.sendMail(data.to, data.subject, text, html);
   }
 };
