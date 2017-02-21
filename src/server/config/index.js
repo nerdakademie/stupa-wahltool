@@ -17,7 +17,6 @@ function loadEnvSpecificConfig(dir) {
   nconf.file(defaultFile, defaultFile);
 }
 
-
 function loadConfigFromProject() {
   loadEnvSpecificConfig(configFolder);
 }

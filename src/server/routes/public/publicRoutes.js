@@ -8,7 +8,7 @@ module.exports = class PublicRoutes extends Express.Router {
     super();
     this.get('/', PublicController.index);
     this.get('/list', PublicController.index);
-    this.get('/form', PublicController.index);
+    this.get('/register', PublicController.index);
     this.get('/student', PublicController.index);
   }
 };
