@@ -18,10 +18,10 @@ export default React.createClass({
                 position: 'fixed',
                 top: '0',
                 left: '0',
-                'background-color': '#011F53'
+                backgroundColor: '#011F53'
             },
             buttons: {
-                'margin-top': '8px',
+                'marginTop': '8px',
             }
         };
 
