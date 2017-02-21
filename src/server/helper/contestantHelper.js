@@ -30,9 +30,9 @@ module.exports = class ContestantHelper {
         data.template.name = 'contestantConfirm';
         data.template.replace = [];
         data.template.replace.push({placeholder: 'name',
-          value: student.name});
+          value: student.firstName});
         data.template.replace.push({placeholder: 'link',
-          value: `http://${config.get('webserver:url')}/api/contestants/activate?token=${token}`});
+          value: `${config.get('webserver:protocol')}://${config.get('webserver:url')}/api/contestants/activate?token=${token}`});
 
         contestantJSON.token = token;
         contestantJSON.centuria = student.centuria;
