@@ -36,7 +36,7 @@ module.exports = class ContestantApiController {
         }
 
         if (count >= 1) {
-          return response.status(400).json({success: false,
+          return response.status(200).json({success: false,
             error: {text: 'Du hast dich bereits aufgestellt.'}});
         }
         StudentApiController.validate(request.body, (validated) => {
@@ -53,7 +53,7 @@ module.exports = class ContestantApiController {
             contestantJSON.token = '';
             ContestantHelper.sendActivationMail(contestantJSON, (result) => {
               if (result === false) {
-                return response.status(400).json({
+                return response.status(200).json({
                   success: false,
                   error: {text: 'Fehler beim Versand der Bestätigungsmail'}
                 });

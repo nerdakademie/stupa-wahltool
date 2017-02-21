@@ -142,15 +142,17 @@ class ContestantForm extends Component {
               console.error(error);
             }
             if (resp.statusCode === 200) {
-              this.setState({
-                activeRender: this.successRender.bind(this),
-                responseBody: resp.body
-              });
-            } else if (resp.statusCode === 400) {
-              this.setState({
-                snackbarOpen: true,
-                responseError: resp.body.error.text
-              });
+              if (resp.body.success === false) {
+                this.setState({
+                  snackbarOpen: true,
+                  responseError: resp.body.error.text
+                });
+              } else {
+                this.setState({
+                  activeRender: this.successRender.bind(this),
+                  responseBody: resp.body
+                });
+              }
             }
             return resp;
           });
