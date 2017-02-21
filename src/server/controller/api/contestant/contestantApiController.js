@@ -21,27 +21,8 @@ module.exports = class ContestantApiController {
   static save(request, response, next) {
     // TODO: check if strings are empty
 
-
-    if (request.body.firstName === undefined || request.body.lastName === undefined) {
-      return response.status(400).json({success: false,
-        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
-    }
-
-    StudentApiController.unique(request.body.firstName, request.body.lastName, (result) => {
-      if (result === false) {
-        return response.status(200).json({
-          success: false,
-          error: {text: 'not_unique'}
-        });
-      } else {
-
-      }
-    });
-
-
-
-    if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.course === undefined || request.body.year === undefined ||
-      request.body.description === undefined || request.file === undefined) {
+    if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.description === undefined ||
+      request.file === undefined) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
@@ -49,8 +30,25 @@ module.exports = class ContestantApiController {
       return response.status(400).json({success: false,
         error: {text: 'Bewerbungstext ist zu lang'}});
     }
-    const contestantJSON = request.body;
 
+    StudentApiController.unique(request.body.firstName, request.body.lastName, (result) => {
+      if (result === false) {
+        if (request.body.course === undefined || request.body.year === undefined) {
+          return response.status(200).json({
+            success: false,
+            error: {text: 'not_unique'}
+          });
+        }
+        const contestantJSON = request.body;
+        ContestantApiController.save_2(contestantJSON, response, next);
+      } else {
+        const contestantJSON = request.body;
+        ContestantApiController.save_2(contestantJSON, response, next);
+      }
+    });
+  }
+
+  static save_2(contestantJSON, response, next) {
     Contestant.count({firstName: {$regex: ContestantHelper.buildNameRegex(contestantJSON.firstName),
       $options: 'g'},
       lastName: contestantJSON.lastName}).exec((countError, count) => {
@@ -67,7 +65,7 @@ module.exports = class ContestantApiController {
           if (validated === true) {
             contestantJSON.activated = false;
             contestantJSON.image = request.file.filename;
-              // sanitize user inputs
+          // sanitize user inputs
             contestantJSON.firstName = xss(contestantJSON.firstName);
             contestantJSON.lastName = xss(contestantJSON.lastName);
             contestantJSON.course = student.course;
@@ -95,7 +93,7 @@ module.exports = class ContestantApiController {
               error: {text: 'Deine Angaben konnten nicht validiert werden. \nVersuche es erneut'}
             });
           }
-            // return next('error');
+        // return next('error');
         });
       });
   }

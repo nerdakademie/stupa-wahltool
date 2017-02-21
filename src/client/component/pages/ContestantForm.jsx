@@ -107,14 +107,14 @@ class ContestantForm extends Component {
       this.setState({lastName_error: 'Bitte gebe Nachnamen an'});
       errors++;
     }
-    if ($course.val().length < 1) {
+  /*  if ($course.val().length < 1) {
       this.setState({course_error: 'Bitte gebe einen Studiengang an'});
       errors++;
     }
     if ($year.val().length < 1) {
       this.setState({year_error: 'Bitte gebe einen Jahrgang an'});
       errors++;
-    }
+    }*/
     if ($description.val().length < 1) {
       this.setState({description_error: 'Bitte gebe eine Beschreibung an'});
       errors++;
