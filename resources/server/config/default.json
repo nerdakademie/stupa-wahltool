@@ -22,6 +22,11 @@
     "from": "Stupa <stupa@nordakademie.de>",
     "user": "10000",
     "pass": "passwort",
+    "pool": true,
+    "maxConnections": 10,
+    "maxMessages": 50,
+    "rateDelta": 60000,
+    "rateLimit": 50,
     "templates": {
       "contestantConfirm": "Ohai {name}, \nDanke für deine Aufstellung. Um den Prozess abzuschleißen klicke bitte auf den untenstehenden Link\n{link}\nViele Grüße\nDat Stupa"
     },
