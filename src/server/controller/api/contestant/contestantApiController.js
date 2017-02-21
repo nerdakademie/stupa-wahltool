@@ -1,7 +1,6 @@
 'use strict';
 
 const Contestant = require('../../../db').model('Contestant');
-const ContestantVerification = require('../../../db').model('ContestantVerification');
 const StudentApiController = require('../student/studentApiController');
 const xss = require('xss');
 const fs = require('fs');
@@ -21,7 +20,7 @@ module.exports = class ContestantApiController {
 
   static save(request, response, next) {
     // TODO: check if strings are empty
-    if (request.body.name === undefined || request.body.course === undefined || request.body.year === undefined ||
+    if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.course === undefined || request.body.year === undefined ||
       request.body.description === undefined || request.file === undefined) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
@@ -33,23 +32,19 @@ module.exports = class ContestantApiController {
         contestantJSON.activated = false;
         contestantJSON.image = request.file.filename;
         // sanitize user inputs
-        contestantJSON.name = xss(contestantJSON.name);
+        contestantJSON.firstName = xss(contestantJSON.firstName);
+        contestantJSON.lastName = xss(contestantJSON.lastName);
         contestantJSON.course = xss(contestantJSON.course);
         contestantJSON.year = xss(contestantJSON.year);
+        contestantJSON.centuria = '';
         contestantJSON.description = xss(contestantJSON.description);
-        const contestant = new Contestant(request.body);
-        contestant.save((error, savedContestant) => {
-          if (error) {
-            return next(error);
+        contestantJSON.token = '';
+        ContestantHelper.sendActivationMail(contestantJSON, (result) => {
+          if (result === false) {
+            return response.status(400).json({success: false,
+              error: {text: 'Fehler beim Versand der Bestätigungsmail'}});
           }
-          ContestantHelper.sendActivationMail(savedContestant, (result) => {
-            if (result === false) {
-              return response.status(400).json({success: false,
-                error: {text: 'Fehler beim Versand der Bestätigungsmail'}});
-            } else {
-              return response.status(200).json({success: true});
-            }
-          });
+          return response.status(200).json({success: true});
         });
       } else if (validated === false && request.file.path !== undefined) {
         fs.unlink(request.file.path, (error) => {
@@ -60,7 +55,7 @@ module.exports = class ContestantApiController {
         return response.status(400).json({success: false,
           error: {text: 'Deine Angaben konnten nicht validiert werden. \nVersuche es erneut'}});
       }
-      //return next('error');
+      // return next('error');
     });
   }
 
@@ -68,24 +63,16 @@ module.exports = class ContestantApiController {
     if (request.query.token === undefined) {
       return response.status(400).json({success: false,
         error: {text: 'Missing token parameter'}});
-    } else {
-      ContestantVerification.findOne({token: request.query.token}).exec((error, validation) => {
-        if (error || validation === null) {
-          return response.status(400).json({success: false,
-            error: {text: 'Error while validating token'}});
-        } else {
-          Contestant.findOne({_id: validation.contestantID}).exec((error2, contestant) => {
-            if (error2) {
-              return response.status(400).json({success: false,
-                error: {text: 'Error while updating contestant'}});
-            }
-            contestant.activated = true;
-            contestant.save();
-            response.writeHead(301, {Location: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list`});
-            return response.end();
-          });
-        }
-      });
     }
+    Contestant.findOne({token: request.query.token}).exec((error, contestant) => {
+      if (error || contestant === null) {
+        return response.status(400).json({success: false,
+          error: {text: 'Error while validating token'}});
+      }
+      contestant.activated = true;
+      contestant.save();
+      response.writeHead(301, {Location: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list`});
+      return response.end();
+    });
   }
 };

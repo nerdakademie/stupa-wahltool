@@ -25,23 +25,27 @@ module.exports = class StudentApiController {
   static validate(json, next) {
     const year = json.year;
     const course = json.course;
-    const name = json.name;
+    const firstName = json.firstName;
+    const lastName = json.lastName;
 
     // TODO: check if not null
 
-    Student.find({'name': {$regex: StudentApiController.buildNameRegex(name), $options: 'g'}, 'year': year, 'course': course}).exec((error, students) => {
+    Student.find({firstName: {$regex: StudentApiController.buildNameRegex(firstName),
+      $options: 'g'},
+      lastName,
+      year,
+      course}).exec((error, students) => {
+        if (error) {
+          return next(error);
+        }
 
-      if (error) {
-        return next(error);
-      }
-
-      if (students.length > 1) {
+        if (students.length > 1) {
+          return next(false);
+        } else if (students.length === 1) {
+          return next(true);
+        }
         return next(false);
-      } else if (students.length === 1) {
-        return next(true);
-      }
-      return next(false);
-    });
+      });
   }
 
   static buildNameRegex(name) {
@@ -50,9 +54,9 @@ module.exports = class StudentApiController {
     let regexString = `(?=.*\\b${nameSplit[0]}\\b)`;
     for (let splitCount = 1; splitCount < nameSplit.length; splitCount++) {
       const part = nameSplit[splitCount];
-      regexString = regexString + `(?=.*\\b${part})`;
+      regexString = `${regexString}(?=.*\\b${part})`;
     }
-    regexString = regexString + '.*$';
+    regexString = `${regexString}.*$`;
     return regexString;
   }
 };

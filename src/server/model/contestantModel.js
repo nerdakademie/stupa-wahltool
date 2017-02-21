@@ -5,7 +5,11 @@ const mongo = require('../db');
 class ContestantSchema extends mongo.Schema {
   constructor() {
     super({
-      name: {
+      firstName: {
+        type: String,
+        required: true
+      },
+      lastName: {
         type: String,
         required: true
       },
@@ -14,6 +18,10 @@ class ContestantSchema extends mongo.Schema {
         required: true
       },
       year: {
+        type: String,
+        required: true
+      },
+      centuria: {
         type: String,
         required: true
       },
@@ -27,6 +35,10 @@ class ContestantSchema extends mongo.Schema {
       },
       activated: {
         type: Boolean,
+        required: true
+      },
+      token: {
+        type: String,
         required: true
       }
     });

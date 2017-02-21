@@ -16,7 +16,8 @@ class ContestantForm extends Component {
       years: [],
       courses: [],
       file: false,
-      name_error: null,
+      firstName_error: null,
+      lastName_error: null,
       course_error: null,
       year_error: null,
       description_error: null,
@@ -86,15 +87,20 @@ class ContestantForm extends Component {
 
   createContestant(e) {
     e.preventDefault();
-    const $name = $('#name');
+    const $firstName = $('#firstName');
+    const $lastName = $('#lastName');
     const $course = $('#course');
     const $year = $('#year');
     const $description = $('#description');
     this.resetErrors();
     let errors = 0;
       // TODO: check for image
-    if ($name.val().length < 1) {
-      this.setState({name_error: 'Bitte gebe einen Namen (Vor- und Nachname) an'});
+    if ($firstName.val().length < 1) {
+      this.setState({firstName_error: 'Bitte gebe Vornamen an'});
+      errors++;
+    }
+    if ($lastName.val().length < 1) {
+      this.setState({lastName_error: 'Bitte gebe Nachnamen an'});
       errors++;
     }
     if ($course.val().length < 1) {
@@ -120,7 +126,8 @@ class ContestantForm extends Component {
     if (errors === 0) {
       const form = new FormData();
       form.append('contestantPhoto', this.state.file);
-      form.append('name', $name.val());
+      form.append('firstName', $firstName.val());
+      form.append('lastName', $lastName.val());
       form.append('course', $course.val());
       form.append('year', $year.val());
       form.append('description', $description.val());
@@ -169,9 +176,16 @@ class ContestantForm extends Component {
       <form id='form' method='post'>
         <div className='group'>
           <TextField
-            id='name' name='name' floatingLabelText='Vor und Nachname' hintText='Max Mustermann'
+            id='firstName' name='firstName' floatingLabelText='Vorname' hintText='Max'
             style={fullwidth}
-            errorText={this.state.name_error}
+            errorText={this.state.firstName_error}
+          />
+        </div>
+        <div className='group'>
+          <TextField
+              id='lastName' name='lastName' floatingLabelText='Nachname' hintText='Mustermann'
+              style={fullwidth}
+              errorText={this.state.lastName_error}
           />
         </div>
         <div className='group'>

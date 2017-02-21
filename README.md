@@ -11,6 +11,11 @@ Operations:
 
 Testdata:
 
+Import Students from file:
+```shell
+mongoimport --db "stupa" --collection "students" --type json --file "stupawahl_utf8.json" --jsonArray
+```
+
 Contestant:
 ```json
 
@@ -25,27 +30,35 @@ Contestant:
 Student
 ```json
 
-{"name":"Max Winfo",
+{"firstName":"Max",
+"lastName": "Winfo",
 "course":"Wirtschaftsinformatik",
 "year":"2015",
+"centuria": "I15c",
 "email": "max.winfo@nordakademie.de"
 }
 
-{"name":"Ingrid BWL",
+{"firstName":"Ingrid",
+"lastName": "BWL",
 "course":"Betriebswirtschaftslehre",
 "year":"2014",
+"centuria": "B14a",
 "email": "ingrid.bwl@nordakademie.de"
 }
 
-{"name":"Peter Wing",
+{"firstName":"Peter",
+"lastName": "Wing",
 "course":"Wirtschaftsingeuneurwesen",
 "year":"2016",
+"centuria": "W16b",
 "email": "peter.wing@nordakademie.de"
 }
 
-{"name":"Kevin Ainf",
+{"firstName":"Kevin",
+"lastName": "Ainf",
 "course":"Angewandte Informatik",
 "year":"2013",
+"centuria": "A13x",
 "email": "kevin.ainf@nordakademie.de"
 }
 ```

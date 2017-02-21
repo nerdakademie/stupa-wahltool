@@ -62,8 +62,8 @@ class ContestantList extends Component {
           height}} zDepth={shadow}
         >
           <CardHeader
-            title={contestant.name}
-            subtitle={`${contestant.year}`}
+            title={`${contestant.firstName} ${contestant.lastName}`}
+            subtitle={contestant.centuria}
             avatar={`img/${contestant.image}`}
           />
           <CardText actAsExpander={true}>{contestant.description.split('\n').map((item, key) => {

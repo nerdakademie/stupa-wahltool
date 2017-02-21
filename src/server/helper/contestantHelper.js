@@ -1,7 +1,7 @@
 'use strict';
 
 const Student = require('../db').model('Student');
-const ContestantVerification = require('../db').model('ContestantVerification');
+const Contestant = require('../db').model('Contestant');
 const uuid = require('uuid/v4');
 const Mailer = require('./mailer');
 const config = require('../config');
@@ -9,13 +9,17 @@ const pug = require('pug');
 
 module.exports = class ContestantHelper {
 
-  static sendActivationMail(contestant, callback) {
-    Student.findOne({name: {$regex: ContestantHelper.buildNameRegex(contestant.name),
+  static sendActivationMail(contestantJSON, callback) {
+    Student.findOne({firstName: {$regex: ContestantHelper.buildNameRegex(contestantJSON.firstName),
       $options: 'g'},
-      year: contestant.year,
-      course: contestant.course}).exec((error, student) => {
+      lastName: contestantJSON.lastName,
+      year: contestantJSON.year,
+      course: contestantJSON.course}).exec((error, student) => {
         if (error) {
           return callback(error);
+        }
+        if (student === null) {
+          return callback(false);
         }
 
         const token = uuid();
@@ -30,14 +34,16 @@ module.exports = class ContestantHelper {
         data.template.replace.push({placeholder: 'link',
           value: `http://${config.get('webserver:url')}/api/contestants/activate?token=${token}`});
 
-        const contestantVerification = new ContestantVerification({token,
-          contestantID: contestant.id});
-        contestantVerification.save((error2) => {
+        contestantJSON.token = token;
+        contestantJSON.centuria = student.centuria;
+
+        const contestant = new Contestant(contestantJSON);
+        contestant.save((error2) => {
           console.log(error2);
           if (error2) {
             return callback(false);
           }
-          Mailer.sendMailWithTemplate(data);
+          return Mailer.sendMailWithTemplate(data);
         }).then((result) => {
           return callback(true);
         }, (err) => {
