@@ -37,7 +37,7 @@ module.exports = class ContestantApiController {
 
         if (count >= 1) {
           return response.status(400).json({success: false,
-            error: {text: 'Du hast dich bereits auffgestellt.'}});
+            error: {text: 'Du hast dich bereits aufgestellt.'}});
         } else {
           StudentApiController.validate(request.body, (validated) => {
             if (validated === true) {
