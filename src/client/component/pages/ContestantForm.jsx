@@ -23,7 +23,7 @@ class ContestantForm extends Component {
       description_error: null,
       activeRender: this.formRender.bind(this),
       snackbarOpen: false,
-      responseError: null
+      responseError: ''
     };
 
     const maxImageWidth = 1024;
