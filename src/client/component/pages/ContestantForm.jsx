@@ -34,6 +34,9 @@ class ContestantForm extends Component {
       maxFiles: 1,
       acceptedFiles: 'image/jpeg,image/png',
       dictDefaultMessage: 'Ziehe die Datei hier hinein, um sie hochzuladen',
+      dictFileTooBig: 'Datei ist zu groß',
+      dictRemoveFile: 'Datei entfernen',
+      dictMaxFilesExceeded: 'Es darf nur eine Datei hochgeladen werden',
       autoProcessQueue: false,
       init() {
         this.on('thumbnail', (file) => {
