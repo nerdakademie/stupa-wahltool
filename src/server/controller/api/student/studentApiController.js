@@ -3,24 +3,6 @@
 const Student = require('../../../db').model('Student');
 
 module.exports = class StudentApiController {
-  static find(request, response, next) {
-    Student.find().exec((error, students) => {
-      if (error) {
-        return next(error);
-      }
-      return response.json(students);
-    });
-  }
-
-  static save(request, response, next) {
-    const student = new Student(request.body);
-    student.save((error) => {
-      if (error) {
-        return next(error);
-      }
-      return response.end();
-    });
-  }
 
   static validate(json, next) {
     const year = json.year;

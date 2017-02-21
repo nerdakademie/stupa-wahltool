@@ -10,7 +10,7 @@ const config = require('../../../config');
 module.exports = class ContestantApiController {
 
   static find(request, response, next) {
-    Contestant.find({activated: 1}).exec((error, products) => {
+    Contestant.find({activated: 1}).select('-token -__v').exec((error, products) => {
       if (error) {
         return next(error);
       }
