@@ -9,47 +9,34 @@ const pug = require('pug');
 
 module.exports = class ContestantHelper {
 
-  static sendActivationMail(contestantJSON, callback) {
-    Student.findOne({firstName: {$regex: ContestantHelper.buildNameRegex(contestantJSON.firstName),
-      $options: 'g'},
-      lastName: contestantJSON.lastName,
-      year: contestantJSON.year,
-      course: contestantJSON.course}).exec((error, student) => {
-        if (error) {
-          return callback(error);
-        }
-        if (student === null) {
-          return callback(false);
-        }
+  static sendActivationMail(contestantJSON, student, callback) {
+    const token = uuid();
+    const data = {};
+    data.to = student.email;
+    data.subject = config.get('mailer:contestantSubject');
+    data.template = {};
+    data.template.name = 'contestantConfirm';
+    data.template.replace = [];
+    data.template.replace.push({placeholder: 'name',
+      value: student.firstName});
+    data.template.replace.push({placeholder: 'link',
+      value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/activate?token=${token}`});
 
-        const token = uuid();
-        const data = {};
-        data.to = student.email;
-        data.subject = config.get('mailer:contestantSubject');
-        data.template = {};
-        data.template.name = 'contestantConfirm';
-        data.template.replace = [];
-        data.template.replace.push({placeholder: 'name',
-          value: student.firstName});
-        data.template.replace.push({placeholder: 'link',
-          value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/activate?token=${token}`});
+    contestantJSON.token = token;
+    contestantJSON.centuria = student.centuria;
 
-        contestantJSON.token = token;
-        contestantJSON.centuria = student.centuria;
-
-        const contestant = new Contestant(contestantJSON);
-        contestant.save((error2) => {
-          console.log(error2);
-          if (error2) {
-            return callback(false);
-          }
-          return Mailer.sendMailWithTemplate(data);
-        }).then((result) => {
-          return callback(true);
-        }, (err) => {
-          return callback(false);
-        });
-      });
+    const contestant = new Contestant(contestantJSON);
+    contestant.save((error2) => {
+      console.log(error2);
+      if (error2) {
+        return callback(false);
+      }
+      return Mailer.sendMailWithTemplate(data);
+    }).then((result) => {
+      return callback(true);
+    }, (err) => {
+      return callback(false);
+    });
   }
 
   static buildNameRegex(name) {

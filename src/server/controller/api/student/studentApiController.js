@@ -22,11 +22,26 @@ module.exports = class StudentApiController {
         }
 
         if (students.length > 1) {
-          return next(false);
+          return next(false, null);
         } else if (students.length === 1) {
-          return next(true);
+          return next(true, students);
         }
-        return next(false);
+        return next(false, null);
+      });
+  }
+
+  static unique(firstName, lastName, callback) {
+    Student.count({firstName: {$regex: StudentApiController.buildNameRegex(firstName),
+      $options: 'g'},
+      lastName}).exec((error, count) => {
+        if (error) {
+          callback(false);
+        }
+        if (count === 1) {
+          callback(true);
+        } else {
+          callback(false);
+        }
       });
   }
 

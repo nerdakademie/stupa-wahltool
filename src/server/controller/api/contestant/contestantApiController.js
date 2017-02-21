@@ -20,6 +20,26 @@ module.exports = class ContestantApiController {
 
   static save(request, response, next) {
     // TODO: check if strings are empty
+
+
+    if (request.body.firstName === undefined || request.body.lastName === undefined) {
+      return response.status(400).json({success: false,
+        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
+    }
+
+    StudentApiController.unique(request.body.firstName, request.body.lastName, (result) => {
+      if (result === false) {
+        return response.status(200).json({
+          success: false,
+          error: {text: 'not_unique'}
+        });
+      } else {
+
+      }
+    });
+
+
+
     if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.course === undefined || request.body.year === undefined ||
       request.body.description === undefined || request.file === undefined) {
       return response.status(400).json({success: false,
@@ -43,19 +63,19 @@ module.exports = class ContestantApiController {
           return response.status(200).json({success: false,
             error: {text: 'Du hast dich bereits aufgestellt.'}});
         }
-        StudentApiController.validate(request.body, (validated) => {
+        StudentApiController.validate(request.body, (validated, student) => {
           if (validated === true) {
             contestantJSON.activated = false;
             contestantJSON.image = request.file.filename;
               // sanitize user inputs
             contestantJSON.firstName = xss(contestantJSON.firstName);
             contestantJSON.lastName = xss(contestantJSON.lastName);
-            contestantJSON.course = xss(contestantJSON.course);
-            contestantJSON.year = xss(contestantJSON.year);
-            contestantJSON.centuria = '';
+            contestantJSON.course = student.course;
+            contestantJSON.year = student.year;
+            contestantJSON.centuria = student.centuria;
             contestantJSON.description = xss(contestantJSON.description);
             contestantJSON.token = '';
-            ContestantHelper.sendActivationMail(contestantJSON, (result) => {
+            ContestantHelper.sendActivationMail(contestantJSON, student, (result) => {
               if (result === false) {
                 return response.status(200).json({
                   success: false,
