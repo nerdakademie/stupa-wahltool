@@ -4,6 +4,7 @@ import $ from 'jquery';
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 import Checkbox from 'material-ui/Checkbox';
 import AutoResponsive from 'autoresponsive-react';
+import nl2br from 'react-nl2br';
 
 class ContestantList extends Component {
   constructor() {
@@ -59,28 +60,21 @@ class ContestantList extends Component {
     return (
         <Card
           key={contestant._id}  style={{width,
-          height}} zDepth={shadow}
+          height}} containerStyle={{width, height}} zDepth={shadow}
         >
           <CardHeader
             title={`${contestant.firstName} ${contestant.lastName}`}
             subtitle={contestant.centuria}
             avatar={`img/${contestant.image}`}
           />
-          <CardText actAsExpander={true}>{contestant.description.split('\n').map((item, key) => {
-            return (
-              <span key={key}>
-                {item}
-                <br />
-              </span>
-            );
-          })}</CardText>
+          <CardText >{nl2br(contestant.description)}</CardText>
         </Card>
     );
   }
 
   render() {
     return (
-      <div>
+      <div className='contestantList'>
         <AutoResponsive
           ref={(c) => { this.AutoResponsiveContainer = c; }}
           {...this.getAutoResponsiveProps()}
