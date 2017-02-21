@@ -23,7 +23,8 @@ class ContestantForm extends Component {
       description_error: null,
       activeRender: this.formRender.bind(this),
       snackbarOpen: false,
-      responseError: ''
+      responseError: '',
+      characters: 0
     };
 
     const maxImageWidth = 1024;
@@ -118,6 +119,10 @@ class ContestantForm extends Component {
       this.setState({description_error: 'Bitte gebe eine Beschreibung an'});
       errors++;
     }
+    if ($description.val().length > 1500) {
+      this.setState({description_error: 'Zu viele Zeichen'});
+      errors++;
+    }
     //TODO: make picture upload optional again
     if (!this.state.file) {
       this.setState({
@@ -166,6 +171,14 @@ class ContestantForm extends Component {
       year_error: null,
       description_error: null
     });
+  }
+
+  onChangeDescription(event, newValue) {
+    if (newValue !== undefined) {
+      this.setState({
+        characters: newValue.length
+      });
+    }
   }
 
   formRender() {
@@ -228,8 +241,10 @@ class ContestantForm extends Component {
             style={fullwidth}
             multiLine
             rows={3}
+            onChange={this.onChangeDescription.bind(this)}
             errorText={this.state.description_error}
           />
+          <center>{this.state.characters}/1500</center>
         </div>
         <div className='group'>
           <DropzoneComponent config={this.componentConfig} eventHandlers={eventHandlers} djsConfig={this.djsConfig} />

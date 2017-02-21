@@ -25,6 +25,10 @@ module.exports = class ContestantApiController {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
+    if (request.body.description.length > 1500) {
+      return response.status(400).json({success: false,
+        error: {text: 'Bewerbungstext ist zu lang'}});
+    }
     const contestantJSON = request.body;
 
     Contestant.count({firstName: {$regex: ContestantHelper.buildNameRegex(contestantJSON.firstName),

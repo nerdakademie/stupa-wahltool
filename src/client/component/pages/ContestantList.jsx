@@ -52,7 +52,7 @@ class ContestantList extends Component {
   static createCard(contestant) {
     const shadow = 1;
     const width = 350;
-    const height = 450;
+    const height = 600;
     const checkbox = {
       marginBottom: 16
 

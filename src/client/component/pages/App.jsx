@@ -43,8 +43,8 @@ export default React.createClass({
                         <NavLink to='/register'><FlatButton label='Formular' /></NavLink>
                     </div>}
                 />
-                {this.props.children || <Home/>}
-                <Footer>(c) 2017 <a href="https://www.nerdakademie.xyz">Nerdakademie</a></Footer>
+                {this.props.children || <Home />}
+                <Footer>(c) 2017 <a href='https://nerdakademie.xyz'>Nerdakademie</a></Footer>
             </div>
         )
     }

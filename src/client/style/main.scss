@@ -1,6 +1,12 @@
 @import 'reset';
 
 /* Topbar */
+@media screen and (max-width: 550px) {
+  .topbar {
+    display: block !important;
+  }
+
+}
 .topbar div div a.active button div {
   color: #C8E6C9;
 }
@@ -10,7 +16,10 @@
 }
 .contestantList {
   overflow-wrap: break-word;
+  overflow-y: scroll;
 }
+
+
 
 #app {
   padding-top: 70px;
