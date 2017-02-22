@@ -44,9 +44,11 @@ class ContestantList extends Component {
   componentDidMount() {
     this.loadContestants();
     window.addEventListener('resize', () => {
-      this.setState({
-        containerWidth: ReactDOM.findDOMNode(this.AutoResponsiveContainer).clientWidth
-      });
+      if (ReactDOM.findDOMNode(this.AutoResponsiveContainer) !== null) {
+        this.setState({
+          containerWidth: ReactDOM.findDOMNode(this.AutoResponsiveContainer).clientWidth
+        });
+      }
     }, false);
   }
 
