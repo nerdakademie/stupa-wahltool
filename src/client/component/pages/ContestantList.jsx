@@ -53,14 +53,18 @@ class ContestantList extends Component {
     const shadow = 1;
     const width = 350;
     const height = 600;
+    const style = {
+      width,
+      height,
+      'overflow-y':'scroll'
+    };
     const checkbox = {
       marginBottom: 16
 
     };
     return (
       <Card
-        key={contestant._id} style={{width,
-          height}} containerStyle={{width,
+        key={contestant._id} style={style} containerStyle={{width,
             height}} zDepth={shadow}
       >
         <CardHeader
