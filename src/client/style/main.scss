@@ -13,42 +13,36 @@
 }
 
 @media screen and (max-width: 373px) {
-
   #app {
     padding-top: 155px !important;
   }
-
 }
 
 @media screen and (max-width: 245px) {
-
   #app {
     padding-top: 185px !important;
   }
-
 }
 
 .topbar div div a.active button div {
   color: #C8E6C9;
 }
 
-
-
 .topbar div div a button div {
   color: #ffffff;
 }
+
+/* END Topbar */
+
 .contestantList {
   overflow-wrap: break-word;
 }
-
-
 
 #app {
   padding-top: 70px;
   padding-bottom: 70px;
   overflow-y: auto;
 }
-/* END Topbar */
 
 /* Scrollbar */
 body {

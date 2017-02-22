@@ -18,11 +18,13 @@ module.exports = class StudentApiController {
         }
 
         if (students.length > 1) {
-          return next(false, null);
+          return next('Daten können nicht eindeutig einem Studenten zugeordnet werden', null);
         } else if (students.length === 1) {
           return next(true, students[0]);
+        } else if (students.length === 0) {
+          return next('Keinen Studenten mit den angegebenen Daten gefunden', null);
         }
-        return next(false, null);
+        return next('Fehler bei der Validierung. Korrigiere deine Daten und versucher es erneut', null);
       });
   }
 

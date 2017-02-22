@@ -65,15 +65,17 @@ module.exports = class ContestantApiController {
               }
               return response.status(200).json({success: true});
             });
-          } else if (validated === false && request.file.path !== undefined) {
-            fs.unlink(request.file.path, (error) => {
-              if (error) {
-                console.log(error);
-              }
-            });
+          } else if (validated !== true) {
+            if (request.file.path !== undefined) {
+              fs.unlink(request.file.path, (error) => {
+                if (error) {
+                  console.log(error);
+                }
+              });
+            }
             return response.status(200).json({
               success: false,
-              error: {text: 'Deine Angaben konnten nicht validiert werden.'}
+              error: {text: validated}
             });
           }
             // return next('error');

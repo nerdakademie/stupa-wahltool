@@ -71,6 +71,7 @@ class ContestantList extends Component {
           subtitle={contestant.centuria}
           avatar={<Avatar
             src={`img/${contestant.image}`}
+            style={{'border-radius': 0}}
             size={125}
                   />}
         />
