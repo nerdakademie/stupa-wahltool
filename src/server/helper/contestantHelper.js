@@ -1,6 +1,5 @@
 'use strict';
 
-const Student = require('../db').model('Student');
 const Contestant = require('../db').model('Contestant');
 const uuid = require('uuid/v4');
 const Mailer = require('./mailer');
