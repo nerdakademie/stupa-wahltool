@@ -117,16 +117,25 @@ module.exports = class ContestantApiController {
       return response.status(400).json({success: false,
         error: {text: 'Missing lastName parameter'}});
     }
-    const {token, firstName, lastName} = request.body;
+    const {token, firstName, lastName} = request.query;
 
-    Contestant.remove({token,
+    Contestant.findOneAndRemove({token,
       firstName,
-      lastName}, (error) => {
-      if (error) {
-        return response.status(200).json({success: false,
-          error: {text: 'Error while deleting your entry'}});
-      }
-      return response.status(200).json({success: true});
-    });
+      lastName}).exec((error, contestant) => {
+        if (error || contestant === null) {
+          return response.status(200).json({success: false,
+            error: {text: 'Error while deleting your entry'}});
+        }
+
+        if (fs.existsSync(`resources/server/public/img/${contestant.image}`)) {
+          fs.unlink(`resources/server/public/img/${contestant.image}`, (error2) => {
+            if (error) {
+              console.log(error2);
+            }
+          });
+        }
+        response.writeHead(301, {Location: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list`});
+        return response.end();
+      });
   }
 };
