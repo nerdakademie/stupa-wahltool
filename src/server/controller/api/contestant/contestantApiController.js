@@ -121,7 +121,8 @@ module.exports = class ContestantApiController {
 
     Contestant.findOneAndRemove({token,
       firstName,
-      lastName}).exec((error, contestant) => {
+      lastName,
+      activated: false}).exec((error, contestant) => {
         if (error || contestant === null) {
           return response.status(200).json({success: false,
             error: {text: 'Error while deleting your entry'}});
