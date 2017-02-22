@@ -24,7 +24,7 @@ module.exports = class StudentApiController {
         if (students.length > 1) {
           return next(false, null);
         } else if (students.length === 1) {
-          return next(true, student);
+          return next(true, students[0]);
         }
         return next(false, null);
       });
