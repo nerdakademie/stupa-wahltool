@@ -5,11 +5,7 @@ const Student = require('../../../db').model('Student');
 module.exports = class StudentApiController {
 
   static validate(json, next) {
-    const year = json.year;
-    const course = json.course;
-    const firstName = json.firstName;
-    const lastName = json.lastName;
-
+    const {year, course, firstName, lastName} = json;
     // TODO: check if not null
 
     Student.find({firstName: {$regex: StudentApiController.buildNameRegex(firstName),

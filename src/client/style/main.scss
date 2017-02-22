@@ -1,15 +1,37 @@
 @import 'reset';
 
 /* Topbar */
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 560px) {
   .topbar {
     display: block !important;
   }
 
+  #app {
+    padding-top: 115px !important;
+  }
+
 }
+
+@media screen and (max-width: 373px) {
+
+  #app {
+    padding-top: 155px !important;
+  }
+
+}
+
+@media screen and (max-width: 245px) {
+
+  #app {
+    padding-top: 185px !important;
+  }
+
+}
+
 .topbar div div a.active button div {
   color: #C8E6C9;
 }
+
 
 
 .topbar div div a button div {
