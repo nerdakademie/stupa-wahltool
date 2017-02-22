@@ -95,6 +95,7 @@
     "react-tap-event-plugin": "2.0.1",
     "react-nl2br": "0.2.0",
     "react-dropzone-component": "1.2.0",
+    "react-custom-scrollbars": "4.0.2",
     "run-sequence": "1.2.2",
     "sass-loader": "5.0.1",
     "sinon": "1.17.7",

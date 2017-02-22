@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 import AutoResponsive from 'autoresponsive-react';
 import nl2br from 'react-nl2br';
 import Avatar from 'material-ui/Avatar';
+import {Scrollbars} from 'react-custom-scrollbars';
 
 class ContestantList extends Component {
   constructor() {
@@ -55,15 +56,10 @@ class ContestantList extends Component {
     const height = 600;
     const style = {
       width,
-      height,
-      'overflow-y': 'scroll',
-      'overflow-x': 'hidden'
-    };
-    const checkbox = {
-      marginBottom: 16
-
+      height
     };
     return (
+
       <Card
         key={contestant._id} style={style} containerStyle={{width,
             height}} zDepth={shadow}
@@ -76,8 +72,11 @@ class ContestantList extends Component {
             size={125}
                   />}
         />
-        <CardText >{nl2br(contestant.description)}</CardText>
+        <Scrollbars style={{height: '443px'}}>
+          <CardText >{nl2br(contestant.description)}</CardText>
+        </Scrollbars>
       </Card>
+
     );
   }
 
