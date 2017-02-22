@@ -17,29 +17,40 @@ module.exports = class ContestantHelper {
     data.template = {};
     data.template.name = 'contestantConfirm';
     data.template.replace = [];
-    data.template.replace.push({placeholder: 'name',
-      value: student.firstName});
-    data.template.replace.push({placeholder: 'acceptLink',
-      value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/activate?token=${token}`});
-    data.template.replace.push({placeholder: 'removeLink',
-      value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/invalidate?token=${token}&firstName=${student.firstName}&lastName=${student.lastName}`});
-    data.template.replace.push({placeholder: 'applicationText',
-      value: contestantJSON.description});
+    data.template.replace.push({
+      placeholder: 'name',
+      value: student.firstName
+    });
+    data.template.replace.push({
+      placeholder: 'acceptLink',
+      value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/activate?token=${token}`
+    });
+    data.template.replace.push({
+      placeholder: 'removeLink',
+      value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/invalidate?token=${token}&firstName=${student.firstName}&lastName=${student.lastName}`
+    });
+    data.template.replace.push({
+      placeholder: 'applicationText',
+      value: contestantJSON.description
+    });
 
     contestantJSON.token = token;
     contestantJSON.centuria = student.centuria;
 
-    const contestant = new Contestant(contestantJSON);
-    contestant.save((error2) => {
-      if (error2) {
+    if (Mailer.sendMailWithTemplate(data)) {
+      const contestant = new Contestant(contestantJSON);
+      contestant.save((error2) => {
+        if (error2) {
+          return callback(false);
+        }
+      }).then((result) => {
+        return callback(true);
+      }, (err) => {
         return callback(false);
-      }
-      return Mailer.sendMailWithTemplate(data);
-    }).then((result) => {
-      return callback(true);
-    }, (err) => {
+      });
+    } else {
       return callback(false);
-    });
+    }
   }
 
   static buildNameRegex(name) {

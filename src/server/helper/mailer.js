@@ -57,6 +57,6 @@ module.exports = class Mailer {
     }
     const html = pug.renderFile(`resources/server/template/${data.template.name}.pug`, replacements);
     const text = format(config.get(`mailer:templates:${data.template.name}`), replacements);
-    Mailer.sendMail(data.to, data.subject, text, html);
+    return Mailer.sendMail(data.to, data.subject, text, html);
   }
 };

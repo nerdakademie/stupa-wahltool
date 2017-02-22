@@ -7,7 +7,7 @@ html
         p Um den Prozess abzuschließen, klicke bitte auf den folgenden Link:
         a(href=acceptLink) Bestätigen
         p Dein Bewerbungstext ist wie folgt:
-        p #{applicationText}
+        p!= applicationText.replace(/\n/g, '<br />')
         p
         | Wenn du dich nicht selbst aufgestellt hast, dich aber gerne selbst aufstellen möchtest, hast du hier die Möglichkeit, die Aufstellung zu widerrufen:
         a(href=removeLink) Wiederufen
