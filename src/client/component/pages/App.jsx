@@ -39,8 +39,8 @@ export default React.createClass({
                     showMenuIconButton={false}
                     iconElementRight={<div style={styles.buttons}>
                         <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
-                        <NavLink to='/list'><FlatButton label='Liste' /></NavLink>
-                        <NavLink to='/register'><FlatButton label='Formular' /></NavLink>
+                        <NavLink to='/list'><FlatButton label='Bewerber' /></NavLink>
+                        <NavLink to='/register'><FlatButton label='Mich aufstellen' /></NavLink>
                     </div>}
                 />
                 {this.props.children || <Home />}

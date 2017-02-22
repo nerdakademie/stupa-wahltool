@@ -5,7 +5,7 @@ export default React.createClass({
     return <div>
         <h3>Willkommen bei der Stupa Wahl 2017</h3>
         <p>
-            Via „Formular“ kannst du dich als Kandidat aufstellen. Bitte beschreibe dort, wieso du Teil des neuen StuPa werden möchtest. <br/>
+            Via „Mich aufstellen“ kannst du dich als Kandidat aufstellen. Bitte beschreibe dort, wieso du Teil des neuen StuPa werden möchtest. <br/>
             <span style={{'color': 'red'}}>Achtung:</span> Du kannst deinen Text nicht mehr ändern, wenn du ihn einmal hinzugefügt hast!
             </p>
         <p>
