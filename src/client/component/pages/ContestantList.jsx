@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
-import Checkbox from 'material-ui/Checkbox';
 import AutoResponsive from 'autoresponsive-react';
 import nl2br from 'react-nl2br';
+import Avatar from 'material-ui/Avatar';
 
 class ContestantList extends Component {
   constructor() {
@@ -58,17 +58,21 @@ class ContestantList extends Component {
 
     };
     return (
-        <Card
-          key={contestant._id}  style={{width,
-          height}} containerStyle={{width, height}} zDepth={shadow}
-        >
-          <CardHeader
-            title={`${contestant.firstName} ${contestant.lastName}`}
-            subtitle={contestant.centuria}
-            avatar={`img/${contestant.image}`}
-          />
-          <CardText >{nl2br(contestant.description)}</CardText>
-        </Card>
+      <Card
+        key={contestant._id} style={{width,
+          height}} containerStyle={{width,
+            height}} zDepth={shadow}
+      >
+        <CardHeader
+          title={`${contestant.firstName} ${contestant.lastName}`}
+          subtitle={contestant.centuria}
+          avatar={<Avatar
+            src={`img/${contestant.image}`}
+            size={125}
+                  />}
+        />
+        <CardText >{nl2br(contestant.description)}</CardText>
+      </Card>
     );
   }
 

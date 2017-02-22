@@ -9,6 +9,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import request from 'superagent';
 import Snackbar from 'material-ui/Snackbar';
 
+
 class ContestantForm extends Component {
   constructor() {
     super();
@@ -123,7 +124,7 @@ class ContestantForm extends Component {
       this.setState({description_error: 'Zu viele Zeichen'});
       errors++;
     }
-    //TODO: make picture upload optional again
+    // TODO: make picture upload optional again
     if (!this.state.file) {
       this.setState({
         snackbarOpen: true,
@@ -201,9 +202,9 @@ class ContestantForm extends Component {
         </div>
         <div className='group'>
           <TextField
-              id='lastName' name='lastName' floatingLabelText='Nachname' hintText='Mustermann'
-              style={fullwidth}
-              errorText={this.state.lastName_error}
+            id='lastName' name='lastName' floatingLabelText='Nachname' hintText='Mustermann'
+            style={fullwidth}
+            errorText={this.state.lastName_error}
           />
         </div>
         <div className='group'>

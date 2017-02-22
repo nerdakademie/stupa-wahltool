@@ -9,7 +9,6 @@ import App from './component/pages/App';
 import Home from './component/pages/Home';
 import ContestantList from './component/pages/ContestantList';
 import ContestantForm from './component/pages/ContestantForm';
-import StudentList from './component/pages/StudentList';
 
 injectTapEventPlugin();
 
@@ -33,10 +32,6 @@ render(
         <Route
           path='/register'
           component={ContestantForm}
-        />
-        <Route
-          path='/student'
-          component={StudentList}
         />
 
       </Route>
