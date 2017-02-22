@@ -1,6 +1,6 @@
 {
   "name": "StupaWahlTool2017",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A tool for the Stupa Wahl 2017.",
   "main": "src/server/app.js",
   "scripts": {
