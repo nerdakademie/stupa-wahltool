@@ -250,6 +250,7 @@ class ContestantForm extends Component {
         <div className='group'>
           <DropzoneComponent config={this.componentConfig} eventHandlers={eventHandlers} djsConfig={this.djsConfig} />
         </div>
+        <center>Max Auflösung: 1024x1024. In der Liste als 125x125.</center>
         <FlatButton
           label='Registrieren' onClick={this.createContestant.bind(this)} backgroundColor='#4a89dc'
           hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullwidth}
