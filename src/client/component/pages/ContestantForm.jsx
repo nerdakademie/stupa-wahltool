@@ -126,10 +126,7 @@ class ContestantForm extends Component {
     }
     // TODO: make picture upload optional again
     if (!this.state.file) {
-      this.setState({
-        snackbarOpen: true,
-        responseError: 'Bitte wähle ein Bild zum Hochladen aus'
-      });
+      miniToastr.error('Bitte wähle ein Bild aus', 'Error');
       errors++;
     }
     if (errors === 0) {

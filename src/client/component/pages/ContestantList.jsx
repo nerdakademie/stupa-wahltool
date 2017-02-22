@@ -64,7 +64,7 @@ class ContestantList extends Component {
 
       <Card
         key={contestant._id} style={style} containerStyle={{width,
-            height}} zDepth={shadow}
+          height}} zDepth={shadow}
       >
         <CardHeader
           title={`${contestant.firstName} ${contestant.lastName}`}
@@ -74,7 +74,11 @@ class ContestantList extends Component {
             size={125}
                   />}
         />
-        <Scrollbars style={{height: '443px'}}>
+        <Scrollbars
+          autoHeight
+          autoHeightMin={0}
+          autoHeightMax={443}
+        >
           <CardText >{nl2br(contestant.description)}</CardText>
         </Scrollbars>
       </Card>
