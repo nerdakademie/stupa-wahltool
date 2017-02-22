@@ -10,7 +10,7 @@ import request from 'superagent';
 import miniToastr from 'mini-toastr';
 
 
-class ContestantForm extends Component {
+class ContestantRegister extends Component {
   constructor() {
     super();
     this.state = {
@@ -272,4 +272,4 @@ class ContestantForm extends Component {
   }
 }
 
-export default ContestantForm;
+export default ContestantRegister;
