@@ -18,7 +18,7 @@ module.exports = class ContestantApiController {
     });
   }
 
-  static save(request, response, next) {
+  static save(request, response) {
     // TODO: check if strings are empty
     if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.course === undefined || request.body.year === undefined ||
       request.body.description === undefined || request.file === undefined) {
@@ -81,7 +81,7 @@ module.exports = class ContestantApiController {
       });
   }
 
-  static activate(request, response, next) {
+  static activate(request, response) {
     if (request.query.token === undefined) {
       return response.status(400).json({success: false,
         error: {text: 'Missing token parameter'}});
@@ -99,6 +99,32 @@ module.exports = class ContestantApiController {
       }
       response.writeHead(301, {Location: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list`});
       return response.end();
+    });
+  }
+
+  static invalidate(request, response) {
+    if (request.query.token === undefined) {
+      return response.status(400).json({success: false,
+        error: {text: 'Missing token parameter'}});
+    }
+    if (request.query.firstName === undefined) {
+      return response.status(400).json({success: false,
+        error: {text: 'Missing firstName parameter'}});
+    }
+    if (request.query.lastName === undefined) {
+      return response.status(400).json({success: false,
+        error: {text: 'Missing lastName parameter'}});
+    }
+    const {token, firstName, lastName} = request.body;
+
+    Contestant.remove({token,
+      firstName,
+      lastName}, (error) => {
+      if (error) {
+        return response.status(200).json({success: false,
+          error: {text: 'Error while deleting your entry'}});
+      }
+      return response.status(200).json({success: true});
     });
   }
 };

@@ -10,5 +10,6 @@ module.exports = class ContestantApiRoutes extends Express.Router {
     this.get('/', ContestantApiController.find);
     this.post('/', ImageUploadInterceptor.getSingleInterceptorForName('contestantPhoto'), ContestantApiController.save);
     this.get('/activate', ContestantApiController.activate);
+    this.get('/invalidate', ContestantApiController.invalidate);
   }
 };
