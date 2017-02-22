@@ -56,7 +56,8 @@ class ContestantList extends Component {
     const style = {
       width,
       height,
-      'overflow-y':'scroll'
+      'overflow-y': 'scroll',
+      'overflow-x': 'hidden'
     };
     const checkbox = {
       marginBottom: 16
