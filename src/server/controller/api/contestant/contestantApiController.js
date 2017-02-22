@@ -18,6 +18,40 @@ module.exports = class ContestantApiController {
     });
   }
 
+  static edit(request, response) {
+    if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.token === undefined
+      || request.body.description === undefined || request.file === undefined) {
+      return response.status(400).json({success: false,
+        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
+    }
+
+    const {firstName, lastName, token, description} = request.body;
+
+    Contestant.find({firstName,
+      lastName,
+      token}).exec((error, contestants) => {
+        if (error) {
+          return response.status(400).json({success: false,
+            error: {text: 'Fehler beim Ändern aufgetreten'}});
+        }
+        if (contestants.length !== 1) {
+          return response.status(400).json({success: false,
+            error: {text: 'Kandidat nicht eindeutig identifizierbar'}});
+        }
+        if (fs.existsSync(`../../../../../resources/server/public/img/${contestants.image}`)) {
+          fs.unlink(request.file.path, (error2) => {
+            if (error) {
+              console.log(error2);
+            }
+          });
+        }
+        contestants.description = description;
+        contestants.image = request.file.filename;
+        contestants.save();
+        return response.status(200).json({success: true});
+      });
+  }
+
   static save(request, response) {
     // TODO: check if strings are empty
     if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.course === undefined || request.body.year === undefined ||

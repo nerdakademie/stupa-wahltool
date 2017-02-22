@@ -8,7 +8,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './component/pages/App';
 import Home from './component/pages/Home';
 import ContestantList from './component/pages/ContestantList';
-import ContestantForm from './component/pages/ContestantRegister';
+import ContestantActions from './component/pages/ContestantActions';
 
 injectTapEventPlugin();
 
@@ -31,7 +31,7 @@ render(
         />
         <Route
           path='/register'
-          component={ContestantForm}
+          component={ContestantActions}
         />
 
       </Route>

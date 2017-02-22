@@ -9,7 +9,6 @@ import AutoComplete from 'material-ui/AutoComplete';
 import request from 'superagent';
 import miniToastr from 'mini-toastr';
 
-
 class ContestantEdit extends Component {
   constructor() {
     super();
@@ -61,7 +60,6 @@ class ContestantEdit extends Component {
     };
   }
 
-
   handleFileAdded(file) {
     this.setState({file});
   }
@@ -86,7 +84,7 @@ class ContestantEdit extends Component {
       this.setState({lastName_error: 'Bitte gebe Nachnamen an'});
       errors++;
     }
-    if ($token.val().length < 1){
+    if ($token.val().length < 1) {
       this.setState({token_error: 'Bitte gebe einen validen Token'});
       errors++;
     }
@@ -106,9 +104,11 @@ class ContestantEdit extends Component {
     if (errors === 0) {
       const form = new FormData();
       form.append('contestantPhoto', this.state.file);
+      form.append('firstName', $firstName.val());
+      form.append('lastName', $lastName.val());
       form.append('description', $description.val());
 
-      request.post('/api/contestants/')
+      request.put('/api/contestants/')
           .send(form)
           .end((error, resp) => {
             if (error) {
@@ -133,7 +133,7 @@ class ContestantEdit extends Component {
     this.setState({
       description_error: null,
       firstName_error: null,
-      lastName_error:null
+      lastName_error: null
     });
   }
 
@@ -155,69 +155,68 @@ class ContestantEdit extends Component {
     };
 
     return (
-        <form id='form' method='post'>
-          <div className='group'>
-            <TextField
-                id='token' name='token' floatingLabelText='Token' hintText=''
-                style={fullwidth}
-                errorText={this.state.token_error}
-            />
-          </div>
-          <div className='group'>
-            <TextField
-                id='firstName' name='firstName' floatingLabelText='Vorname' hintText='Max'
-                style={fullwidth}
-                errorText={this.state.firstName_error}
-            />
-          </div>
-          <div className='group'>
-            <TextField
-                id='lastName' name='lastName' floatingLabelText='Nachname' hintText='Mustermann'
-                style={fullwidth}
-                errorText={this.state.lastName_error}
-            />
-          </div>
-          <div className='group'>
-            <TextField
-                id='description'
-                hintText='Schreibe hier deinen tollen Text'
-                floatingLabelText='Dein Bewerbungstext'
-                name='description'
-                style={fullwidth}
-                multiLine
-                rows={3}
-                onChange={this.onChangeDescription.bind(this)}
-                errorText={this.state.description_error}
-            />
-            <center>{this.state.characters}/1500</center>
-          </div>
-          <div className='group'>
-            <DropzoneComponent config={this.componentConfig} eventHandlers={eventHandlers} djsConfig={this.djsConfig} />
-          </div>
-          <center>Max Auflösung: 1024x1024. In der Liste als 125x125.</center>
-          <FlatButton
-              label='Registrieren' onClick={this.createContestant.bind(this)} backgroundColor='#4a89dc'
-              hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullwidth}
+      <form id='form' method='post'>
+        <div className='group'>
+          <TextField
+            id='token' name='token' floatingLabelText='Token' hintText=''
+            style={fullwidth}
+            errorText={this.state.token_error}
           />
-        </form>
+        </div>
+        <div className='group'>
+          <TextField
+            id='firstName' name='firstName' floatingLabelText='Vorname' hintText='Max'
+            style={fullwidth}
+            errorText={this.state.firstName_error}
+          />
+        </div>
+        <div className='group'>
+          <TextField
+            id='lastName' name='lastName' floatingLabelText='Nachname' hintText='Mustermann'
+            style={fullwidth}
+            errorText={this.state.lastName_error}
+          />
+        </div>
+        <div className='group'>
+          <TextField
+            id='description'
+            hintText='Schreibe hier deinen tollen Text'
+            floatingLabelText='Dein Bewerbungstext'
+            name='description'
+            style={fullwidth}
+            multiLine
+            rows={3}
+            onChange={this.onChangeDescription.bind(this)}
+            errorText={this.state.description_error}
+          />
+          <center>{this.state.characters}/1500</center>
+        </div>
+        <div className='group'>
+          <DropzoneComponent config={this.componentConfig} eventHandlers={eventHandlers} djsConfig={this.djsConfig} />
+        </div>
+        <center>Max Auflösung: 1024x1024. In der Liste als 125x125.</center>
+        <FlatButton
+          label='Registrieren' onClick={this.createContestant.bind(this)} backgroundColor='#4a89dc'
+          hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullwidth}
+        />
+      </form>
     );
   }
 
   successRender() {
     return (
-        <form id='form'>
-          <p>Wir haben deinen Aufstellungswunsch erhalten. <br />
-            Bitte bestägige deine Aufstellung mit dem Aktivierungslink in deiner Email<br />
+      <form id='form'>
+        <p>Kandidatur erfolgreich geändert
           </p>
-        </form>
+      </form>
     );
   }
 
   render() {
     return (
-        <div>
-          {this.state.activeRender()}
-        </div>
+      <div>
+        {this.state.activeRender()}
+      </div>
     );
   }
 }
