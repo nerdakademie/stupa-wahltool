@@ -32,6 +32,13 @@ module.exports = class Mailer {
         return false;
       }
       return true;
+    }).then((result) => {
+      if (result === false) {
+        return false;
+      }
+      return true;
+    }, (err) => {
+      return false;
     });
   }
 
