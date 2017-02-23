@@ -21,6 +21,10 @@ module.exports = class ContestantHelper {
       value: student.firstName
     });
     data.template.replace.push({
+      placeholder: 'token',
+      value: token
+    });
+    data.template.replace.push({
       placeholder: 'acceptLink',
       value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/activate?token=${token}`
     });
