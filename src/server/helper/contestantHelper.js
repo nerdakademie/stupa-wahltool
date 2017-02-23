@@ -36,20 +36,19 @@ module.exports = class ContestantHelper {
     contestantJSON.token = token;
     contestantJSON.centuria = student.centuria;
 
-    if (Mailer.sendMailWithTemplate(data)) {
-      const contestant = new Contestant(contestantJSON);
-      contestant.save((error2) => {
-        if (error2) {
-          return callback(false);
-        }
-      }).then((result) => {
-        return callback(true);
-      }, (err) => {
+    Mailer.sendMailWithTemplate(data, (result) => {
+      if (result === true) {
+        const contestant = new Contestant(contestantJSON);
+        contestant.save((error2) => {
+          if (error2) {
+            return callback(false);
+          }
+          return callback(true);
+        });
+      } else {
         return callback(false);
-      });
-    } else {
-      return callback(false);
-    }
+      }
+    });
   }
 
   static buildNameRegex(name) {

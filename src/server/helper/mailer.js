@@ -3,11 +3,11 @@
 const pug = require('pug');
 const config = require('../config');
 const nodemailer = require('nodemailer');
-const format = require("string-template");
+const format = require('string-template');
 
 module.exports = class Mailer {
 
-  static sendMail(to, subject, text, html) {
+  static sendMail(to, subject, text, html, callback) {
     const transporter = nodemailer.createTransport({
       host: config.get('mailer:host'),
       secure: config.get('mailer:secure'),
@@ -29,16 +29,9 @@ module.exports = class Mailer {
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log(error);
-        return false;
+         callback(false);
       }
-      return true;
-    }).then((result) => {
-      if (result === false) {
-        return false;
-      }
-      return true;
-    }, (err) => {
-      return false;
+      callback(true);
     });
   }
 
@@ -56,13 +49,13 @@ module.exports = class Mailer {
     subject: Wir mögen Kadsen
   }
    */
-  static sendMailWithTemplate(data) {
+  static sendMailWithTemplate(data, callback) {
     const replacements = {};
     for (const replace of data.template.replace) {
       replacements[replace.placeholder] = replace.value;
     }
     const html = pug.renderFile(`resources/server/template/${data.template.name}.pug`, replacements);
     const text = format(config.get(`mailer:templates:${data.template.name}`), replacements);
-    return Mailer.sendMail(data.to, data.subject, text, html);
+    return Mailer.sendMail(data.to, data.subject, text, html, callback);
   }
 };
