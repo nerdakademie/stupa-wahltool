@@ -40,7 +40,7 @@ export default React.createClass({
           </div>}
         />
         {this.props.children || <Home />}
-        <Footer>(c) 2017 <a className='nerdakademie' href='https://nerdakademie.xyz'>Nerdakademie</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>v1.0.10</a></Footer>
+        <Footer>(c) 2017 <a className='nerdakademie' href='https://nerdakademie.xyz'>Nerdakademie</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>v1.0.11</a></Footer>
       </div>
     );
   }

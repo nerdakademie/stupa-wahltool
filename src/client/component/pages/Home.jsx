@@ -4,9 +4,6 @@ export default React.createClass({
   render() {
     return <div>
         <h3>Willkommen bei der Stupa Wahl 2017</h3>
-        <p>
-            <span style={{'color': 'red'}}><b>Aktuell ist diese Seite nicht mit dem Internet Explorer kompatibel. Wir arbeiten an einer Lösung.</b></span>
-        </p>
             <p>
             Via „Aufstellen“ kannst du dich als Kandidat aufstellen. Bitte beschreibe dort, wieso du Teil des neuen StuPa werden möchtest. <br/>
             <span style={{'color': 'red'}}>Achtung:</span> Du kannst deinen Text nicht mehr ändern, wenn du ihn einmal hinzugefügt hast!
@@ -25,6 +22,13 @@ export default React.createClass({
         <p>
             Bei Fragen, Anmerkungen und Verbesserungsideen meldet euch bitte bei Finja per Mail an <a href="mailto:finja.hauschild@nordakademie.de">finja.hauschild@nordakademie.de</a>
         </p>
+
+        <h3>Changelog</h3>
+            <b>v1.0.11</b>
+            <ul>
+                <li>Kompatibilität mit Internet Explorer wiederhergestellt</li>
+                <li>Fehler bei der Generierung des Widerrufen-Links behoben</li>
+            </ul>
       </div>;
   }
 });
