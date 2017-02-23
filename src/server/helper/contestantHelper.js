@@ -30,7 +30,7 @@ module.exports = class ContestantHelper {
     });
     data.template.replace.push({
       placeholder: 'removeLink',
-      value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/invalidate?token=${token}&firstName=${student.firstName}&lastName=${student.lastName}`
+      value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/invalidate?token=${token}&firstName=${contestantJSON.firstName}&lastName=${contestantJSON.lastName}`
     });
     data.template.replace.push({
       placeholder: 'applicationText',
