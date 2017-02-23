@@ -9,7 +9,7 @@ module.exports = {
   cache: false,
   debug: false,
   devtool: false,
-  entry: path.resolve(__dirname, '../../../src/client/app.jsx'),
+  entry: ['babel-polyfill', path.resolve(__dirname, '../../../src/client/app.jsx')],
   output: {
     path: path.resolve(__dirname, '../../server/public'),
     filename: 'js/app.js'
