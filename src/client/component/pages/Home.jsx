@@ -9,7 +9,7 @@ export default React.createClass({
             <span style={{'color': 'red'}}>Achtung:</span> Du kannst deinen Text nicht mehr ändern, wenn du ihn einmal hinzugefügt hast!
             </p>
         <p>
-            Der Zeitraum, in welchem du dich aufstellen kannst, ist: <b>Donnerstag, 22.02. 9:00 Uhr - 01.03. 9:00 Uhr</b>. Danach beginnt der Wahlzeitraum.
+            Der Zeitraum, in welchem du dich aufstellen kannst, ist: <b>Donnerstag, 23.02. 9:00 Uhr - 02.03. 9:00 Uhr</b>. Danach beginnt der Wahlzeitraum.
         </p>
         <p>
             Du wirst eine E-Mail bekommen, in der du deine Aufstellung verifizieren musst. Somit wird sichergestellt, dass nur du dich selbst aufstellen kannst. Aus diesem Grund ist es notwendig, dass in deinem Postfach genug Platz für neue E-Mails ist.
