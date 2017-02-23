@@ -40,7 +40,7 @@ export default React.createClass({
                     iconElementRight={<div style={styles.buttons}>
                         <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
                         <NavLink to='/list'><FlatButton label='Bewerber' /></NavLink>
-                        <NavLink to='/register'><FlatButton label='Mich aufstellen' /></NavLink>
+                        <NavLink to='/register'><FlatButton label='Aufstellen' /></NavLink>
                     </div>}
                 />
                 {this.props.children || <Home />}
