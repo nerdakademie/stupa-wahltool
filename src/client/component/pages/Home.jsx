@@ -5,6 +5,9 @@ export default React.createClass({
     return <div>
         <h3>Willkommen bei der Stupa Wahl 2017</h3>
         <p>
+            <span style={{'color': 'red'}}><b>Aktuell ist diese Seite nicht mit dem Internet Explorer kompatibel. Wir arbeiten an einer Lösung.</b></span>
+        </p>
+            <p>
             Via „Aufstellen“ kannst du dich als Kandidat aufstellen. Bitte beschreibe dort, wieso du Teil des neuen StuPa werden möchtest. <br/>
             <span style={{'color': 'red'}}>Achtung:</span> Du kannst deinen Text nicht mehr ändern, wenn du ihn einmal hinzugefügt hast!
             </p>
