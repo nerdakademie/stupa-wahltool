@@ -158,7 +158,7 @@ class ContestantEdit extends Component {
       <form id='form' method='post'>
         <div className='group'>
           <TextField
-            id='token' name='token' floatingLabelText='Token' hintText=''
+            id='token' name='token' floatingLabelText='Aufstellungs-Token' hintText='Aufstellungs-Token aus der Aufstellungs-Mail'
             style={fullwidth}
             errorText={this.state.token_error}
           />
