@@ -1,17 +1,15 @@
 # stupa-wahltool
-Wahltool für Stupa Wahl 2017
+Wahltool für die Stupa Wahl 2017
 
-Benutzt werden sollen: MongoDB, Nodejs und irgendein JS Framework
+Für dieses Projekt wurden React, Nodejs und MongoDB verwendet
 
-Operations:
-* FreeBSD Server
-* Webserver und Datenbank in verschiedenen Jails
-* Kompiliert von Source
-* pf firewall
+Sollten dir Fehler auffallen erstelle bitte ein Issue.
+
+Gerne kannst du an den offenen Themen Mitarbeiten (siehe Issues). Dafür einfach einen PR stellen.
 
 Testdata:
 
-Import Students from file:
+Studenten von Datei importieren:
 ```shell
 mongoimport --db "stupa" --collection "students" --type json --file "stupawahl_utf8.json" --jsonArray
 ```

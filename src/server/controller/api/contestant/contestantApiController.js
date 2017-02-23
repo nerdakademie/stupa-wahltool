@@ -10,7 +10,7 @@ const config = require('../../../config');
 module.exports = class ContestantApiController {
 
   static find(request, response, next) {
-    Contestant.find({activated: 1}).select('-token -__v').exec((error, products) => {
+    Contestant.find({activated: 1}).select('-token -__v -activated -course -year').lean().exec((error, products) => {
       if (error) {
         return next(error);
       }
@@ -20,8 +20,8 @@ module.exports = class ContestantApiController {
 
   static save(request, response) {
     // TODO: check if strings are empty
-    if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.course === undefined || request.body.year === undefined ||
-      request.body.description === undefined || request.file === undefined) {
+    if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.course === undefined ||
+        request.body.year === undefined || request.body.description === undefined || request.file === undefined) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }

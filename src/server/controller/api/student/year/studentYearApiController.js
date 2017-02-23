@@ -5,7 +5,7 @@ const Student = require('../../../../db').model('Student');
 module.exports = class StudentYearApiController {
 
   static find(request, response, next) {
-    Student.distinct('year', (error, years) => {
+    Student.distinct('year').lean().exec((error, years) => {
       if (error) {
         return next(error);
       }
