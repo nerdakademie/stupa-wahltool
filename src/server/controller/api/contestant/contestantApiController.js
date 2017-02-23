@@ -45,7 +45,6 @@ module.exports = class ContestantApiController {
         }
         StudentApiController.validate(request.body, (validated, student) => {
           if (validated === true) {
-            console.log(student);
             contestantJSON.activated = false;
             contestantJSON.image = request.file.filename;
               // sanitize user inputs
