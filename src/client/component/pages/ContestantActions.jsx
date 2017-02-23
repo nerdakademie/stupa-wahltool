@@ -6,31 +6,31 @@ import ContestantRegister from './ContestantRegister';
 class ContestantActions extends Component {
   constructor() {
     super();
-    this.state = {
-      activeComponent: <ContestantRegister />
-    };
   }
 
-  shouldComponentUpdate(){
-    return true;
+  componentDidMount() {
+    this.setState({
+      toggleState: false
+    });
   }
 
   onToggle(event, isInputChecked) {
-    if (isInputChecked) {
-      this.setState({activeComponent: <ContestantEdit />});
-    } else {
-      this.setState({activeComponent: <ContestantRegister />});
-    }
+    this.setState({
+      toggleState: isInputChecked
+    });
   }
 
   render() {
+    const {toggleState} = this.state;
     return (
       <div>
+        <center>
         <Toggle
           label='Erstellen/Bearbeiten'
-          onToggle={this.onToggle()}
+          onToggle={this.onToggle.bind(this)}
         />
-        {this.state.activeComponent}
+        </center>
+        {toggleState ? <ContestantRegister /> : <ContestantEdit />}
       </div>
     );
   }
