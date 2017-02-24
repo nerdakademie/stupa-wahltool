@@ -6,7 +6,7 @@ export default React.createClass({
         <h3>Willkommen bei der Stupa Wahl 2017</h3>
             <p>
             Via „Aufstellen“ kannst du dich als Kandidat aufstellen. Bitte beschreibe dort, wieso du Teil des neuen StuPa werden möchtest. <br/>
-            <span style={{'color': 'red'}}>Achtung:</span> Du kannst deinen Text nicht mehr ändern, wenn du ihn einmal hinzugefügt hast!
+                Deinen Text und dein Bild kannst du bis zum Wahlbeginn anpassen.
             </p>
         <p>
             Der Zeitraum, in welchem du dich aufstellen kannst, ist: <b>Donnerstag, 23.02. 9:00 Uhr - 02.03. 9:00 Uhr</b>. Danach beginnt der Wahlzeitraum.
@@ -24,6 +24,12 @@ export default React.createClass({
         </p>
 
         <h3>Changelog</h3>
+            <b>v1.1.0</b>
+            <ul>
+                <li>Die Aufstellung kann nun bearbeitet werden</li>
+                <li>Minor Bugfixing</li>
+            </ul>
+            <br />
             <b>v1.0.11</b>
             <ul>
                 <li>Kompatibilität mit Internet Explorer wiederhergestellt</li>
