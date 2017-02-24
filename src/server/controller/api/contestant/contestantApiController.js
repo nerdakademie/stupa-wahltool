@@ -70,7 +70,7 @@ module.exports = class ContestantApiController {
           }
           contestant.image = request.file.filename;
         }
-        contestant.description = description;
+        contestant.description = xss(description);
 
         console.log(contestant);
         contestant.save();
