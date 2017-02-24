@@ -9,13 +9,69 @@ const config = require('../../../config');
 
 module.exports = class ContestantApiController {
 
+  // TODO: maybe fix this -> seperate via routes
   static find(request, response, next) {
-    Contestant.find({activated: 1}).select('-token -__v -activated -course -year').lean().exec((error, products) => {
-      if (error) {
-        return next(error);
-      }
-      return response.json(products);
-    });
+    const {firstName, lastName, token} = request.query;
+    if (firstName === undefined && lastName === undefined && token === undefined) {
+      Contestant.find({activated: 1}).select('-token -__v -activated -course -year').lean().exec((error, products) => {
+        if (error) {
+          return next(error);
+        }
+        return response.json(products);
+      });
+    } else if (firstName === undefined || lastName === undefined || token === undefined) {
+      return response.status(400).json({success: false,
+        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
+    } else {
+      Contestant.findOne({activated: 1,
+        firstName,
+        lastName,
+        token}, 'description image').exec((error, products) => {
+          if (error) {
+            return next(error);
+          }
+          return response.json(products);
+        });
+    }
+  }
+
+  static edit(request, response) {
+    if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.token === undefined ||
+      request.body.description === undefined) {
+      return response.status(400).json({success: false,
+        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
+    }
+
+    const {firstName, lastName, token, description} = request.body;
+
+    Contestant.find({firstName,
+      lastName,
+      token}).exec((error, contestants) => {
+        if (error) {
+          return response.status(400).json({success: false,
+            error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
+        }
+        if (contestants.length !== 1) {
+          return response.status(200).json({success: false,
+            error: {text: 'Bewerber nicht eindeutig identifizierbar'}});
+        }
+        const contestant = contestants[0];
+        if (request.file !== undefined) {
+          if (fs.existsSync(`../../../../../resources/server/public/img/${contestant.image}`)) {
+            fs.unlink(request.file.path, (error2) => {
+              if (error) {
+                console.log(error2);
+              }
+            });
+          }
+          contestant.image = request.file.filename;
+        }
+        contestant.description = description;
+
+        console.log(contestant);
+        contestant.save();
+        return response.status(200).json({success: true});
+      });
   }
 
   static save(request, response) {

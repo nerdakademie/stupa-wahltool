@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {IndexLink} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
@@ -26,22 +26,23 @@ export default React.createClass({
       color: 'white'
     };
 
-    return (
-      <div>
-        <AppBar
-          className='topbar'
-          title='Stupa-Wahl 2017'
-          style={styles.appBar}
-          showMenuIconButton={false}
-          iconElementRight={<div style={styles.buttons}>
-            <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
-            <NavLink to='/list'><FlatButton label='Bewerber' /></NavLink>
-            <NavLink to='/register'><FlatButton label='Aufstellen' /></NavLink>
-          </div>}
-        />
-        {this.props.children || <Home />}
-        <Footer>(c) 2017 <a className='nerdakademie' href='https://nerdakademie.xyz'>Nerdakademie</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>v1.0.11</a></Footer>
-      </div>
-    );
-  }
+            return (
+            <div>
+                <AppBar
+                    className='topbar'
+                    title='Stupa-Wahl 2017'
+                    style={styles.appBar}
+                    showMenuIconButton={false}
+                    iconElementRight={<div style={styles.buttons}>
+                        <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
+                        <NavLink to='/list'><FlatButton label='Bewerber' /></NavLink>
+                        <NavLink to='/register'><FlatButton label='Aufstellen' /></NavLink>
+                    <NavLink to='/edit'><FlatButton label='Bearbeiten' /></NavLink>
+                    </div>}
+                />
+                {this.props.children || <Home />}
+                <Footer>(c) 2017 <a className='nerdakademie'href='https://nerdakademie.xyz'>Nerdakademie</a>| <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>v1.0.11</a></Footer>
+            </div>
+        );
+    }
 });
