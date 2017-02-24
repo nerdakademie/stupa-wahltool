@@ -17,4 +17,4 @@ class TokenSchema extends mongo.Schema {
   }
 }
 
-mongo.model('Token', new TokenSchema());
+mongo.model('vote', new TokenSchema());
