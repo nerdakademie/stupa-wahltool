@@ -13,11 +13,11 @@ module.exports = class ContestantApiController {
   static find(request, response, next) {
     const {firstName, lastName, token} = request.query;
     if (firstName === undefined && lastName === undefined && token === undefined) {
-      Contestant.find({activated: 1}).select('-token -__v -activated -course -year').lean().exec((error, products) => {
+      Contestant.find({activated: 1}).select('-token -__v -activated -course -year').lean().exec((error, contestants) => {
         if (error) {
           return next(error);
         }
-        return response.json(products);
+        return response.json(contestants);
       });
     } else if (firstName === undefined || lastName === undefined || token === undefined) {
       return response.status(400).json({success: false,
@@ -26,11 +26,15 @@ module.exports = class ContestantApiController {
       Contestant.findOne({activated: 1,
         firstName,
         lastName,
-        token}, 'description image').exec((error, products) => {
+        token}, 'description image').exec((error, contestant) => {
           if (error) {
             return next(error);
           }
-          return response.json(products);
+          if (contestant === null) {
+            return response.status(200).json({success: false,
+              error: {text: 'Es wurde kein Bewerber mit diesen Angaben gefunden'}});
+          }
+          return response.json(contestant);
         });
     }
   }

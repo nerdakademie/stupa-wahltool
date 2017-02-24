@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {IndexLink} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';

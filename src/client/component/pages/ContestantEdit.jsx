@@ -144,13 +144,17 @@ class ContestantEdit extends Component {
     }
     if (errors === 0) {
       $.getJSON(`api/contestants/?token=${$token.val()}&firstName=${$firstName.val()}&lastName=${$lastName.val()}`, (contestant) => {
-        this.setState({
-          descriptionText: contestant.description,
-          activeRender: this.changeForm.bind(this),
-          firstName: $firstName.val(),
-          lastName: $lastName.val(),
-          token: $token.val()
-        });
+        if (contestant.success === false) {
+          miniToastr.error(contestant.error.text, 'Error');
+        } else {
+          this.setState({
+            descriptionText: contestant.description,
+            activeRender: this.changeForm.bind(this),
+            firstName: $firstName.val(),
+            lastName: $lastName.val(),
+            token: $token.val()
+          });
+        }
       });
     }
   }
