@@ -7,5 +7,7 @@ module.exports = class VoteApiRoutes extends Express.Router {
   constructor() {
     super();
     this.get('/', VoteApiController.find);
+    this.get('/:token', VoteApiController.findOne);
+    this.post('/', VoteApiController.save);
   }
 };

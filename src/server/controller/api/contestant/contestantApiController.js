@@ -52,7 +52,7 @@ module.exports = class ContestantApiController {
       lastName,
       token}).exec((error, contestants) => {
         if (error) {
-          return response.status(400).json({success: false,
+          return response.status(500).json({success: false,
             error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
         }
         if (contestants.length !== 1) {

@@ -9,7 +9,7 @@ class TokenSchema extends mongo.Schema {
         type: String,
         required: true
       },
-      votedIDs: {
+      contestantIDs: {
         type: Array,
         required: true
       }
@@ -17,4 +17,4 @@ class TokenSchema extends mongo.Schema {
   }
 }
 
-mongo.model('vote', new TokenSchema());
+mongo.model('Vote', new TokenSchema());
