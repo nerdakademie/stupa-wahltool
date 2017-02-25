@@ -24,6 +24,10 @@ export default React.createClass({
         </p>
 
         <h3>Changelog</h3>
+            <b>v1.1.1</b>
+            <ul>
+                <li>Hintergrundfarbe angepasst um Kontrast zu erhöhen</li>
+            </ul>
             <b>v1.1.0</b>
             <ul>
                 <li>Die Aufstellung kann nun bearbeitet werden</li>
