@@ -28,8 +28,10 @@
     "rateDelta": 60000,
     "rateLimit": 150,
     "templates": {
-      "contestantConfirm": "Hallo {name},\ndanke für deine Aufstellung zur StuPa-Wahl 2017.\nUm den Prozess abzuschließen, klicke bitte auf den folgenden Link:\n{acceptLink}\nDein Aufstellungs-Token lautet:{token}\nDein Bewerbungstext lautet wie folgt:\n{applicationText}\nWenn du dich nicht selbst aufgestellt hast, dich aber gerne selbst aufstellen möchtest, hast du hier die Möglichkeit, die Aufstellung zu widerrufen: {removeLink}\nIm Anschluss kannst du eine neue Aufstellung veranlassen. Ansonsten ignoriere bitte diese Mail und klicke keinen der Links.\nViele Grüße\nMitja fürs StuPa"
+      "contestantConfirm": "Hallo {name},\ndanke für deine Aufstellung zur StuPa-Wahl 2017.\nUm den Prozess abzuschließen, klicke bitte auf den folgenden Link:\n{acceptLink}\nDein Aufstellungs-Token lautet:{token}\nDein Bewerbungstext lautet wie folgt:\n{applicationText}\nWenn du dich nicht selbst aufgestellt hast, dich aber gerne selbst aufstellen möchtest, hast du hier die Möglichkeit, die Aufstellung zu widerrufen: {removeLink}\nIm Anschluss kannst du eine neue Aufstellung veranlassen. Ansonsten ignoriere bitte diese Mail und klicke keinen der Links.\nViele Grüße\nMitja fürs StuPa",
+      "voteRequest": "Hallo {name},\ndie Aufstellungs-Phase zur StuPa-Wahl 2017 ist vorbei.\nUm für bis zu vier Kanditaten stimmen zu können, klicke bitte auf den folgenden Link:\n{voteLink}\nDein Vote-Token lautet:{token}\nViele Grüße\nMitja fürs StuPa"
     },
-    "contestantSubject": "Stupa Wahl: Aufstellungsbestätigung"
+    "contestantSubject": "Stupa Wahl: Aufstellungsbestätigung",
+    "voteSubject": "Stupa Wahl: Bitte voten"
   }
 }
