@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import AutoResponsive from 'autoresponsive-react';
 import nl2br from 'react-nl2br';
 import Avatar from 'material-ui/Avatar';
+import request from 'superagent';
 import {Scrollbars} from 'react-custom-scrollbars';
 
 class ContestantVote extends Component {
@@ -65,8 +66,45 @@ class ContestantVote extends Component {
 
     handleFormSubmit(formSubmitEvent) {
         formSubmitEvent.preventDefault();
-        console.log(this.state.activeCheckboxes);
+        const $token = $('#token');
+        this.resetErrors();
+        let errors = 0;
+        if (errors === 0) {
+            const form = new FormData();
+            form.append('token', $token.val());
+            form.append('contestantIDs', Array.from(this.state.activeCheckboxes));
+
+            request.post('/api/votes/')
+                .send(form)
+                .end((error, resp) => {
+                    if (error) {
+                        console.error(error);
+                    }
+                    if (resp.statusCode === 200) {
+                        if (resp.body.success === false) {
+                            miniToastr.error(resp.body.error.text, 'Error');
+                        } else {
+                            this.setState({
+                                activeRender: this.successRender.bind(this),
+                                responseBody: resp.body
+                            });
+                        }
+                    }
+                    return resp;
+                });
+        }
     };
+
+
+
+    resetErrors() {
+        this.setState({
+            name_error: null,
+            course_error: null,
+            year_error: null,
+            description_error: null
+        });
+    }
 
     render() {
         const fullwidth = {
