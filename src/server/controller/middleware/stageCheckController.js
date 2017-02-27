@@ -18,6 +18,9 @@ module.exports = class StageCheckController {
       if (currentDate > stage.endTime) {
         return response.status(400).json({success: false,
           error: {text: 'Die Aufstellungsphase ist vorrüber'}});
+      } else if (currentDate < stage.startTime) {
+        return response.status(400).json({success: false,
+          error: {text: 'Die Aufstellungsphase hat noch nicht begonnen'}});
       }
       return next();
     });
@@ -37,6 +40,9 @@ module.exports = class StageCheckController {
       if (currentDate > stage.endTime) {
         return response.status(400).json({success: false,
           error: {text: 'Die Wahlphase ist vorrüber'}});
+      } else if (currentDate < stage.startTime) {
+        return response.status(400).json({success: false,
+          error: {text: 'Die Wahlphase hat noch nicht begonnen'}});
       }
       return next();
     });
