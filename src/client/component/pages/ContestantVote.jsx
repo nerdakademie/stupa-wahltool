@@ -23,6 +23,7 @@ class ContestantVote extends Component {
       activeCheckboxes: new Set(),
       activeRender: this.formRender.bind(this)
     };
+    miniToastr.init();
   }
 
   getAutoResponsiveProps() {

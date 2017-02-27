@@ -51,11 +51,16 @@ module.exports = class VoteApiController {
         error: {text: 'Bewerber mehrfach gewählt'}});
     }
 
-    Vote.findOneAndUpdate({token}, {token, contestantIDs}, {upsert:true}, (error) => {
+    Vote.findOneAndUpdate({token}, {contestantIDs}, (error, vote) => {
       if (error) {
         return response.status(500).json({success: false,
           error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
       }
+      if (vote === null) {
+        return response.status(200).json({success: false,
+          error: {text: 'Token nicht in der Datenbank gefunden'}});
+      }
+
 
       return response.status(200).json({success: true});
     });
