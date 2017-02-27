@@ -1,7 +1,7 @@
 @import 'reset';
 
 /* Topbar */
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 750px) {
   .topbar {
     display: block !important;
   }
@@ -12,15 +12,21 @@
 
 }
 
-@media screen and (max-width: 373px) {
+@media screen and (max-width: 530px) {
   #app {
-    padding-top: 155px !important;
+    padding-top: 151px !important;
   }
 }
 
-@media screen and (max-width: 245px) {
+@media screen and (max-width: 290px) {
   #app {
-    padding-top: 185px !important;
+    padding-top: 186px !important;
+  }
+}
+
+@media screen and (max-width: 281px) {
+  #app {
+    padding-top: 222px !important;
   }
 }
 
