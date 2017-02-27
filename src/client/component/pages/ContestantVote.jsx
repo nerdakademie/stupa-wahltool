@@ -21,10 +21,9 @@ class ContestantVote extends Component {
       verticalDirection: 'top',
       containerHeight: null,
       activeCheckboxes: new Set(),
-      activeRender: this.formRender.bind(this),
-
+      activeRender: this.formRender.bind(this)
     };
-  };
+  }
 
   getAutoResponsiveProps() {
     return {
@@ -37,7 +36,7 @@ class ContestantVote extends Component {
       transitionDuration: '.5',
       transitionTimingFunction: 'easeIn'
     };
-  };
+  }
 
   loadContestants() {
     $.getJSON('/api/contestants/', (contestants) => {
@@ -45,7 +44,7 @@ class ContestantVote extends Component {
         contestants
       });
     });
-  };
+  }
 
   componentDidMount() {
     this.loadContestants();
@@ -56,7 +55,7 @@ class ContestantVote extends Component {
         });
       }
     }, false);
-  };
+  }
 
   handleCheck(id) {
     if (this.state.activeCheckboxes.has(id)) {
@@ -64,107 +63,103 @@ class ContestantVote extends Component {
     } else {
       this.state.activeCheckboxes.add(id);
     }
-  };
+  }
 
   handleFormSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault();
     const $token = $('#token');
-    this.resetErrors();
-    let errors = 0;
-    if (errors === 0) {
-      $.ajax({
-        method: "POST",
-        url: '/api/votes/',
-        data: {token: $token.val(), contestantIDs: Array.from(this.state.activeCheckboxes)}
-      })
-        .done(function (data) {
-          if (data['error']) {
-            console.error(data['error']);
-          }
-          if (data['resp'].statusCode === 200) {
-            if (data['resp'].body.success === false) {
-              miniToastr.error(data['resp'].body.error.text, 'Error');
-            } else {
-              this.setState({
-                activeRender: this.successRender.bind(this),
-                responseBody: data['resp'].body
-              });
-            }
-          }
-          return resp;
-        });
-    }
-  };
-
-
-  resetErrors() {
-    this.setState({
-      name_error: null,
-      course_error: null,
-      year_error: null,
-      description_error: null
+    $.ajax({
+      method: 'POST',
+      url: '/api/votes/',
+      data: JSON.stringify({token: $token.val(),
+        contestantIDs: Array.from(this.state.activeCheckboxes)}),
+      contentType: 'application/json',
+      dataType: 'json'
+    }).done((data, status, xhr) => {
+      if (xhr.status === 200) {
+        if (data.success === false) {
+          miniToastr.error(data.error.text, 'Error');
+        } else {
+          this.setState({
+            activeRender: ContestantVote.successRender,
+            responseBody: data
+          });
+        }
+      } else if (data.success === false) {
+        miniToastr.error(data.error.text, 'Error');
+      } else {
+        miniToastr.error('Fehler beim Empfang der Bestätigung', 'Error');
+      }
     });
   }
 
-  formRender() {
-    const fullwidth = {
-      width: '90%'
-    };
+  static createCard(contestant) {
     const shadow = 1;
     const width = 350;
-    const height = 650;
+    const height = 600;
     const style = {
       width,
       height
     };
     return (
-      <form method='post' style={fullwidth}>
+      <Card
+        key={contestant._id} style={style} containerStyle={{
+          width,
+          height
+        }} zDepth={shadow}
+      >
+        <CardHeader
+          title={`${contestant.firstName} ${contestant.lastName}`}
+          subtitle={contestant.centuria}
+          avatar={<Avatar
+            src={`img/${contestant.image}`}
+            style={{borderRadius: 0}}
+            size={125}
+                  />}
+        />
+        <Scrollbars
+          autoHeight
+          autoHeightMin={0}
+          autoHeightMax={443}
+        >
+          <CardText >{nl2br(contestant.description)}</CardText>
+        </Scrollbars>
+
+        <CardActions>
+          <Checkbox
+            label='Wählen' onCheck={() => { return this.handleCheck(contestant._id); }}
+          />
+        </CardActions>
+      </Card>);
+  }
+
+  formRender() {
+    const fullWidth = {
+      width: '90%'
+    };
+    const width = 350;
+    const height = 650;
+    return (
+      <form method='post' style={fullWidth}>
         <AutoResponsive
           ref={(c) => {
             this.AutoResponsiveContainer = c;
           }}
           {...this.getAutoResponsiveProps()}
         >
-          {this.state.contestants.map(contestant => <Card
-            key={contestant._id} style={style} containerStyle={{
-            width,
-            height
-          }} zDepth={shadow}
-          >
-            <CardHeader
-              title={`${contestant.firstName} ${contestant.lastName}`}
-              subtitle={contestant.centuria}
-              avatar={<Avatar
-                src={`img/${contestant.image}`}
-                style={{borderRadius: 0}}
-                size={125}
-              />}
-            />
-            <Scrollbars
-              autoHeight
-              autoHeightMin={0}
-              autoHeightMax={443}
-            >
-              <CardText >{nl2br(contestant.description)}</CardText>
-            </Scrollbars>
-
-            <CardActions>
-              <Checkbox label="Wählen" onCheck={() => this.handleCheck(contestant._id)}
-              />
-            </CardActions>
-          </Card>)}
+          {this.state.contestants.map(ContestantVote.createCard, this)}
         </AutoResponsive>
-        <input type="text" hidden="hidden" id="token" value={this.props.params.token}/>
+        <input type='text' hidden='hidden' id='token' value={this.props.params.token} />
         <FlatButton
           label='Wahl abschließen' onClick={this.handleFormSubmit.bind(this)} backgroundColor='#4a89dc'
-          hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullwidth}
+          hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullWidth}
         />
         <h2>{this.props.params.token}</h2>
       </form>
     );
   }
 
-  successRender() {
+  static successRender() {
     return (
       <form id='form'>
         <p>Vielen Dank, dass du abgestimmt hast. <br />
@@ -172,7 +167,7 @@ class ContestantVote extends Component {
         </p>
       </form>
     );
-  };
+  }
 
   render() {
     return (

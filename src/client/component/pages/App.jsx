@@ -37,7 +37,7 @@ export default React.createClass({
                         <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
                         <NavLink to='/list'><FlatButton label='Bewerber' /></NavLink>
                         <NavLink to='/register'><FlatButton label='Aufstellen' /></NavLink>
-                    <NavLink to='/edit'><FlatButton label='Bearbeiten' /></NavLink>
+                        <NavLink to='/edit'><FlatButton label='Bearbeiten' /></NavLink>
                     </div>}
                 />
                 {this.props.children || <Home />}
