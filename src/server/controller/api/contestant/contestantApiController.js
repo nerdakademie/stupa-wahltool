@@ -5,43 +5,49 @@ const StudentApiController = require('../student/studentApiController');
 const xss = require('xss');
 const fs = require('fs');
 const ContestantHelper = require('../../../helper/contestantHelper');
+const StringHelper = require('../../../helper/stringHelper');
 const config = require('../../../config');
 
 module.exports = class ContestantApiController {
 
-  // TODO: maybe fix this -> seperate via routes
-  static find(request, response, next) {
+  static getAll(request, response, next) {
+    Contestant.find({activated: 1}).select('-token -__v -activated -course -year').lean().exec((error, contestants) => {
+      if (error) {
+        return next(error);
+      }
+      return response.json(contestants);
+    });
+  }
+
+  static getSingle(request, response, next) {
     const {firstName, lastName, token} = request.query;
-    if (firstName === undefined && lastName === undefined && token === undefined) {
-      Contestant.find({activated: 1}).select('-token -__v -activated -course -year').lean().exec((error, contestants) => {
+    if (StringHelper.isNullOrEmptyString(firstName) ||
+        StringHelper.isNullOrEmptyString(lastName) ||
+        StringHelper.isNullOrEmptyString(token)) {
+      return response.status(400).json({success: false,
+        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
+    }
+
+    Contestant.findOne({activated: 1,
+      firstName,
+      lastName,
+      token}, 'description image').exec((error, contestant) => {
         if (error) {
           return next(error);
         }
-        return response.json(contestants);
+        if (contestant === null) {
+          return response.status(200).json({success: false,
+            error: {text: 'Es wurde kein Bewerber mit diesen Angaben gefunden'}});
+        }
+        return response.json(contestant);
       });
-    } else if (firstName === undefined || lastName === undefined || token === undefined) {
-      return response.status(400).json({success: false,
-        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
-    } else {
-      Contestant.findOne({activated: 1,
-        firstName,
-        lastName,
-        token}, 'description image').exec((error, contestant) => {
-          if (error) {
-            return next(error);
-          }
-          if (contestant === null) {
-            return response.status(200).json({success: false,
-              error: {text: 'Es wurde kein Bewerber mit diesen Angaben gefunden'}});
-          }
-          return response.json(contestant);
-        });
-    }
   }
 
   static edit(request, response) {
-    if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.token === undefined ||
-      request.body.description === undefined) {
+    if (StringHelper.isNullOrEmptyString(request.body.firstName) ||
+        StringHelper.isNullOrEmptyString(request.body.lastName) ||
+        StringHelper.isNullOrEmptyString(request.body.token) ||
+        StringHelper.isNullOrEmptyString(request.body.description)) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
@@ -79,12 +85,16 @@ module.exports = class ContestantApiController {
   }
 
   static save(request, response) {
-    // TODO: check if strings are empty
-    if (request.body.firstName === undefined || request.body.lastName === undefined || request.body.course === undefined ||
-        request.body.year === undefined || request.body.description === undefined || request.file === undefined) {
+    if (StringHelper.isNullOrEmptyString(request.body.firstName) ||
+        StringHelper.isNullOrEmptyString(request.body.lastName) ||
+        StringHelper.isNullOrEmptyString(request.body.course) ||
+        StringHelper.isNullOrEmptyString(request.body.year) ||
+        StringHelper.isNullOrEmptyString(request.body.description) ||
+        request.file === undefined) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
+
     if (request.body.description.length > 1500) {
       return response.status(400).json({success: false,
         error: {text: 'Bewerbungstext ist zu lang'}});
