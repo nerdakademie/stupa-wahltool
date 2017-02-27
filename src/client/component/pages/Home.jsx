@@ -24,6 +24,10 @@ export default React.createClass({
         </p>
 
         <h3>Changelog</h3>
+            <b>v1.1.2</b>
+            <ul>
+                <li>CSS Fehler bei der Navigation behoben</li>
+            </ul>
             <b>v1.1.1</b>
             <ul>
                 <li>Hintergrundfarbe angepasst um Kontrast zu erhöhen</li>
