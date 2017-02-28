@@ -65,7 +65,7 @@ module.exports = class ContestantApiController {
           return response.status(200).json({success: false,
             error: {text: 'Bewerber nicht eindeutig identifizierbar'}});
         }
-        const contestant = contestants[0];
+        const [contestant] = contestants;
         if (request.file !== undefined) {
           if (fs.existsSync(`../../../../../resources/server/public/img/${contestant.image}`)) {
             fs.unlink(request.file.path, (error2) => {
@@ -78,7 +78,6 @@ module.exports = class ContestantApiController {
         }
         contestant.description = xss(description);
 
-        console.log(contestant);
         contestant.save();
         return response.status(200).json({success: true});
       });
@@ -147,7 +146,6 @@ module.exports = class ContestantApiController {
               error: {text: validated}
             });
           }
-            // return next('error');
         });
       });
   }
