@@ -16,35 +16,35 @@ injectTapEventPlugin();
 
 let root = document.getElementById('app');
 if (!root) {
-    root = document.body;
+  root = document.body;
 }
 
 render(
-    <MuiThemeProvider>
-        <Router history={browserHistory}>
-            <Route
-                path='/'
-                component={App}
-            >
-                <IndexRoute component={Home}/>
-                <Route
-                    path='/list'
-                    component={ContestantList}
-                />
-                <Route
-                    path='/list/:token'
-                    component={ContestantVote}
-                />
-                <Route
-                    path='/register'
-                    component={ContestantRegister}
-                />
-                <Route
-                    path='/edit'
-                    component={ContestantEdit}
-                />
+  <MuiThemeProvider>
+    <Router history={browserHistory}>
+      <Route
+        path='/'
+        component={App}
+      >
+        <IndexRoute component={Home} />
+        <Route
+          path='/list'
+          component={ContestantList}
+        />
+        <Route
+          path='/list/:token'
+          component={ContestantVote}
+        />
+        <Route
+          path='/register'
+          component={ContestantRegister}
+        />
+        <Route
+          path='/edit'
+          component={ContestantEdit}
+        />
 
-            </Route>
-        </Router>
-    </MuiThemeProvider>
+      </Route>
+    </Router>
+  </MuiThemeProvider>
     , document.getElementById('app'));

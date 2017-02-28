@@ -113,7 +113,7 @@ class ContestantVote extends Component {
           title={`${contestant.firstName} ${contestant.lastName}`}
           subtitle={contestant.centuria}
           avatar={<Avatar
-            src={`img/${contestant.image}`}
+            src={`../img/${contestant.image}`}
             style={{borderRadius: 0}}
             size={125}
                   />}
@@ -164,7 +164,7 @@ class ContestantVote extends Component {
     return (
       <form id='form'>
         <p>Vielen Dank, dass du abgestimmt hast. <br />
-          Dasch für ein Demokratie wischtich, nä versteheeeste?<br />
+          Die Ergebnisse der Wahl werden zum Ende der Stupa-Wahl veröffentlicht<br />
         </p>
       </form>
     );
