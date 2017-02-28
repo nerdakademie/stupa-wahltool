@@ -15,6 +15,7 @@ class ContestantVote extends Component {
     super(props);
     this.state = {
       contestants: [],
+      votedContestants: [],
       itemMargin: 10,
       horizontalDirection: 'left',
       gridWidth: 100,
@@ -47,8 +48,17 @@ class ContestantVote extends Component {
     });
   }
 
+  loadExistingVote() {
+    $.getJSON(`/api/votes/${this.props.params.token}`, (votedContestants) => {
+      this.setState({
+        votedContestants
+      });
+    });
+  }
+
   componentDidMount() {
     this.loadContestants();
+    this.loadExistingVote();
     window.addEventListener('resize', () => {
       if (ReactDOM.findDOMNode(this.AutoResponsiveContainer) !== null) {
         this.setState({
@@ -66,7 +76,14 @@ class ContestantVote extends Component {
     }
   }
 
+  addExistingVotes() {
+    for (const votedID of this.state.votedContestants) {
+      this.state.activeCheckboxes.add(votedID);
+    }
+  }
+
   handleFormSubmit(formSubmitEvent) {
+    this.addExistingVotes();
     formSubmitEvent.preventDefault();
     const $token = $('#token');
     $.ajax({
@@ -94,10 +111,14 @@ class ContestantVote extends Component {
     });
   }
 
+  alreadyVoted(contestantID) {
+    return this.state.votedContestants.includes(contestantID);
+  }
+
   static createCard(contestant) {
     const shadow = 1;
     const width = 350;
-    const height = 600;
+    const height = 640;
     const style = {
       width,
       height
@@ -128,7 +149,10 @@ class ContestantVote extends Component {
 
         <CardActions>
           <Checkbox
-            label='Wählen' onCheck={() => { return this.handleCheck(contestant._id); }}
+            label='Wählen'
+            onCheck={this.handleCheck(contestant._id)}
+            checked={this.alreadyVoted(contestant._id)}
+            disabled={this.alreadyVoted(contestant._id)}
           />
         </CardActions>
       </Card>);
@@ -138,8 +162,6 @@ class ContestantVote extends Component {
     const fullWidth = {
       width: '90%'
     };
-    const width = 350;
-    const height = 650;
     return (
       <form method='post' style={fullWidth}>
         <AutoResponsive

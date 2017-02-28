@@ -41,6 +41,11 @@ module.exports = class VoteApiController {
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
 
+    if (contestantIDs.length < 1) {
+      return response.status(200).json({success: false,
+        error: {text: 'Es muss mindestens ein Bewerber gewählt werden'}});
+    }
+
     if (contestantIDs.length > 4) {
       return response.status(200).json({success: false,
         error: {text: 'Es dürfen nur maximal 4 Bewerber gewählt werden'}});
