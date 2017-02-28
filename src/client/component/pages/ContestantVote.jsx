@@ -175,9 +175,8 @@ class ContestantVote extends Component {
         <input type='text' hidden='hidden' id='token' value={this.props.params.token} />
         <FlatButton
           label='Wahl abschließen' onClick={this.handleFormSubmit.bind(this)} backgroundColor='#4a89dc'
-          hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullWidth}
+          hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={{width: '100%'}}
         />
-        <h2>{this.props.params.token}</h2>
       </form>
     );
   }

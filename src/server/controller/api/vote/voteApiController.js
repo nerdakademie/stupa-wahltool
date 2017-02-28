@@ -1,6 +1,9 @@
 'use strict';
 
 const Vote = require('../../../db').model('Vote');
+const SendVote = require('../../../db').model('SendVote');
+const Student = require('../../../db').model('Student');
+const VoteHelper = require('../../../helper/voteHelper');
 
 module.exports = class VoteApiController {
 
@@ -76,6 +79,48 @@ module.exports = class VoteApiController {
       vote.contestantIDs = contestantIDs;
       vote.save();
       return response.status(200).json({success: true});
+    });
+  }
+
+  static sendVoteTokens(request, response) {
+    const {authToken} =  request.body;
+    if (authToken === undefined) {
+      return response.status(400).json({success: false,
+        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
+    }
+
+    SendVote.findOne({token: authToken}).exec((error, sendVote) => {
+      if (error) {
+        return response.status(500).json({success: false,
+          error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
+      }
+
+      if (sendVote === null) {
+        return response.status(200).json({success: false,
+          error: {text: 'Token nicht in der Datenbank gefunden'}});
+      }
+
+      let failed = [];
+
+      Student.find().select('firstName email').exec((error2, students) => {
+        if (error2) {
+          return response.status(500).json({success: false,
+            error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
+        }
+        for (const student of students) {
+          VoteHelper.sendVotenMail(student, (result) => {
+            if (result === false) {
+              failed.push(student.email);
+            }
+          });
+        }
+
+        if (failed.length > 0) {
+          return response.status(200).json({success: false,
+            error: {emails: failed}});
+        }
+        return response.status(200).json({success: true});
+      });
     });
   }
 
