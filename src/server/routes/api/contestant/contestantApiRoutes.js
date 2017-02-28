@@ -8,7 +8,8 @@ const StageCheckController = require('../../../controller/middleware/stageCheckC
 module.exports = class ContestantApiRoutes extends Express.Router {
   constructor() {
     super();
-    this.get('/', ContestantApiController.find);
+    this.get('/', ContestantApiController.getAll);
+    this.get('/contestant', ContestantApiController.getSingle);
     this.post('/', StageCheckController.checkCandidationStage, ImageUploadInterceptor.getSingleInterceptorForName('contestantPhoto'), ContestantApiController.save);
     this.put('/', StageCheckController.checkCandidationStage, ImageUploadInterceptor.getSingleInterceptorForName('contestantPhoto'), ContestantApiController.edit);
     this.get('/activate', StageCheckController.checkCandidationStage, ContestantApiController.activate);

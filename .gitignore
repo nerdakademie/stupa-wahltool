@@ -3,3 +3,4 @@ resources/server/public/css/*
 resources/server/public/js/*
 .idea/*
 *.iml
+.vscode/*
