@@ -56,7 +56,7 @@ module.exports = class VoteApiController {
         error: {text: 'Bewerber mehrfach gewählt'}});
     }
 
-    Vote.findOneAndUpdate({token}, {contestantIDs}, (error, vote) => {
+    Vote.findOne({token}).exec((error, vote) => {
       if (error) {
         return response.status(500).json({success: false,
           error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
@@ -66,7 +66,15 @@ module.exports = class VoteApiController {
           error: {text: 'Token nicht in der Datenbank gefunden'}});
       }
 
+      for (const id of contestantIDs) {
+        if (vote.contestantIDs.indexOf(id) === -1) {
+          return response.status(200).json({success: false,
+            error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}});
+        }
+      }
 
+      vote.contestantIDs = contestantIDs;
+      vote.save();
       return response.status(200).json({success: true});
     });
   }
