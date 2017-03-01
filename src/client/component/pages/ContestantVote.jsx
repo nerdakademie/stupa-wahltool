@@ -154,7 +154,7 @@ class ContestantVote extends Component {
         <CardActions>
           <Checkbox
             label='Wählen'
-            onCheck={this.handleCheck(contestant._id)}
+            onCheck={() => { this.handleCheck(contestant._id); }}
             defaultChecked={this.alreadyVoted(contestant._id)}
             disabled={this.alreadyVoted(contestant._id)}
           />
