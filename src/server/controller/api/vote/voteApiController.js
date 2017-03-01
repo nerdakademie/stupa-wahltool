@@ -16,16 +16,20 @@ module.exports = class VoteApiController {
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
 
-    Vote.findOne({token}).select('-token -__v -_id').lean().exec((error, vote) => {
-      if (error) {
-        return next(error);
-      }
-      if (vote === null) {
-        return response.status(400).json({success: false,
-          error: {text: 'Keine Daten gefunden'}});
-      }
-      return response.json(vote.contestantIDs);
-    });
+    Vote.findOne({token}).select('-token -__v -_id')
+        .lean()
+        .exec()
+        .then((vote) => {
+          if (vote === null) {
+            return response.status(200).json({success: false,
+              error: {text: 'Keine Daten gefunden'}});
+          }
+          return response.json(vote.contestantIDs);
+        })
+        .catch(() => {
+          return response.status(500).json({success: false,
+            error: {text: 'Datenbankfehler'}});
+        });
   }
 
   static save(request, response) {
@@ -52,35 +56,36 @@ module.exports = class VoteApiController {
         error: {text: 'Bewerber mehrfach gewählt'}});
     }
 
-    Vote.findOne({token}).exec((error, vote) => {
-      if (error) {
-        return response.status(500).json({success: false,
-          error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
-      }
-      if (vote === null) {
-        return response.status(200).json({success: false,
-          error: {text: 'Token nicht in der Datenbank gefunden'}});
-      }
-
-      if (vote.contestantIDs.length > 0) {
-        for (const id of vote.contestantIDs) {
-          if (contestantIDs.indexOf(id) === -1) {
-            return response.status(200).json({
-              success: false,
-              error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}
-            });
+    Vote.findOne({token}).exec()
+        .then((vote) => {
+          if (vote === null) {
+            return response.status(200).json({success: false,
+              error: {text: 'Token nicht in der Datenbank gefunden'}});
           }
-        }
-      }
 
-      vote.contestantIDs = contestantIDs;
-      vote.save();
-      return response.status(200).json({success: true});
-    });
+          if (vote.contestantIDs.length > 0) {
+            for (const id of vote.contestantIDs) {
+              if (contestantIDs.indexOf(id) === -1) {
+                return response.status(200).json({
+                  success: false,
+                  error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}
+                });
+              }
+            }
+          }
+
+          vote.contestantIDs = contestantIDs;
+          vote.save();
+          return response.status(200).json({success: true});
+        })
+        .catch(() => {
+          return response.status(500).json({success: false,
+            error: {text: 'Datenbankfehler'}});
+        });
   }
 
   static sendVoteTokens(request, response) {
-    const {authToken} =  request.body;
+    const {authToken} = request.body;
     if (StringHelper.isNullOrEmptyString(authToken)) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
@@ -97,32 +102,24 @@ module.exports = class VoteApiController {
           error: {text: 'Token nicht in der Datenbank gefunden'}});
       }
 
-      let failed = [];
+      Student.find().select('firstName email')
+          .exec()
+          .then((students) => {
+            const promises = VoteHelper.sendVoteMailWithPromise(students);
 
-      Student.find().select('firstName email').exec((error2, students) => {
-        if (error2) {
-          return response.status(500).json({success: false,
-            error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
-        }
-        const promises = VoteHelper.sendVoteMailWithPromise(students);
-
-        Promise.all(promises).then((result) => {
-          console.log('result: ' +result);
-          if (result !== undefined) {
-            failed.push(result);
-          }
-          return response.status(200).json({success: true});
-        }).catch((promiseError) => {
-          return response.status(200).json({success: false,
-            error: {text: promiseError}});
-        });
-
-        if (failed.length > 0) {
-          return response.status(200).json({success: false,
-            error: {emails: failed}});
-        }
-
-      });
+            Promise.all(promises)
+                .then(() => {
+                  return response.status(200).json({success: true});
+                })
+                .catch((promiseError) => {
+                  return response.status(200).json({success: false,
+                    error: {text: promiseError}});
+                });
+          })
+          .catch(() => {
+            return response.status(500).json({success: false,
+              error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
+          });
     });
   }
 

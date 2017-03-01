@@ -1,8 +1,8 @@
 'use strict';
 
 const mongoose = require('mongoose');
+mongoose.Promise = Promise;
 const config = require('../config');
-//const {logger: log} = require('turing-logging');
 
 class Mongo extends mongoose.Mongoose {
   setupConnection() {
@@ -19,7 +19,6 @@ class Mongo extends mongoose.Mongoose {
       } else {
         this.connect(uri);
       }
-    //  log.info(`Mongoose connecting to ${host}`);
 
       this.connection.on('connected', () => {
       //  log.info(`Mongoose default connection open to ${host}`);
