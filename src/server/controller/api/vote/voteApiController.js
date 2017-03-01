@@ -63,8 +63,8 @@ module.exports = class VoteApiController {
       }
 
       if (vote.contestantIDs.length > 0) {
-        for (const id of contestantIDs) {
-          if (vote.contestantIDs.indexOf(id) === -1) {
+        for (const id of vote.contestantIDs) {
+          if (contestantIDs.indexOf(id) === -1) {
             return response.status(200).json({
               success: false,
               error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}
