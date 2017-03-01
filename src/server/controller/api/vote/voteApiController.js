@@ -32,7 +32,7 @@ module.exports = class VoteApiController {
     const {token, contestantIDs} = request.body;
 
     if (StringHelper.isNullOrEmptyString(token) ||
-        StringHelper.isNullOrEmptyString(contestantIDs)) {
+        contestantIDs === undefined) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
