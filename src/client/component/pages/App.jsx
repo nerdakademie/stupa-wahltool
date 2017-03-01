@@ -37,11 +37,11 @@ export default React.createClass({
                         <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
                         <NavLink to='/list'><FlatButton label='Bewerber' /></NavLink>
                         <NavLink to='/register'><FlatButton label='Aufstellen' /></NavLink>
-                    <NavLink to='/edit'><FlatButton label='Bearbeiten' /></NavLink>
+                        <NavLink to='/edit'><FlatButton label='Bearbeiten' /></NavLink>
                     </div>}
                 />
                 {this.props.children || <Home />}
-                <Footer>(c) 2017 <a className='nerdakademie' href='https://nerdakademie.xyz'>Nerdakademie</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>v1.1.2</a></Footer>
+                <Footer>(c) 2017 <a className='nerdakademie' href='https://nerdakademie.xyz'>Nerdakademie</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>v1.2.1</a></Footer>
             </div>
         );
     }

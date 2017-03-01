@@ -2,4 +2,6 @@
 
 require('./studentModel');
 require('./contestantModel.js');
-require('./tokenModel.js');
+require('./voteModel.js');
+require('./sendVoteModel');
+require('./stageModel');

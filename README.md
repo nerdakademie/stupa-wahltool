@@ -14,6 +14,16 @@ Studenten von Datei importieren:
 mongoimport --db "stupa" --collection "students" --type json --file "stupawahl_utf8.json" --jsonArray
 ```
 
+Phasenstart und Ende importieren:
+```shell
+mongoimport --db "stupa" --collection "stages" --type json --file "documentation/stages.json" --jsonArray
+```
+
+SendVote Token von Datei importieren:
+```shell
+mongoimport --db "stupa" --collection "sendvotes" --type json --file "documentation/sendVote.json" --jsonArray
+```
+
 Contestant:
 ```json
 

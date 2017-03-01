@@ -24,6 +24,19 @@ export default React.createClass({
         </p>
 
         <h3>Changelog</h3>
+            <b>v1.2.1</b>
+            <ul>
+                <li>Bugfixing für die Wahl</li>
+                <li>Benutzung von Promises anstatt Callbacks</li>
+                <li>Minor Bugfixing</li>
+            </ul>
+            <b>v1.2.0</b>
+            <ul>
+                <li>Abstimmung implementiert</li>
+                <li>Phasen-Middleware implementiert</li>
+                <li>Bugfixes für den Mailer</li>
+                <li>Anpassen des Rate Limit an die NAK-Server</li>
+            </ul>
             <b>v1.1.2</b>
             <ul>
                 <li>CSS Fehler bei der Navigation behoben</li>

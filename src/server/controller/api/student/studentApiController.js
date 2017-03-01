@@ -4,43 +4,34 @@ const Student = require('../../../db').model('Student');
 
 module.exports = class StudentApiController {
 
-  static validate(json, next) {
-    const {year, course, firstName, lastName} = json;
-    // TODO: check if not null
+  static validate(json) {
+    return new Promise((resolve, reject) => {
+      const {year, course, firstName, lastName} = json;
+      // TODO: check if not null
 
-    Student.find({firstName: {$regex: StudentApiController.buildNameRegex(firstName),
-      $options: 'g'},
-      lastName,
-      year,
-      course}).exec((error, students) => {
-        if (error) {
-          return next(error);
-        }
-
-        if (students.length > 1) {
-          return next('Daten können nicht eindeutig einem Studenten zugeordnet werden', null);
-        } else if (students.length === 1) {
-          return next(true, students[0]);
-        } else if (students.length === 0) {
-          return next('Keinen Studenten mit den angegebenen Daten gefunden', null);
-        }
-        return next('Fehler bei der Validierung. Korrigiere deine Daten und versucher es erneut', null);
-      });
-  }
-
-  static unique(firstName, lastName, callback) {
-    Student.count({firstName: {$regex: StudentApiController.buildNameRegex(firstName),
-      $options: 'g'},
-      lastName}).exec((error, count) => {
-        if (error) {
-          callback(false);
-        }
-        if (count === 1) {
-          callback(true);
-        } else {
-          callback(false);
-        }
-      });
+      Student.find({
+        firstName: {
+          $regex: StudentApiController.buildNameRegex(firstName),
+          $options: 'g'
+        },
+        lastName,
+        year,
+        course
+      }).exec()
+          .then((students) => {
+            if (students.length > 1) {
+              return reject('Daten können nicht eindeutig einem Studenten zugeordnet werden');
+            } else if (students.length === 1) {
+              return resolve(students[0]);
+            } else if (students.length === 0) {
+              return reject('Keinen Studenten mit den angegebenen Daten gefunden');
+            }
+            return reject('Fehler bei der Validierung. Korrigiere deine Daten und versucher es erneut');
+          })
+          .catch((promiseError) => {
+            return reject(promiseError.message);
+          });
+    });
   }
 
   static buildNameRegex(name) {

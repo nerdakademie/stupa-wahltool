@@ -8,50 +8,52 @@ const pug = require('pug');
 
 module.exports = class ContestantHelper {
 
-  static sendActivationMail(contestantJSON, student, callback) {
-    const token = uuid();
-    const data = {};
-    data.to = student.email;
-    data.subject = config.get('mailer:contestantSubject');
-    data.template = {};
-    data.template.name = 'contestantConfirm';
-    data.template.replace = [];
-    data.template.replace.push({
-      placeholder: 'name',
-      value: student.firstName
-    });
-    data.template.replace.push({
-      placeholder: 'token',
-      value: token
-    });
-    data.template.replace.push({
-      placeholder: 'acceptLink',
-      value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/activate?token=${token}`
-    });
-    data.template.replace.push({
-      placeholder: 'removeLink',
-      value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/invalidate?token=${token}&firstName=${contestantJSON.firstName}&lastName=${contestantJSON.lastName}`
-    });
-    data.template.replace.push({
-      placeholder: 'applicationText',
-      value: contestantJSON.description
-    });
+  static sendActivationMail(contestantJSON, student) {
+    return new Promise((resolve, reject) => {
+      const token = uuid();
+      const data = {};
+      data.to = student.email;
+      data.subject = config.get('mailer:contestantSubject');
+      data.template = {};
+      data.template.name = 'contestantConfirm';
+      data.template.replace = [];
+      data.template.replace.push({
+        placeholder: 'name',
+        value: student.firstName
+      });
+      data.template.replace.push({
+        placeholder: 'token',
+        value: token
+      });
+      data.template.replace.push({
+        placeholder: 'acceptLink',
+        value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/activate?token=${token}`
+      });
+      data.template.replace.push({
+        placeholder: 'removeLink',
+        value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/api/contestants/invalidate?token=${token}&firstName=${contestantJSON.firstName}&lastName=${contestantJSON.lastName}`
+      });
+      data.template.replace.push({
+        placeholder: 'applicationText',
+        value: contestantJSON.description
+      });
 
-    contestantJSON.token = token;
-    contestantJSON.centuria = student.centuria;
+      contestantJSON.token = token;
+      contestantJSON.centuria = student.centuria;
 
-    Mailer.sendMailWithTemplate(data, (result) => {
-      if (result === true) {
-        const contestant = new Contestant(contestantJSON);
-        contestant.save((error2) => {
-          if (error2) {
-            return callback(false);
-          }
-          return callback(true);
-        });
-      } else {
-        return callback(false);
-      }
+      Mailer.sendMailWithTemplate(Mailer.createMailTransporter(), data)
+          .then(() => {
+            const contestant = new Contestant(contestantJSON);
+            contestant.save((saveError) => {
+              if (saveError) {
+                return reject(saveError);
+              }
+              return resolve();
+            });
+          })
+          .catch((promiseError) => {
+            return reject(promiseError);
+          });
     });
   }
 

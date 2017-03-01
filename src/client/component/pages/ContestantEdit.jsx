@@ -143,7 +143,7 @@ class ContestantEdit extends Component {
       errors++;
     }
     if (errors === 0) {
-      $.getJSON(`api/contestants/?token=${$token.val()}&firstName=${$firstName.val()}&lastName=${$lastName.val()}`, (contestant) => {
+      $.getJSON(`api/contestants/contestant?token=${$token.val()}&firstName=${$firstName.val()}&lastName=${$lastName.val()}`, (contestant) => {
         if (contestant.success === false) {
           miniToastr.error(contestant.error.text, 'Error');
         } else {
@@ -155,7 +155,12 @@ class ContestantEdit extends Component {
             token: $token.val()
           });
         }
-      });
+      })
+          .fail((xhr) => {
+            if (xhr.responseJSON.success === false) {
+              miniToastr.error(xhr.responseJSON.error.text, 'Error');
+            }
+          });
     }
   }
 

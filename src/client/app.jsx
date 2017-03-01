@@ -8,6 +8,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './component/pages/App';
 import Home from './component/pages/Home';
 import ContestantList from './component/pages/ContestantList';
+import ContestantVote from './component/pages/ContestantVote';
 import ContestantRegister from './component/pages/ContestantRegister';
 import ContestantEdit from './component/pages/ContestantEdit';
 
@@ -31,6 +32,10 @@ render(
           component={ContestantList}
         />
         <Route
+          path='/list/:token'
+          component={ContestantVote}
+        />
+        <Route
           path='/register'
           component={ContestantRegister}
         />
@@ -42,4 +47,4 @@ render(
       </Route>
     </Router>
   </MuiThemeProvider>
-, document.getElementById('app'));
+    , document.getElementById('app'));
