@@ -19,6 +19,11 @@ Phasenstart und Ende importieren:
 mongoimport --db "stupa" --collection "stages" --type json --file "documentation/stages.json" --jsonArray
 ```
 
+SendVote Token von Datei importieren:
+```shell
+mongoimport --db "stupa" --collection "sendvotes" --type json --file "documentation/sendVote.json" --jsonArray
+```
+
 Contestant:
 ```json
 
