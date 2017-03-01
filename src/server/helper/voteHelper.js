@@ -38,7 +38,7 @@ module.exports = class VoteHelper {
 
       Mailer.sendMailWithTemplate(transporter, data, (result, error) => {
         if (result === true) {
-          const vote = new Vote({token});
+          const vote = new Vote({token, studentEmail: student.email});
           vote.save((error2) => {
             if (error2) {
               return reject(student.email);

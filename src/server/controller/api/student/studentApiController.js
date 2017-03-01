@@ -28,21 +28,6 @@ module.exports = class StudentApiController {
       });
   }
 
-  static unique(firstName, lastName, callback) {
-    Student.count({firstName: {$regex: StudentApiController.buildNameRegex(firstName),
-      $options: 'g'},
-      lastName}).exec((error, count) => {
-        if (error) {
-          callback(false);
-        }
-        if (count === 1) {
-          callback(true);
-        } else {
-          callback(false);
-        }
-      });
-  }
-
   static buildNameRegex(name) {
     // TODO: make more safe
     const nameSplit = name.split(' ');

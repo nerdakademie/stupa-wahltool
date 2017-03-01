@@ -9,6 +9,10 @@ class TokenSchema extends mongo.Schema {
         type: String,
         required: true
       },
+      studentEmail: {
+        type: String,
+        required: true
+      },
       contestantIDs: {
         type: Array,
         default: []

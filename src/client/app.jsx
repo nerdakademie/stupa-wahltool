@@ -2,7 +2,7 @@ import './style/main.scss';
 
 import React from 'react';
 import {render} from 'react-dom';
-import {Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-router';
+import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './component/pages/App';

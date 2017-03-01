@@ -108,6 +108,10 @@ class ContestantVote extends Component {
       } else {
         miniToastr.error('Fehler beim Empfang der Bestätigung', 'Error');
       }
+    }).fail((xhr) => {
+      if (xhr.responseJSON.success === false) {
+        miniToastr.error(xhr.responseJSON.error.text, 'Error');
+      }
     });
   }
 
