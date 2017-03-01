@@ -4,22 +4,14 @@ const Vote = require('../../../db').model('Vote');
 const SendVote = require('../../../db').model('SendVote');
 const Student = require('../../../db').model('Student');
 const VoteHelper = require('../../../helper/voteHelper');
+const StringHelper = require('../../../helper/stringHelper');
 
 module.exports = class VoteApiController {
-
-  static find(request, response, next) {
-    Vote.find().select('-__v -_id').lean().exec((error, votes) => {
-      if (error) {
-        return next(error);
-      }
-      return response.json(votes);
-    });
-  }
 
   static findOne(request, response) {
     const {token} = request.params;
 
-    if (token === undefined) {
+    if (StringHelper.isNullOrEmptyString(token)) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
@@ -39,7 +31,8 @@ module.exports = class VoteApiController {
   static save(request, response) {
     const {token, contestantIDs} = request.body;
 
-    if (token === undefined && contestantIDs === undefined) {
+    if (StringHelper.isNullOrEmptyString(token) ||
+        StringHelper.isNullOrEmptyString(contestantIDs)) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
@@ -88,7 +81,7 @@ module.exports = class VoteApiController {
 
   static sendVoteTokens(request, response) {
     const {authToken} =  request.body;
-    if (authToken === undefined) {
+    if (StringHelper.isNullOrEmptyString(authToken)) {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
