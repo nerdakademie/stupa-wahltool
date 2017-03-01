@@ -32,19 +32,20 @@ module.exports = class VoteHelper {
         value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list/${token}`
       });
 
-      Mailer.sendMailWithTemplate(transporter, data, (result, error) => {
-        if (result === true) {
-          const vote = new Vote({token, studentEmail: student.email});
-          vote.save((error2) => {
-            if (error2) {
-              return reject(student.email);
-            }
-            return resolve();
+      Mailer.sendMailWithTemplate(transporter, data)
+          .then(() => {
+            const vote = new Vote({token,
+              studentEmail: student.email});
+            vote.save((error2) => {
+              if (error2) {
+                return reject(student.email);
+              }
+              return resolve();
+            });
+          })
+          .catch((promiseError) => {
+            return reject(promiseError);
           });
-        } else {
-          return reject(error);
-        }
-      });
     });
   }
 

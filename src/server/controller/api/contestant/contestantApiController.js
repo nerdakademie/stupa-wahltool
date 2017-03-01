@@ -124,15 +124,17 @@ module.exports = class ContestantApiController {
             contestantJSON.centuria = student.centuria;
             contestantJSON.description = xss(contestantJSON.description);
             contestantJSON.token = '';
-            ContestantHelper.sendActivationMail(contestantJSON, student, (result) => {
-              if (result === false) {
-                return response.status(200).json({
-                  success: false,
-                  error: {text: 'Fehler beim Versand der Bestätigungsmail'}
+
+            ContestantHelper.sendActivationMail(contestantJSON, student)
+                .then(() => {
+                  return response.status(200).json({success: true});
+                })
+                .catch(() => {
+                  return response.status(200).json({
+                    success: false,
+                    error: {text: 'Fehler beim Versand der Bestätigungsmail'}
+                  });
                 });
-              }
-              return response.status(200).json({success: true});
-            });
           } else if (validated !== true) {
             if (request.file.path !== undefined) {
               fs.unlink(request.file.path, (error) => {

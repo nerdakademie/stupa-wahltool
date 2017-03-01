@@ -24,20 +24,22 @@ module.exports = class Mailer {
     });
   }
 
-  static sendMail(transporter, to, subject, text, html, callback) {
-    const mailOptions = {
-      from: config.get('mailer:from'),
-      to,
-      subject,
-      text,
-      html
-    };
+  static sendMail(transporter, to, subject, text, html) {
+    return new Promise((resolve, reject) => {
+      const mailOptions = {
+        from: config.get('mailer:from'),
+        to,
+        subject,
+        text,
+        html
+      };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-         callback(false, error);
-      }
-      callback(true);
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return reject(error);
+        }
+        return resolve();
+      });
     });
   }
 
@@ -55,13 +57,22 @@ module.exports = class Mailer {
     subject: Wir mögen Kadsen
   }
    */
-  static sendMailWithTemplate(transporter, data, callback) {
-    const replacements = {};
-    for (const replace of data.template.replace) {
-      replacements[replace.placeholder] = replace.value;
-    }
-    const html = pug.renderFile(`resources/server/template/${data.template.name}.pug`, replacements);
-    const text = format(config.get(`mailer:templates:${data.template.name}`), replacements);
-    return Mailer.sendMail(transporter, data.to, data.subject, text, html, callback);
+  static sendMailWithTemplate(transporter, data) {
+    return new Promise((resolve, reject) => {
+      const replacements = {};
+      for (const replace of data.template.replace) {
+        replacements[replace.placeholder] = replace.value;
+      }
+      const html = pug.renderFile(`resources/server/template/${data.template.name}.pug`, replacements);
+      const text = format(config.get(`mailer:templates:${data.template.name}`), replacements);
+      Mailer.sendMail(transporter, data.to, data.subject, text, html)
+          .then(() => {
+            return resolve();
+          })
+          .catch((error) => {
+            return reject(error);
+          });
+    });
   }
+
 };
