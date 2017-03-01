@@ -151,7 +151,7 @@ module.exports = class ContestantApiController {
   }
 
   static activate(request, response) {
-    if (request.query.token === undefined) {
+    if (StringHelper.isNullOrEmptyString(request.query.token)) {
       return response.status(400).json({success: false,
         error: {text: 'Missing token parameter'}});
     }
@@ -172,15 +172,15 @@ module.exports = class ContestantApiController {
   }
 
   static invalidate(request, response) {
-    if (request.query.token === undefined) {
+    if (StringHelper.isNullOrEmptyString(request.query.token)) {
       return response.status(400).json({success: false,
         error: {text: 'Missing token parameter'}});
     }
-    if (request.query.firstName === undefined) {
+    if (StringHelper.isNullOrEmptyString(request.query.firstName)) {
       return response.status(400).json({success: false,
         error: {text: 'Missing firstName parameter'}});
     }
-    if (request.query.lastName === undefined) {
+    if (StringHelper.isNullOrEmptyString(request.query.lastName)) {
       return response.status(400).json({success: false,
         error: {text: 'Missing lastName parameter'}});
     }
