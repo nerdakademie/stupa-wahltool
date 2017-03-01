@@ -108,11 +108,12 @@ class ContestantVote extends Component {
       } else {
         miniToastr.error('Fehler beim Empfang der Bestätigung', 'Error');
       }
-    }).fail((xhr) => {
-      if (xhr.responseJSON.success === false) {
-        miniToastr.error(xhr.responseJSON.error.text, 'Error');
-      }
-    });
+    })
+        .fail((xhr) => {
+          if (xhr.responseJSON.success === false) {
+            miniToastr.error(xhr.responseJSON.error.text, 'Error');
+          }
+        });
   }
 
   alreadyVoted(contestantID) {
@@ -147,7 +148,8 @@ class ContestantVote extends Component {
           autoHeight
           autoHeightMin={0}
           autoHeightMax={443}
-          style={{height: '443px', 'overflow-x': 'hidden'}}
+          style={{height: '443px',
+            'overflow-x': 'hidden'}}
         >
           <CardText >{nl2br(contestant.description)}</CardText>
         </Scrollbars>

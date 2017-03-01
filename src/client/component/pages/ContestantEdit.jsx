@@ -155,7 +155,12 @@ class ContestantEdit extends Component {
             token: $token.val()
           });
         }
-      });
+      })
+          .fail((xhr) => {
+            if (xhr.responseJSON.success === false) {
+              miniToastr.error(xhr.responseJSON.error.text, 'Error');
+            }
+          });
     }
   }
 
