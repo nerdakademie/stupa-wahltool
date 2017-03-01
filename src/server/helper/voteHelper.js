@@ -28,10 +28,6 @@ module.exports = class VoteHelper {
         value: student.firstName
       });
       data.template.replace.push({
-        placeholder: 'token',
-        value: token
-      });
-      data.template.replace.push({
         placeholder: 'voteLink',
         value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list/${token}`
       });

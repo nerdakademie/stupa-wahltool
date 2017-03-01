@@ -68,10 +68,10 @@ class ContestantVote extends Component {
     }, false);
   }
 
-  handleCheck(id) {
-    if (this.state.activeCheckboxes.has(id)) {
+  handleCheck(checkedState, id) {
+    if (checkedState === false && this.state.activeCheckboxes.has(id)) {
       this.state.activeCheckboxes.delete(id);
-    } else {
+    } else if (checkedState) {
       this.state.activeCheckboxes.add(id);
     }
   }
@@ -147,6 +147,7 @@ class ContestantVote extends Component {
           autoHeight
           autoHeightMin={0}
           autoHeightMax={443}
+          style={{height: '443px'}}
         >
           <CardText >{nl2br(contestant.description)}</CardText>
         </Scrollbars>
@@ -154,7 +155,7 @@ class ContestantVote extends Component {
         <CardActions>
           <Checkbox
             label='Wählen'
-            onCheck={() => { this.handleCheck(contestant._id); }}
+            onCheck={(event, isChecked) => { this.handleCheck(isChecked, contestant._id); }}
             defaultChecked={this.alreadyVoted(contestant._id)}
             disabled={this.alreadyVoted(contestant._id)}
           />
@@ -204,5 +205,9 @@ class ContestantVote extends Component {
     );
   }
 }
+
+ContestantVote.propTypes = {
+  params: React.PropTypes.object.isRequired
+};
 
 export default ContestantVote;
