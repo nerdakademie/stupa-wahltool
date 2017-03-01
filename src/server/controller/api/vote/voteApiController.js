@@ -69,10 +69,14 @@ module.exports = class VoteApiController {
           error: {text: 'Token nicht in der Datenbank gefunden'}});
       }
 
-      for (const id of contestantIDs) {
-        if (vote.contestantIDs.indexOf(id) === -1) {
-          return response.status(200).json({success: false,
-            error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}});
+      if (vote.contestantIDs.length > 0) {
+        for (const id of contestantIDs) {
+          if (vote.contestantIDs.indexOf(id) === -1) {
+            return response.status(200).json({
+              success: false,
+              error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}
+            });
+          }
         }
       }
 
@@ -107,19 +111,24 @@ module.exports = class VoteApiController {
           return response.status(500).json({success: false,
             error: {text: 'Fehler beim Bearbeiten aufgetreten'}});
         }
-        for (const student of students) {
-          VoteHelper.sendVotenMail(student, (result) => {
-            if (result === false) {
-              failed.push(student.email);
-            }
-          });
-        }
+        const promises = VoteHelper.sendVoteMailWithPromise(students);
+
+        Promise.all(promises).then((result) => {
+          console.log('result: ' +result);
+          if (result !== undefined) {
+            failed.push(result);
+          }
+          return response.status(200).json({success: true});
+        }).catch((promiseError) => {
+          return response.status(200).json({success: false,
+            error: {text: promiseError}});
+        });
 
         if (failed.length > 0) {
           return response.status(200).json({success: false,
             error: {emails: failed}});
         }
-        return response.status(200).json({success: true});
+
       });
     });
   }

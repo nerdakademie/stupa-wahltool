@@ -40,7 +40,7 @@ module.exports = class ContestantHelper {
     contestantJSON.token = token;
     contestantJSON.centuria = student.centuria;
 
-    Mailer.sendMailWithTemplate(data, (result) => {
+    Mailer.sendMailWithTemplate(Mailer.createMailTransporter(), data, (result) => {
       if (result === true) {
         const contestant = new Contestant(contestantJSON);
         contestant.save((error2) => {
