@@ -1,35 +1,6 @@
 @import 'reset';
 
 /* Topbar */
-@media screen and (max-width: 750px) {
-  .topbar {
-    display: block !important;
-  }
-
-  #app {
-    padding-top: 115px !important;
-  }
-
-}
-
-@media screen and (max-width: 530px) {
-  #app {
-    padding-top: 151px !important;
-  }
-}
-
-@media screen and (max-width: 290px) {
-  #app {
-    padding-top: 186px !important;
-  }
-}
-
-@media screen and (max-width: 281px) {
-  #app {
-    padding-top: 222px !important;
-  }
-}
-
 .topbar div div a.active button div {
   color: #999999;
 }
@@ -37,17 +8,10 @@
 .topbar div div a button div {
   color: #ffffff;
 }
-
 /* END Topbar */
 
 .contestantList {
   overflow-wrap: break-word;
-}
-
-#app {
-  padding-top: 70px;
-  padding-bottom: 70px;
-  overflow-y: auto;
 }
 
 /* Scrollbar */
@@ -56,6 +20,37 @@ body {
   background-color: #ecf0f1;
 }
 /* END Scrollbar */
+
+/* Content */
+#app {
+  padding-top: 78px;
+  padding-bottom: 78px;
+  overflow-y: auto;
+}
+
+.appContent {
+  margin: 0 8px;
+}
+/* END Content */
+
+/* Forms */
+.appContent form {
+  width: 380px;
+  margin: auto auto;
+  padding: 2em;
+  background: #fafafa;
+  border: 1px solid #ebebeb;
+  box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
+}
+
+/* max-width = form-width + appContent-margin */
+@media screen and (max-width: 390px) {
+  .appContent form {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+/* END Forms */
 
 /* Footer */
 .footer {
@@ -70,6 +65,28 @@ body {
   color: #ffffff;
   width: 100%;
   z-index: 300;
+  box-sizing: border-box;
 }
-
 /* END Footer */
+
+@media screen and (max-width: 750px) {
+  /* Non-sticky */
+  #app {
+    padding: 0 !important;
+  }
+
+  .topbar {
+    display: block !important;
+    position: relative !important;
+  }
+
+  .footer {
+    position: relative !important;
+  }
+
+  .appContent {
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+  /* END Non-sticky */
+}
