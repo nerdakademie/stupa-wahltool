@@ -147,7 +147,7 @@ class ContestantVote extends Component {
           autoHeight
           autoHeightMin={0}
           autoHeightMax={443}
-          style={{height: '443px'}}
+          style={{height: '443px', 'overflow-x': 'hidden'}}
         >
           <CardText >{nl2br(contestant.description)}</CardText>
         </Scrollbars>
