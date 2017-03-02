@@ -144,29 +144,25 @@ class ContestantVote extends Component {
             size={125}
                   />}
         />
+        <CardActions>
+          <Checkbox
+              label='Wählen'
+              onCheck={(event, isChecked) => { this.handleCheck(isChecked, contestant._id); }}
+              defaultChecked={this.alreadyVoted(contestant._id)}
+              disabled={this.alreadyVoted(contestant._id)}
+          />
+        </CardActions>
         <Scrollbars
           autoHeight
           autoHeightMin={0}
           autoHeightMax={443}
-          style={{height: '443px',
-            'overflow-x': 'hidden'}}
         >
           <CardText >{nl2br(contestant.description)}</CardText>
         </Scrollbars>
-
-        <CardActions>
-          <Checkbox
-            label='Wählen'
-            onCheck={(event, isChecked) => { this.handleCheck(isChecked, contestant._id); }}
-            defaultChecked={this.alreadyVoted(contestant._id)}
-            disabled={this.alreadyVoted(contestant._id)}
-          />
-        </CardActions>
       </Card>);
   }
 
   formRender() {
-
     return (
       <form className='voteForm' method='post'>
         <AutoResponsive
