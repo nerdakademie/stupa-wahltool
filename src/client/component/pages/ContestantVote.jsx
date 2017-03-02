@@ -166,11 +166,9 @@ class ContestantVote extends Component {
   }
 
   formRender() {
-    const fullWidth = {
-      width: '90%'
-    };
+
     return (
-      <form method='post' style={fullWidth}>
+      <form className='voteForm' method='post'>
         <AutoResponsive
           ref={(c) => {
             this.AutoResponsiveContainer = c;
