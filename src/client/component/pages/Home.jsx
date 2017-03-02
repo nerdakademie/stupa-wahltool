@@ -9,7 +9,7 @@ export default React.createClass({
         Du hast insgesamt 4 Stimmen. Es ist möglich, dass du z.B. erst eine Person wählst und später noch welche ergänzt. Bereits abgegebene Stimmen können nicht mehr zurückgezogen werden.
         </p>
         <p>
-            Der Zeitraum, in welchem du wählen kannst, ist: <b>Donnerstag, 02.03. 9:00 Uhr – 09.03. 9:00 Uhr</b>. Danach werden die künftigen Mitglieder des StuPas bekanntgegeben.
+            Der Zeitraum, in welchem du wählen kannst, ist: <b>Donnerstag, 02.03. 14:00 Uhr – 09.03. 14:00 Uhr</b>. Danach werden die künftigen Mitglieder des StuPas bekanntgegeben.
         </p>
         <p>
             Du wirst eine Mail bekommen, in der dein Token ist, mit dem du verifizierst, dass die abgegebenen Stimmen wirklich von dir kommen. Aus diesem Grund ist es wichtig, dass dein Postfach leer genug ist und dass du deine Wahlmail nicht weiterleitest!
