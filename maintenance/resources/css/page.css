@@ -58,19 +58,6 @@ body {
 }
 /* END Footer */
 
-@media screen and (max-width: 750px) {
-    /* Non-sticky */
-    .topbar {
-        display: block !important;
-        position: relative !important;
-    }
-
-    .footer {
-        position: relative !important;
-    }
-    /* END Non-sticky */
-}
-
 footer { text-align: center; }
 
 footer p {
