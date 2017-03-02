@@ -35,7 +35,8 @@ body {
 
 /* Forms */
 .appContent form {
-  width: 380px;
+  width: 80%;
+  max-width: 380px;
   margin: auto auto;
   padding: 2em;
   background: #fafafa;
@@ -46,7 +47,7 @@ body {
 /* max-width = form-width + appContent-margin */
 @media screen and (max-width: 390px) {
   .appContent form {
-    width: 100%;
+    width: 80%;
     box-sizing: border-box;
   }
 }
