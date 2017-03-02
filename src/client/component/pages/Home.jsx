@@ -4,20 +4,20 @@ export default React.createClass({
   render() {
     return <div>
         <h3>Willkommen bei der Stupa Wahl 2017</h3>
-            <p>
-            Via „Aufstellen“ kannst du dich als Kandidat aufstellen. Bitte beschreibe dort, wieso du Teil des neuen StuPa werden möchtest. <br/>
-                Deinen Text und dein Bild kannst du bis zum Wahlbeginn anpassen.
-            </p>
         <p>
-            Der Zeitraum, in welchem du dich aufstellen kannst, ist: <b>Donnerstag, 23.02. 9:00 Uhr - 02.03. 9:00 Uhr</b>. Danach beginnt der Wahlzeitraum.
+            Hier kannst du für die aufgestellten Kandidaten deine Stimme abgeben! <br />
+        Du hast insgesamt 4 Stimmen. Es ist möglich, dass du z.B. erst eine Person wählst und später noch welche ergänzt. Bereits abgegebene Stimmen können nicht mehr zurückgezogen werden.
         </p>
         <p>
-            Du wirst eine E-Mail bekommen, in der du deine Aufstellung verifizieren musst. Somit wird sichergestellt, dass nur du dich selbst aufstellen kannst. Aus diesem Grund ist es notwendig, dass in deinem Postfach genug Platz für neue E-Mails ist.
+            Der Zeitraum, in welchem du wählen kannst, ist: <b>Donnerstag, 02.03. 9:00 Uhr – 09.03. 9:00 Uhr</b>. Danach werden die künftigen Mitglieder des StuPas bekanntgegeben.
         </p>
         <p>
-            Es ist möglich, dass im laufenden Prozess neue Features eingebaut werden. <br/>
-            Alle Rechtschreibfehler gehören zum Design und sind gewollt. <br/>
-            Erstellt wurde das Wahltool kurzfristig von der Nerdakademie. Der besondere Dank gilt hierbei Michel Wohlert, Max Schumann, Malte Schlünz, Philip Barwikowski und Finja Hauschild.
+            Du wirst eine Mail bekommen, in der dein Token ist, mit dem du verifizierst, dass die abgegebenen Stimmen wirklich von dir kommen. Aus diesem Grund ist es wichtig, dass dein Postfach leer genug ist und dass du deine Wahlmail nicht weiterleitest!
+        </p>
+        <p>
+            Es ist möglich, dass im laufenden Prozess neue Features eingebaut werden. <br />
+            Alle Rechtschreibfehler gehören zum Design und sind gewollt. <br />
+            Gebastelt wurde das Tool kurzfristig von der Nerdakademie. Der besondere Dank gilt hierbei Michel Wohlert, Max Schumann, Malte Schlünz, Philip Barwikowski und Finja Hauschild.
         </p>
         <p>
             Bei Fragen, Anmerkungen und Verbesserungsideen meldet euch bitte bei Finja per Mail an <a href="mailto:finja.hauschild@nordakademie.de">finja.hauschild@nordakademie.de</a>

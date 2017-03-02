@@ -25,7 +25,6 @@ export default React.createClass({
       backgroundColor: 'transparent',
       color: 'white'
     };
-
             return (
             <div>
                 <AppBar
