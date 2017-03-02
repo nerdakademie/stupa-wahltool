@@ -16,7 +16,7 @@ module.exports = class VoteApiController {
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
 
-    Vote.findOne({token}).select('-token -__v -_id')
+    Vote.findOne({token}).select('-token -__v -_id -studentEmail')
         .lean()
         .exec()
         .then((vote) => {
