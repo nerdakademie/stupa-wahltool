@@ -25,7 +25,7 @@ img {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 60%;
+    width: 40%;
     height: auto;
 }
 
@@ -34,6 +34,11 @@ img {
     padding-top: 78px;
     padding-bottom: 78px;
     overflow-y: auto;
+    margin: 0 8px;
+}
+
+body {
+    background-color: #ecf0f1;
 }
 
 /* Footer */
