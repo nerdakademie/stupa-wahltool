@@ -24,6 +24,11 @@ export default React.createClass({
         </p>
 
         <h3>Changelog</h3>
+            <b>v1.2.6</b>
+            <ul>
+                <li>Anpassungen der Startphase der Abstimmung </li>
+                <li>Anpassungen der Mailvorlage für den Versand der Wahltokens</li>
+            </ul>
             <b>v1.2.5</b>
             <ul>
                 <li>Mail-Versand nun auf 150 Mails alle 10 Minuten nach Abspreche mit Herrn Singer</li>
