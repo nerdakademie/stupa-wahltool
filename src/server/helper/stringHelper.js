@@ -7,4 +7,8 @@ module.exports = class StringHelper {
         typeof obj !== 'string' ||
         obj.length === 0;
   }
+
+  static rtrim(str) {
+    return str.replace(/\s+$/, '');
+  }
 };

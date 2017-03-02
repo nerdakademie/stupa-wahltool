@@ -59,7 +59,9 @@ module.exports = class ContestantApiController {
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
 
-    const {firstName, lastName, token, description} = request.body;
+    const {token, description} = request.body;
+    const firstName = StringHelper.rtrim(request.body.firstName);
+    const lastName = StringHelper.rtrim(request.body.lastName);
 
     Contestant.find({firstName,
       lastName,
@@ -119,8 +121,8 @@ module.exports = class ContestantApiController {
               .then((student) => {
                 contestantJSON.activated = false;
                 contestantJSON.image = request.file.filename;
-                contestantJSON.firstName = xss(contestantJSON.firstName);
-                contestantJSON.lastName = xss(contestantJSON.lastName);
+                contestantJSON.firstName = StringHelper.rtrim(xss(contestantJSON.firstName));
+                contestantJSON.lastName = StringHelper.rtrim(xss(contestantJSON.lastName));
                 contestantJSON.course = student.course;
                 contestantJSON.year = student.year;
                 contestantJSON.centuria = student.centuria;
@@ -200,7 +202,9 @@ module.exports = class ContestantApiController {
       return response.status(400).json({success: false,
         error: {text: 'Missing lastName parameter'}});
     }
-    const {token, firstName, lastName} = request.query;
+    const {token} = request.query;
+    const firstName = StringHelper.rtrim(request.body.firstName);
+    const lastName = StringHelper.rtrim(request.body.lastName);
 
     Contestant.findOneAndRemove({token,
       firstName,

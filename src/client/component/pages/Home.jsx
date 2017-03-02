@@ -24,9 +24,13 @@ export default React.createClass({
         </p>
 
         <h3>Changelog</h3>
+            <b>v1.2.5</b>
+            <ul>
+                <li>Mail-Versand nun auf 150 Mails alle 10 Minuten nach Abspreche mit Herrn Singer</li>
+                <li>Vote-Checkbox nun direkt unter dem Namen</li>
+            </ul>
             <b>v1.2.4</b>
             <ul>
-                <li>Bearbeitung von Bewerbung auch nach der Aufstellungs-Phase zulassen</li>
                 <li>Speicherung der Email zu dem Token als bcrypt hash</li>
             </ul>
             <b>v1.2.3</b>

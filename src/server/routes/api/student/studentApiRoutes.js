@@ -8,9 +8,7 @@ const StudentCourseApiRoutes = require('./course/studentCourseApiRoutes');
 module.exports = class StudentApiRoutes extends Express.Router {
   constructor() {
     super();
-
     this.get('/validate', StudentApiController.validate);
-
     this.use('/years', new StudentYearApiRoutes());
     this.use('/courses', new StudentCourseApiRoutes());
   }
