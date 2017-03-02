@@ -125,7 +125,7 @@ class ContestantVote extends Component {
   static createCard(contestant) {
     const shadow = 1;
     const width = 350;
-    const height = 640;
+    const height = 650;
     const style = {
       width,
       height
