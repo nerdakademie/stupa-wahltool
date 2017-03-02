@@ -24,6 +24,10 @@ export default React.createClass({
         </p>
 
         <h3>Changelog</h3>
+            <b>v1.2.2</b>
+            <ul>
+                <li>CSS für mobile Geräte optimiert</li>
+            </ul>
             <b>v1.2.1</b>
             <ul>
                 <li>Bugfixing für die Wahl</li>
