@@ -24,6 +24,11 @@ export default React.createClass({
         </p>
 
         <h3>Changelog</h3>
+            <b>v1.2.4</b>
+            <ul>
+                <li>Bearbeitung von Bewerbung auch nach der Aufstellungs-Phase zulassen</li>
+                <li>Speicherung der Email zu dem Token als bcrypt hash</li>
+            </ul>
             <b>v1.2.3</b>
             <ul>
                 <li>CSS Fehler in der ContestantVote form behoben</li>
