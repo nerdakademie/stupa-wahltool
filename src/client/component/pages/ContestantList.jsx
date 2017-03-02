@@ -38,17 +38,23 @@ class ContestantList extends Component {
       this.setState({
         contestants
       });
+
+      this.updateContainerSize();
     });
+  }
+
+  updateContainerSize() {
+    if (ReactDOM.findDOMNode(this.AutoResponsiveContainer) !== null) {
+      this.setState({
+        containerWidth: ReactDOM.findDOMNode(this.AutoResponsiveContainer).clientWidth
+      });
+    }
   }
 
   componentDidMount() {
     this.loadContestants();
     window.addEventListener('resize', () => {
-      if (ReactDOM.findDOMNode(this.AutoResponsiveContainer) !== null) {
-        this.setState({
-          containerWidth: ReactDOM.findDOMNode(this.AutoResponsiveContainer).clientWidth
-        });
-      }
+      this.updateContainerSize();
     }, false);
   }
 
