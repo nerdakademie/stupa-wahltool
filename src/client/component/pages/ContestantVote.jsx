@@ -50,9 +50,11 @@ class ContestantVote extends Component {
 
   loadExistingVote() {
     $.getJSON(`/api/votes/${this.props.params.token}`, (votedContestants) => {
-      this.setState({
-        votedContestants
-      });
+      if (votedContestants.success !== false) {
+        this.setState({
+          votedContestants
+        });
+      }
     });
   }
 
@@ -146,10 +148,10 @@ class ContestantVote extends Component {
         />
         <CardActions>
           <Checkbox
-              label='Wählen'
-              onCheck={(event, isChecked) => { this.handleCheck(isChecked, contestant._id); }}
-              defaultChecked={this.alreadyVoted(contestant._id)}
-              disabled={this.alreadyVoted(contestant._id)}
+            label='Wählen'
+            onCheck={(event, isChecked) => { this.handleCheck(isChecked, contestant._id); }}
+            defaultChecked={this.alreadyVoted(contestant._id)}
+            disabled={this.alreadyVoted(contestant._id)}
           />
         </CardActions>
         <Scrollbars
