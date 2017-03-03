@@ -58,10 +58,10 @@ module.exports = class VoteApiController {
     }
 
     // convert ids to objectIDs
-    const contestantObjectIDs = [];
+   /* const contestantObjectIDs = [];
     for (const id of contestantIDs) {
       contestantIDs.push(new mongo.Types.ObjectId(id));
-    }
+    }*/
 
     Vote.findOne({token}).exec()
         .then((vote) => {
@@ -72,7 +72,7 @@ module.exports = class VoteApiController {
 
           if (vote.contestantIDs.length > 0) {
             for (const id of vote.contestantIDs) {
-              if (contestantObjectIDs.indexOf(id) === -1) {
+              if (contestantIDs.indexOf(id) === -1) {
                 return response.status(200).json({
                   success: false,
                   error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}
@@ -81,7 +81,7 @@ module.exports = class VoteApiController {
             }
           }
 
-          vote.contestantIDs = contestantObjectIDs;
+          vote.contestantIDs = contestantIDs;
           vote.save();
           return response.status(200).json({success: true});
         })
