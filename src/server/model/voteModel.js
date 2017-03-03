@@ -14,7 +14,7 @@ class TokenSchema extends mongo.Schema {
         required: true
       },
       contestantIDs: {
-        type: Array,
+        type: [mongo.Schema.Types.ObjectId],
         default: []
       }
     });

@@ -1,8 +1,9 @@
 'use strict';
 
-const Vote = require('../../../db').model('Vote');
-const SendVote = require('../../../db').model('SendVote');
-const Student = require('../../../db').model('Student');
+const mongo = require('../../../db');
+const Vote = mongo.model('Vote');
+const SendVote = mongo.model('SendVote');
+const Student = mongo.model('Student');
 const VoteHelper = require('../../../helper/voteHelper');
 const StringHelper = require('../../../helper/stringHelper');
 
@@ -56,6 +57,12 @@ module.exports = class VoteApiController {
         error: {text: 'Bewerber mehrfach gewählt'}});
     }
 
+    // convert ids to objectIDs
+    const contestantObjectIDs = [];
+    for (const id of contestantIDs) {
+      contestantIDs.push(new mongo.Types.ObjectId(id));
+    }
+
     Vote.findOne({token}).exec()
         .then((vote) => {
           if (vote === null) {
@@ -65,7 +72,7 @@ module.exports = class VoteApiController {
 
           if (vote.contestantIDs.length > 0) {
             for (const id of vote.contestantIDs) {
-              if (contestantIDs.indexOf(id) === -1) {
+              if (contestantObjectIDs.indexOf(id) === -1) {
                 return response.status(200).json({
                   success: false,
                   error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}
@@ -74,7 +81,7 @@ module.exports = class VoteApiController {
             }
           }
 
-          vote.contestantIDs = contestantIDs;
+          vote.contestantIDs = contestantObjectIDs;
           vote.save();
           return response.status(200).json({success: true});
         })
