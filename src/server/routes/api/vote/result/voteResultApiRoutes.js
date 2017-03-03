@@ -8,5 +8,6 @@ module.exports = class VoteResultApiRoutes extends Express.Router {
   constructor() {
     super();
     this.get('/', VoteResultApiController.basicResults);
+    this.get('/participation', VoteResultApiController.participation);
   }
 };
