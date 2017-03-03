@@ -1,37 +1,54 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Pie} from 'react-chartjs-2';
+import $ from 'jquery';
 
-const getState = () => {
-  return {
-    labels: [
-      '1',
-      '2',
-      '3',
-      '4'
-    ],
-    datasets: [{
-      label: 'Stupa-Wahl 2017 Wahlbeteiligung',
-      backgroundColor: [
-        '#FF6384',
-        '#4BC0C0',
-        '#FFCE56',
-        '#36A2EB'
+class VotesPerVoter extends Component {
+  constructor() {
+    super();
+    this.state = {
+      labels: [
+        '1',
+        '2',
+        '3',
+        '4'
       ],
-      hoverBackgroundColor: [
-        '#FF6384',
-        '#4BC0C0',
-        '#FFCE56',
-        '#36A2EB'
-      ],
-      data: [15, 20, 25, 40]
-    }]
-  };
-};
+      datasets: [{
+        label: 'Stupa-Wahl 2017 Wahlbeteiligung',
+        backgroundColor: [
+          '#FF6384',
+          '#4BC0C0',
+          '#FFCE56',
+          '#36A2EB'
+        ],
+        hoverBackgroundColor: [
+          '#FF6384',
+          '#4BC0C0',
+          '#FFCE56',
+          '#36A2EB'
+        ],
+        data: []
+      }]
+    };
+  }
 
-export default React.createClass({
   componentWillMount() {
-    this.setState(getState());
-  },
+    this.loadsVotesPerVoter();
+  }
+
+  loadsVotesPerVoter() {
+    $.getJSON('/api/votes/results/votesPerVoter', (votesPerVoter) => {
+      if (VotesPerVoter.success !== false) {
+        const data = [];
+        data.push(votesPerVoter.one);
+        data.push(votesPerVoter.two);
+        data.push(votesPerVoter.three);
+        data.push(votesPerVoter.four);
+        const {datasets} = this.state;
+        datasets[0].data = data;
+        this.setState({datasets});
+      }
+    });
+  }
 
   render() {
     return (
@@ -54,4 +71,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default VotesPerVoter;

@@ -21,7 +21,7 @@ module.exports = class VoteResultApiController {
       {$project: {votes: 1,
         firstName: '$contestant.firstName',
         lastName: '$contestant.lastName'}},
-      {$sort: {votes: -1}}
+      {$sort: {votes: 1}}
     ]).exec()
         .then((result) => {
           return response.json(result);
@@ -44,15 +44,19 @@ module.exports = class VoteResultApiController {
         activeVoters: 1}},
       {$group: {_id: null,
         voters: {$sum: '$voters'},
-        activeVoters: {$sum: '$activeVoters'}}}
-
+        activeVoters: {$sum: '$activeVoters'}}},
+      {$project: {_id: 0,
+        voters: 1,
+        activeVoters: 1,
+        inactiveVoters: {$subtract: ['$voters', '$activeVoters']}}}
     ]).exec()
         .then((result) => {
           const [resultObject] = result;
-          const {voters, activeVoters} = resultObject;
+          const {voters, activeVoters, inactiveVoters} = resultObject;
           const participation = activeVoters / voters * 100;
           return response.json({voters,
             activeVoters,
+            inactiveVoters,
             participation});
         })
         .catch(() => {
@@ -89,7 +93,7 @@ module.exports = class VoteResultApiController {
                 const [availableVotes] = totalAvailableVotes;
                 const [usedVotes] = totalUsedVotes;
                 const participation = usedVotes.votes / availableVotes.votes * 100;
-                response.json({usedVotes: usedVotes.votes,
+                return response.json({usedVotes: usedVotes.votes,
                   availableVotes: availableVotes.votes,
                   participation});
               })
@@ -102,5 +106,37 @@ module.exports = class VoteResultApiController {
           return response.status(500).json({success: false,
             error: {text: 'Datenbankfehler'}});
         });
+  }
+
+  static votesPerVoter(request, response) {
+    Vote.aggregate([
+      {$project: {_id: 1,
+        one: {$cond: [{$eq: [{$size: '$contestantIDs'}, 1]}, 1, 0]},
+        two: {$cond: [{$eq: [{$size: '$contestantIDs'}, 2]}, 1, 0]},
+        three: {$cond: [{$eq: [{$size: '$contestantIDs'}, 3]}, 1, 0]},
+        four: {$cond: [{$eq: [{$size: '$contestantIDs'}, 4]}, 1, 0]}}},
+      {$group: {_id: 'null',
+        one: {$sum: '$one'},
+        two: {$sum: '$two'},
+        three: {$sum: '$three'},
+        four: {$sum: '$four'}}},
+      {$project: {_id: 0,
+        one: 1,
+        two: 1,
+        three: 1,
+        four: 1}}
+    ]).exec()
+      .then((voteCount) => {
+        const [voteCountObject] = voteCount;
+        const {one, two, three, four} = voteCountObject;
+        return response.json({one,
+          two,
+          three,
+          four});
+      })
+      .catch(() => {
+        return response.status(500).json({success: false,
+          error: {text: 'Datenbankfehler'}});
+      });
   }
 };

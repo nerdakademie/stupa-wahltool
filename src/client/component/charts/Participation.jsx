@@ -1,31 +1,46 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Pie} from 'react-chartjs-2';
+import $ from 'jquery';
 
-const getState = () => {
-  return {
-    labels: [
-      'Nicht teilgenommen',
-      'Teilgenommen'
-    ],
-    datasets: [{
-      label: 'Stupa-Wahl 2017 Wahlbeteiligung',
-      backgroundColor: [
-        '#FF6384',
-        '#4BC0C0'
+class Participation extends Component {
+  constructor() {
+    super();
+    this.state = {
+      labels: [
+        'Nicht teilgenommen',
+        'Teilgenommen'
       ],
-      hoverBackgroundColor: [
-        '#FF6384',
-        '#4BC0C0'
-      ],
-      data: [45, 55]
-    }]
-  };
-};
+      datasets: [{
+        label: 'Stupa-Wahl 2017 Wahlbeteiligung',
+        backgroundColor: [
+          '#FF6384',
+          '#4BC0C0'
+        ],
+        hoverBackgroundColor: [
+          '#FF6384',
+          '#4BC0C0'
+        ],
+        data: []
+      }]
+    };
+  }
 
-export default React.createClass({
+  loadParticipation() {
+    $.getJSON('/api/votes/results/participation', (participation) => {
+      if (participation.success !== false) {
+        const data = [];
+        data.push(participation.inactiveVoters);
+        data.push(participation.activeVoters);
+        const {datasets} = this.state;
+        datasets[0].data = data;
+        this.setState({datasets});
+      }
+    });
+  }
+
   componentWillMount() {
-    this.setState(getState());
-  },
+    this.loadParticipation();
+  }
 
   render() {
     return (
@@ -47,4 +62,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default Participation;
