@@ -57,12 +57,6 @@ module.exports = class VoteApiController {
         error: {text: 'Bewerber mehrfach gewählt'}});
     }
 
-    // convert ids to objectIDs
-   /* const contestantObjectIDs = [];
-    for (const id of contestantIDs) {
-      contestantIDs.push(new mongo.Types.ObjectId(id));
-    }*/
-
     Vote.findOne({token}).exec()
         .then((vote) => {
           if (vote === null) {
@@ -72,7 +66,7 @@ module.exports = class VoteApiController {
 
           if (vote.contestantIDs.length > 0) {
             for (const id of vote.contestantIDs) {
-              if (contestantIDs.indexOf(id) === -1) {
+              if (contestantIDs.indexOf(id.toString()) === -1) {
                 return response.status(200).json({
                   success: false,
                   error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}
