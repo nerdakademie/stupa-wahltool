@@ -24,6 +24,11 @@ export default React.createClass({
         </p>
 
         <h3>Changelog</h3>
+            <b>v1.2.7</b>
+            <ul>
+                <li>Änderung des Speicherformat für Stimmen</li>
+                <li>Anpassung der Datenbank (Update und Schema Veränderungen)</li>
+            </ul>
             <b>v1.2.6</b>
             <ul>
                 <li>Anpassungen der Startphase der Abstimmung </li>

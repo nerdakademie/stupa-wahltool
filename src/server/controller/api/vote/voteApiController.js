@@ -1,8 +1,9 @@
 'use strict';
 
-const Vote = require('../../../db').model('Vote');
-const SendVote = require('../../../db').model('SendVote');
-const Student = require('../../../db').model('Student');
+const mongo = require('../../../db');
+const Vote = mongo.model('Vote');
+const SendVote = mongo.model('SendVote');
+const Student = mongo.model('Student');
 const VoteHelper = require('../../../helper/voteHelper');
 const StringHelper = require('../../../helper/stringHelper');
 
@@ -65,7 +66,7 @@ module.exports = class VoteApiController {
 
           if (vote.contestantIDs.length > 0) {
             for (const id of vote.contestantIDs) {
-              if (contestantIDs.indexOf(id) === -1) {
+              if (contestantIDs.indexOf(id.toString()) === -1) {
                 return response.status(200).json({
                   success: false,
                   error: {text: 'Die Wahl bereits gewählter Bewerber kann nicht verändert werden'}

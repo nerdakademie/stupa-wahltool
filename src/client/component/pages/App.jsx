@@ -42,7 +42,7 @@ export default React.createClass({
                 <div className='appContent'>
                   {this.props.children || <Home />}
                 </div>
-                <Footer>(c) 2017 <a className='nerdakademie' href='https://nerdakademie.xyz'>Nerdakademie</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>v1.2.6</a></Footer>
+                <Footer>(c) 2017 <a className='nerdakademie' href='https://nerdakademie.xyz'>Nerdakademie</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>v1.2.7</a></Footer>
             </div>
         );
     }
