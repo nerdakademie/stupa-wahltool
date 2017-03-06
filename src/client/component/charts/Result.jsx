@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Bar} from 'react-chartjs-2';
 import $ from 'jquery';
+import miniToastr from 'mini-toastr';
 
 class Result extends Component {
   constructor() {
@@ -19,11 +20,12 @@ class Result extends Component {
         }]
       }
     };
+    miniToastr.init();
   }
 
   loadResult() {
     $.getJSON('/api/votes/results', (result) => {
-      if (result.success !== false) {
+      if(result.success !== false) {
         const labels = [];
         const data = [];
         for (const contestant of result) {
@@ -34,6 +36,8 @@ class Result extends Component {
         dataState.labels = labels;
         dataState.datasets[0].data = data;
         this.setState({data: dataState});
+      } else {
+        miniToastr.error(result.error.text, 'Error', 99999999);
       }
     });
   }

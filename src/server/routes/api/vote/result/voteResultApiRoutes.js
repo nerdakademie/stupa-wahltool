@@ -7,8 +7,8 @@ const StageCheckController = require('../../../../controller/middleware/stageChe
 module.exports = class VoteResultApiRoutes extends Express.Router {
   constructor() {
     super();
-    this.get('/', VoteResultApiController.basicResults);
-    this.get('/participation', VoteResultApiController.participation);
-    this.get('/votesPerVoter', VoteResultApiController.votesPerVoter);
+    this.get('/', StageCheckController.checkAfterVotingStage, VoteResultApiController.basicResults);
+    this.get('/participation', StageCheckController.checkAfterVotingStage, VoteResultApiController.participation);
+    this.get('/votesPerVoter', StageCheckController.checkAfterVotingStage, VoteResultApiController.votesPerVoter);
   }
 };
