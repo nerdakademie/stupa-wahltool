@@ -56,16 +56,15 @@ class VotesPerVoter extends Component {
         style={{
           float: 'left',
           width: '50%',
-          height: '37%'
-        }}>
+          height: '80%'
+        }}
+      >
         <h3>Votes per Wähler</h3>
         <Pie
           data={this.state}
-          width={50}
-          height={40}
           options={{
+            responsive: true,
             maintainAspectRatio: false
-
           }}
         />
       </div>

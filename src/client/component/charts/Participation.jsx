@@ -48,14 +48,16 @@ class Participation extends Component {
         style={{
           float: 'left',
           width: '50%',
-          height: '37%'
-        }}>
+          height: '80%'
+        }}
+      >
         <h3>Wahlbeteiligung</h3>
         <Pie
           data={this.state}
           width={50}
           height={40}
           options={{
+            responsive: true,
             maintainAspectRatio: false
           }}
         />

@@ -1,20 +1,18 @@
 import React from 'react';
-import Result from '../charts/Result';
+import ResultChart from '../charts/ResultChart';
 import Participation from '../charts/Participation';
 import VotesPerVoter from '../charts/VotesPerVoter';
 
-export default React.createClass({
-
-  render() {
-    /* TODO: Fix for mobile phones */
-    return (
-      <div>
-        <Result/>
-        <div>
-          <Participation/>
-          <VotesPerVoter/>
-        </div>
+function Result() {
+  return (
+    <div>
+      <ResultChart />
+      <div style={{height: '50%'}}>
+        <Participation />
+        <VotesPerVoter />
       </div>
-    );
-  }
-});
+    </div>
+  );
+}
+
+export default Result;
