@@ -4,3 +4,4 @@ resources/server/public/js/*
 .idea/*
 *.iml
 .vscode/*
+/stupa-wahltool.iml

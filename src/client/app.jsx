@@ -11,6 +11,7 @@ import ContestantList from './component/pages/ContestantList';
 import ContestantVote from './component/pages/ContestantVote';
 import ContestantRegister from './component/pages/ContestantRegister';
 import ContestantEdit from './component/pages/ContestantEdit';
+import Result from './component/pages/Result';
 
 injectTapEventPlugin();
 
@@ -42,6 +43,10 @@ render(
         <Route
           path='/edit'
           component={ContestantEdit}
+        />
+        <Route
+          path='/result'
+          component={Result}
         />
 
       </Route>
