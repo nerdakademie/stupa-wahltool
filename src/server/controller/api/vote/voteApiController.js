@@ -75,8 +75,11 @@ module.exports = class VoteApiController {
             }
           }
 
-          vote.contestantIDs = contestantIDs;
-          vote.save();
+          if (vote.contestantIDs.length !== contestantIDs.length) {
+            vote.contestantIDs = contestantIDs;
+            vote.save();
+          }
+
           return response.status(200).json({success: true});
         })
         .catch(() => {
