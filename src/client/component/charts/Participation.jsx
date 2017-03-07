@@ -21,7 +21,8 @@ class Participation extends Component {
           '#4BC0C0'
         ],
         data: []
-      }]
+      }],
+      errorText: ''
     };
   }
 
@@ -34,6 +35,8 @@ class Participation extends Component {
         const {datasets} = this.state;
         datasets[0].data = data;
         this.setState({datasets});
+      } else {
+        this.setState({errorText: participation.error.text});
       }
     });
   }
@@ -51,16 +54,18 @@ class Participation extends Component {
           height: '80%'
         }}
       >
-        <h3>Wahlbeteiligung</h3>
-        <Pie
-          data={this.state}
-          width={50}
-          height={40}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false
-          }}
-        />
+        <h3>{'Wahlbeteiligung'}</h3>
+        {this.state.errorText.length === 0 ?
+          <Pie
+            data={this.state}
+            width={50}
+            height={40}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false
+            }}
+          /> : <p>{this.state.errorText}</p>}
+
       </div>
     );
   }

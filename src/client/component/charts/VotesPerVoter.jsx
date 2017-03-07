@@ -27,7 +27,8 @@ class VotesPerVoter extends Component {
           '#36A2EB'
         ],
         data: []
-      }]
+      }],
+      errorText: ''
     };
   }
 
@@ -37,7 +38,7 @@ class VotesPerVoter extends Component {
 
   loadsVotesPerVoter() {
     $.getJSON('/api/votes/results/votesPerVoter', (votesPerVoter) => {
-      if (VotesPerVoter.success !== false) {
+      if (votesPerVoter.success !== false) {
         const data = [];
         data.push(votesPerVoter.one);
         data.push(votesPerVoter.two);
@@ -46,6 +47,8 @@ class VotesPerVoter extends Component {
         const {datasets} = this.state;
         datasets[0].data = data;
         this.setState({datasets});
+      } else {
+        this.setState({errorText: votesPerVoter.error.text});
       }
     });
   }
@@ -59,14 +62,16 @@ class VotesPerVoter extends Component {
           height: '80%'
         }}
       >
-        <h3>Votes per Wähler</h3>
-        <Pie
-          data={this.state}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false
-          }}
-        />
+        <h3>{'Abgegebene Stimmen pro Wähler'}</h3>
+        {this.state.errorText.length === 0 ?
+          <Pie
+            data={this.state}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false
+            }}
+          /> : <p>{this.state.errorText}</p>}
+
       </div>
     );
   }

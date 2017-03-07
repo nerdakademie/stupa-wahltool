@@ -6,45 +6,40 @@ import NavLink from '../NavLink';
 import Footer from '../Footer';
 import Home from './Home';
 
-export default React.createClass({
-
-  render() {
-    const styles = {
-      appBar: {
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        backgroundColor: '#011F53'
-      },
-      buttons: {
-        marginTop: '8px'
-      }
-    };
-
-    const buttonStyle = {
-      backgroundColor: 'transparent',
-      color: 'white'
-    };
-            return (
-            <div>
-                <AppBar
-                    className='topbar'
-                    title='Stupa-Wahl 2017'
-                    style={styles.appBar}
-                    showMenuIconButton={false}
-                    iconElementRight={<div style={styles.buttons}>
-                        <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
-                        <NavLink to='/list'><FlatButton label='Bewerber' /></NavLink>
-                        <NavLink to='/register'><FlatButton label='Aufstellen' /></NavLink>
-                      <NavLink to='/edit'><FlatButton label='Bearbeiten' /></NavLink>
-                      <NavLink to='/result'><FlatButton label='Wahlergebnis' /></NavLink>
-                    </div>}
-                />
-                <div className='appContent'>
-                  {this.props.children || <Home />}
-                </div>
-                <Footer>(c) 2017 <a className='nerdakademie' href='https://nerdakademie.xyz'>Nerdakademie</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>v1.2.6</a></Footer>
-            </div>
-        );
+function App(props) {
+  const styles = {
+    appBar: {
+      position: 'fixed',
+      top: '0',
+      left: '0',
+      backgroundColor: '#011F53'
+    },
+    buttons: {
+      marginTop: '8px'
     }
-});
+  };
+
+  return (
+    <div>
+      <AppBar
+        className='topbar'
+        title='Stupa-Wahl 2017'
+        style={styles.appBar}
+        showMenuIconButton={false}
+        iconElementRight={<div style={styles.buttons}>
+          <IndexLink to='/' activeClassName='active'><FlatButton label='Home / Infos' /></IndexLink>
+          <NavLink to='/list'><FlatButton label='Bewerber' /></NavLink>
+          <NavLink to='/register'><FlatButton label='Aufstellen' /></NavLink>
+          <NavLink to='/edit'><FlatButton label='Bearbeiten' /></NavLink>
+          <NavLink to='/result'><FlatButton label='Wahlergebnis' /></NavLink>
+        </div>}
+      />
+      <div className='appContent'>
+        {props.children || <Home />}
+      </div>
+      <Footer>{'(c) 2017 '}<a className='nerdakademie' href='https://nerdakademie.xyz'>{'Nerdakademie'}</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>{'v1.2.6'}</a></Footer>
+    </div>
+  );
+}
+
+export default App;

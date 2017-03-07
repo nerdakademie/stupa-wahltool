@@ -16,7 +16,8 @@ class ResultChart extends Component {
         hoverBackgroundColor: 'rgba(1,31,83,0.4)',
         hoverBorderColor: 'rgba(1,31,83,1)',
         data: []
-      }]
+      }],
+      errorText: ''
     };
     miniToastr.init();
   }
@@ -35,7 +36,7 @@ class ResultChart extends Component {
         dataState.datasets[0].data = data;
         this.setState({data: dataState});
       } else {
-        miniToastr.error(result.error.text, 'Error', 99999999);
+        this.setState({errorText: result.error.text});
       }
     });
   }
@@ -53,16 +54,17 @@ class ResultChart extends Component {
           marginBottom: '1%'
         }}
       >
-        <h3>Wahlergebnis</h3>
-        <Bar
-          data={this.state}
-          options={{
-            legend: {
-              display: false
-            },
-            maintainAspectRatio: false
-          }}
-        />
+        <h3>{'Wahlergebnis'}</h3>
+        {this.state.errorText.length === 0 ?
+          <Bar
+            data={this.state}
+            options={{
+              legend: {
+                display: false
+              },
+              maintainAspectRatio: false
+            }}
+          /> : <p>{this.state.errorText}</p>}
       </div>
     );
   }
