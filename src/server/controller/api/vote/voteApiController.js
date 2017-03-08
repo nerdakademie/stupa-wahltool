@@ -9,6 +9,7 @@ const StringHelper = require('../../../helper/stringHelper');
 const bcrypt = require('bcrypt');
 const saltRounds = 12;
 
+
 module.exports = class VoteApiController {
 
   static findOne(request, response) {
@@ -129,7 +130,7 @@ module.exports = class VoteApiController {
     });
   }
 
-  static findTokenByEmail(request, response) {
+  static findTokenByEmail(request,response) {
     const {authToken, email} = request.body;
     if (StringHelper.isNullOrEmptyString(authToken) ||
     StringHelper.isNullOrEmptyString(email)) {
@@ -147,34 +148,13 @@ module.exports = class VoteApiController {
           Vote.find().select('token studentEmail')
               .exec()
               .then((votes) => {
-                const promises = votes.map((vote) => {
-                  return new Promise((resolve, reject) => {
-                    bcrypt.compare(email, vote.studentEmail).then((result) => {
-                      if (result) {
-                        return resolve(vote);
-                      }
-                      return resolve(null);
-                    })
-                        .catch(() => {
-                      return resolve(null);
-                    });
+                for (const vote of votes) {
+                  bcrypt.compare(email, vote.studentEmail).then((result) => {
+                    if (result) {
+                      return response.json(vote);
+                    }
                   });
-                });
-
-                Promise.all(promises)
-                    .then((results) => {
-                      for(const result of results) {
-                        if(result !== null) {
-                          return response.json(result);
-                        }
-                      }
-                      return response.status(200).json({success: false,
-                        error: {text: 'Keinen Token zu dieser Email gefunden'}});
-                    })
-                    .catch(() => {
-                      return response.status(200).json({success: false,
-                        error: {text: 'Keinen Token zu dieser Email gefunden'}});
-                    });
+                }
               })
               .catch(() => {
                 return response.status(500).json({success: false,
@@ -182,9 +162,10 @@ module.exports = class VoteApiController {
               });
         })
         .catch(() => {
-          return response.status(500).json({success: false,
-            error: {text: 'Auth Token Überprüfung fehlgeschlagen'}});
-        });
+      return response.status(500).json({success: false,
+        error: {text: 'Auth Token Überprüfung fehlgeschlagen'}});
+    });
+
   }
 
 };
