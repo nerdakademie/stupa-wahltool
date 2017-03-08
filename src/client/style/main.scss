@@ -12,7 +12,46 @@
 
 .contestantList {
   overflow-wrap: break-word;
+  -webkit-column-gap: 0;
+  -moz-column-gap: 0;
+  column-gap: 0;
+  -webkit-column-width: 350px;
+  -moz-column-width: 350px;
+  column-width: 350px;
+  -moz-column-fill: auto;
+  column-fill: auto;
+
+  .card {
+    max-width: 350px;
+    max-height: 650px;
+    margin: 10px 10px 0;
+    display: inline-block;
+  }
 }
+
+.voteForm {
+  max-width: 90% !important;
+
+  .contestantList {
+    overflow-wrap: break-word;
+    -webkit-column-gap: 1em;
+    -moz-column-gap: 1em;
+    column-gap: 1em;
+    -webkit-column-width: 350px;
+    -moz-column-width: 350px;
+    column-width: 350px;
+    -moz-column-fill: auto; /* Firefox */
+    column-fill: auto;
+    margin-bottom: 1em;
+  }
+  .card {
+    max-width: 350px;
+    max-height: 650px;
+    margin: 10px 10px 10px 10px;
+    display: inline-block;
+  }
+}
+
 
 /* Scrollbar */
 body {
@@ -44,9 +83,6 @@ body {
   box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
 }
 
-.voteForm {
-  max-width: 90% !important;
-}
 
 /* max-width = form-width + appContent-margin */
 @media screen and (max-width: 390px) {
@@ -54,7 +90,9 @@ body {
     width: 90%;
     box-sizing: border-box;
   }
+
 }
+
 /* END Forms */
 
 /* Footer */
@@ -73,6 +111,7 @@ body {
   box-sizing: border-box;
 }
 /* END Footer */
+
 
 @media screen and (max-width: 750px) {
   /* Non-sticky */

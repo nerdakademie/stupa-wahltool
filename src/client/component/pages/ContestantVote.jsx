@@ -16,28 +16,10 @@ class ContestantVote extends Component {
     this.state = {
       contestants: [],
       votedContestants: [],
-      itemMargin: 10,
-      horizontalDirection: 'left',
-      gridWidth: 100,
-      verticalDirection: 'top',
-      containerHeight: null,
       activeCheckboxes: new Set(),
       activeRender: this.formRender.bind(this)
     };
     miniToastr.init();
-  }
-
-  getAutoResponsiveProps() {
-    return {
-      horizontalDirection: this.state.horizontalDirection,
-      verticalDirection: this.state.verticalDirection,
-      itemMargin: this.state.itemMargin,
-      containerWidth: this.state.containerWidth,
-      itemClassName: 'item',
-      containerHeight: this.state.containerHeight,
-      transitionDuration: '.5',
-      transitionTimingFunction: 'easeIn'
-    };
   }
 
   loadContestants() {
@@ -61,13 +43,6 @@ class ContestantVote extends Component {
   componentDidMount() {
     this.loadContestants();
     this.loadExistingVote();
-    window.addEventListener('resize', () => {
-      if (ReactDOM.findDOMNode(this.AutoResponsiveContainer) !== null) {
-        this.setState({
-          containerWidth: ReactDOM.findDOMNode(this.AutoResponsiveContainer).clientWidth
-        });
-      }
-    }, false);
   }
 
   handleCheck(checkedState, id) {
@@ -123,19 +98,9 @@ class ContestantVote extends Component {
   }
 
   static createCard(contestant) {
-    const shadow = 1;
-    const width = 350;
-    const height = 650;
-    const style = {
-      width,
-      height
-    };
     return (
       <Card
-        key={contestant._id} style={style} containerStyle={{
-          width,
-          height
-        }} zDepth={shadow}
+        key={contestant._id}
       >
         <CardHeader
           title={`${contestant.firstName} ${contestant.lastName}`}
@@ -167,14 +132,9 @@ class ContestantVote extends Component {
   formRender() {
     return (
       <form className='voteForm' method='post'>
-        <AutoResponsive
-          ref={(c) => {
-            this.AutoResponsiveContainer = c;
-          }}
-          {...this.getAutoResponsiveProps()}
-        >
-          {this.state.contestants.map(ContestantVote.createCard, this)}
-        </AutoResponsive>
+        <div className='contestantList'>
+        {this.state.contestants.map(ContestantVote.createCard, this)}
+        </div>
         <input type='text' hidden='hidden' id='token' value={this.props.params.token} />
         <FlatButton
           label='Wahl abschließen' onClick={this.handleFormSubmit.bind(this)} backgroundColor='#4a89dc'
@@ -187,8 +147,8 @@ class ContestantVote extends Component {
   static successRender() {
     return (
       <form id='form'>
-        <p>Vielen Dank, dass du abgestimmt hast. <br />
-          Die Ergebnisse der Wahl werden zum Ende der Stupa-Wahl veröffentlicht<br />
+        <p>{'Vielen Dank, dass du abgestimmt hast. '}<br />
+          {'Die Ergebnisse der Wahl werden zum Ende der Stupa-Wahl veröffentlicht'}<br />
         </p>
       </form>
     );
@@ -196,8 +156,7 @@ class ContestantVote extends Component {
 
   render() {
     return (
-
-      <div className='contestantList'>
+      <div>
         {this.state.activeRender()}
       </div>
     );
