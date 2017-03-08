@@ -147,15 +147,34 @@ module.exports = class VoteApiController {
           Vote.find().select('token studentEmail')
               .exec()
               .then((votes) => {
-                for (const vote of votes) {
-                  bcrypt.compare(email, vote.studentEmail).then((result) => {
-                    if (result) {
-                      return response.json(vote);
-                    }
+                const promises = votes.map((vote) => {
+                  return new Promise((resolve, reject) => {
+                    bcrypt.compare(email, vote.studentEmail).then((result) => {
+                      if (result) {
+                        return resolve(vote);
+                      }
+                      return resolve(null);
+                    })
+                        .catch(() => {
+                      return resolve(null);
+                    });
                   });
-                }
-                return response.status(200).json({success: false,
-                  error: {text: 'Keinen Token zu dieser Email gefunden'}});
+                });
+
+                Promise.all(promises)
+                    .then((results) => {
+                      for(const result of results) {
+                        if(result !== null) {
+                          return response.json(result);
+                        }
+                      }
+                      return response.status(200).json({success: false,
+                        error: {text: 'Keinen Token zu dieser Email gefunden'}});
+                    })
+                    .catch(() => {
+                      return response.status(200).json({success: false,
+                        error: {text: 'Keinen Token zu dieser Email gefunden'}});
+                    });
               })
               .catch(() => {
                 return response.status(500).json({success: false,
