@@ -149,11 +149,9 @@ module.exports = class VoteApiController {
               .exec()
               .then((votes) => {
                 for (const vote of votes) {
-                  bcrypt.compare(email, vote.studentEmail).then((result) => {
-                    if (result) {
-                      return response.json(vote);
-                    }
-                  });
+                  if (bcrypt.compareSync(email, vote.studentEmail)) {
+                    return response.json(vote);
+                  }
                 }
               })
               .catch(() => {
