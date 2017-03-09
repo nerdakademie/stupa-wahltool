@@ -12,17 +12,19 @@
 
 .contestantList {
   overflow-wrap: break-word;
-  -webkit-column-gap: 0;
-  -moz-column-gap: 0;
-  column-gap: 0;
+  -webkit-column-gap: 0.5em;
+  -moz-column-gap: 0.5em;
+  column-gap: 0.5em;
   -webkit-column-width: 350px;
   -moz-column-width: 350px;
   column-width: 350px;
-  -moz-column-fill: auto;
-  column-fill: auto;
+
+  -moz-column-count: auto;
+  -webkit-column-count: auto;
+  column-count: auto;
 
   .card {
-    max-width: 350px;
+    width: 350px;
     max-height: 650px;
     margin: 10px 10px 5px;
     display: inline-block;
@@ -41,7 +43,9 @@ body {
   padding-top: 78px;
   padding-bottom: 78px;
   overflow-y: auto;
+
 }
+
 
 .appContent {
   margin: 0 8px;

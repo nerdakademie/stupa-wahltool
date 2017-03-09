@@ -80,6 +80,7 @@ class ContestantList extends Component {
           miniToastr.error(data.error.text, 'Error');
         } else {
           miniToastr.info('Wahl erfolgreich', 'Info');
+          this.setState({votedContestants: Array.from(this.state.activeCheckboxes)});
         }
       } else if (data.success === false) {
         miniToastr.error(data.error.text, 'Error');
