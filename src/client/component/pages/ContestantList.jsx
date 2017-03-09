@@ -105,7 +105,7 @@ class ContestantList extends Component {
           title={`${contestant.firstName} ${contestant.lastName}`}
           subtitle={contestant.centuria}
           avatar={<Avatar
-            src={`img/${contestant.image}`}
+            src={`/img/${contestant.image}`}
             style={{borderRadius: 0}}
             size={125}
                   />}
