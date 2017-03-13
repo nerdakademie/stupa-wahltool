@@ -13,7 +13,7 @@ class VotesPerVoter extends Component {
         '4'
       ],
       datasets: [{
-        label: 'Stupa-Wahl 2017 Wahlbeteiligung',
+        label: 'Vorstandswahl AINF 2017 Wahlbeteiligung',
         backgroundColor: [
           '#FF6384',
           '#4BC0C0',

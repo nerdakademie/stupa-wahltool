@@ -81,7 +81,7 @@ class ContestantEdit extends Component {
       errors++;
     }
     if (this.state.token.length !== 36) {
-      this.setState({token_error: 'Bitte gebe einen validen Token'});
+      this.setState({token_error: 'Bitte gebe einen validen Token an'});
       errors++;
     }
     if ($description.val().length < 1) {
@@ -139,7 +139,7 @@ class ContestantEdit extends Component {
       errors++;
     }
     if ($token.val().length !== 36) {
-      this.setState({token_error: 'Bitte gebe einen validen Token'});
+      this.setState({token_error: 'Bitte gebe einen validen Token an'});
       errors++;
     }
     if (errors === 0) {
@@ -241,7 +241,7 @@ class ContestantEdit extends Component {
             <center>{this.state.characters}/1500</center>
           </div>
           <div className='group'>
-            <center>Wenn du kein neues Bild hochladen möchtests, lasse dieses Feld leer.</center>
+            <center>Wenn du kein neues Bild hochladen möchtest, lasse dieses Feld leer.</center>
             <DropzoneComponent config={this.componentConfig} eventHandlers={eventHandlers} djsConfig={this.djsConfig} />
           </div>
           <center>Max Auflösung: 1024x1024. In der Liste als 125x125.</center>

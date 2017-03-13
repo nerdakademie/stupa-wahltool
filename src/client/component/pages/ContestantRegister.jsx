@@ -257,7 +257,7 @@ class ContestantRegister extends Component {
     return (
       <form id='form'>
         <p>Wir haben deinen Aufstellungswunsch erhalten. <br />
-                    Bitte bestägige deine Aufstellung mit dem Aktivierungslink in deiner Email<br />
+                    Bitte bestätige deine Aufstellung mit dem Aktivierungslink in deiner Email<br />
         </p>
       </form>
     );
