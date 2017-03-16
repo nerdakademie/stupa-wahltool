@@ -47,9 +47,9 @@ module.exports = class VoteApiController {
         error: {text: 'Es muss mindestens ein Bewerber gewählt werden'}});
     }
 
-    if (contestantIDs.length > 4) {
+    if (contestantIDs.length > 2) {
       return response.status(200).json({success: false,
-        error: {text: 'Es dürfen nur maximal 4 Bewerber gewählt werden'}});
+        error: {text: 'Es dürfen nur maximal 2 Bewerber gewählt werden'}});
     }
 
     if (contestantIDs.length !== new Set(contestantIDs).size) {
