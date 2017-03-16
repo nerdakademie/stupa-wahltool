@@ -28,10 +28,10 @@
     "rateDelta": 60000,
     "rateLimit": 120,
     "templates": {
-      "contestantConfirm": "Hallo {name},\ndanke für deine Aufstellung zur StuPa-Wahl 2017.\nUm den Prozess abzuschließen, klicke bitte auf den folgenden Link:\n{acceptLink}\nDein Aufstellungs-Token lautet:{token}\nDein Bewerbungstext lautet wie folgt:\n{applicationText}\nWenn du dich nicht selbst aufgestellt hast, dich aber gerne selbst aufstellen möchtest, hast du hier die Möglichkeit, die Aufstellung zu widerrufen: {removeLink}\nIm Anschluss kannst du eine neue Aufstellung veranlassen. Ansonsten ignoriere bitte diese Mail und klicke keinen der Links.\nViele Grüße\nMitja fürs StuPa",
-      "voteRequest": "Hallo {name},\ndie Aufstellungs-Phase zur StuPa-Wahl 2017 ist vorbei.\nUm für bis zu vier Kanditaten stimmen zu können, klicke bitte auf den folgenden Link:\n{voteLink}\nDieser Link ist personalisiert. Gib ihn daher bitte nicht weiter.\nDu musst nicht alle deine Stimmen aufeinmal verwenden. Nicht verwendete Stimmen können bis zum Ende der Wahl-Phase benutzt werden.\nWenn du noch nicht alle Stimmen vergeben hast kannst du diese unter demselben Abstimmen-Link verteilen.\nEinmal abgegeben Stimmen können nicht zurückgezogen werden.\nViele Grüße\nMitja fürs StuPa"
+      "contestantConfirm": "Hallo {name},\ndanke für deine Aufstellung zur Vorstandswahl.\nUm den Prozess abzuschließen, klicke bitte auf den folgenden Link:\n{acceptLink}\nDein Aufstellungs-Token lautet:{token}\n\nDein Bewerbungstext lautet wie folgt:\n{applicationText}\n\nWenn du dich nicht selbst aufgestellt hast, dich aber gerne selbst aufstellen möchtest, hast du hier die Möglichkeit, die Aufstellung zu widerrufen: {removeLink}\nIm Anschluss kannst du eine neue Aufstellung veranlassen. Ansonsten ignoriere bitte diese Mail und klicke keinen der Links.\nViele Grüße\nFinja\n2. Vorsitzende Fachschaft Angewandte Informatik",
+      "voteRequest": "Hallo {name},\ndie Aufstellungs-Phase zur Vorstandswahl ist vorbei.\nUm für bis zu zwei Kanditaten stimmen zu können, klicke bitte auf den folgenden Link:\n{voteLink}\nDieser Link ist personalisiert. Gib ihn daher bitte nicht weiter.\nDu musst nicht alle deine Stimmen aufeinmal verwenden. Nicht verwendete Stimmen können bis zum Ende der Wahl-Phase benutzt werden.\nWenn du noch nicht alle Stimmen vergeben hast kannst du diese unter demselben Abstimmen-Link verteilen.\nEinmal abgegeben Stimmen können nicht zurückgezogen werden.\nViele Grüße\nFinja\n2. Vorsitzende Fachschaft Angewandte Informatik"
     },
-    "contestantSubject": "Stupa Wahl: Aufstellungsbestätigung",
-    "voteSubject": "Stupa Wahl: Bitte wählen"
+    "contestantSubject": "Vorstandswahl Fachschaft AINF: Aufstellungsbestätigung",
+    "voteSubject": "Vorstandswahl Fachschaft AINF: Bitte wählen"
   }
 }
