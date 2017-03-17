@@ -9,7 +9,6 @@ import AutoComplete from 'material-ui/AutoComplete';
 import request from 'superagent';
 import miniToastr from 'mini-toastr';
 
-
 class ContestantRegister extends Component {
   constructor() {
     super();
@@ -153,6 +152,8 @@ class ContestantRegister extends Component {
                   responseBody: resp.body
                 });
               }
+            } else if (resp.body.success === false) {
+              miniToastr.error(resp.body.error.text, 'Error');
             }
             return resp;
           });
