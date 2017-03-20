@@ -6,8 +6,8 @@ function Home() {
       <h3>{'Willkommen bei der Vorstandswahl der Fachschaft AINF 2017'}</h3>
       <p>{'Hier kannst du für die aufgestellten Kandidaten deine Stimme abgeben!'} <br />
         {'Du hast insgesamt 2 Stimmen. Es ist möglich, dass du z.B. erst eine Person wählst und später die zweite Stimme ergänzt. Bereits abgegebene Stimmen können nicht mehr zurückgezogen werden.'}</p>
-      <p>{'Der Zeitraum, in welchem du dich aufstellen kannst, ist: '}<b>{'Sonntag, 19.03. 10:00 Uhr – Mittwoch, 22.03. 10:00 Uhr.'}</b></p>
-      <p>{'Der Wahlzeitraum ist: '}<b>{'Mittwoch, 22.03. 10:00 Uhr – Samstag, 25.03. 10:00 Uhr.'}</b></p>
+      <p>{'Der Zeitraum, in welchem du dich aufstellen kannst, ist: '}<b>{'Montag, 20.03. 14:00 Uhr – Donnerstag, 23.03. 14:00 Uhr.'}</b></p>
+      <p>{'Der Wahlzeitraum ist: '}<b>{'Donnerstag, 23.03. 14:00 Uhr – Sonntag, 26.03. 14:00 Uhr.'}</b></p>
       <p>{'Danach wird der künftige Vorstand bekanntgegeben.'}</p>
       <p>{'Du wirst eine Mail bekommen, in der dein Token ist, mit dem du verifizierst, dass die abgegebenen Stimmen wirklich von dir kommen. Aus diesem Grund ist es wichtig, dass dein Postfach leer genug ist und dass du deine Wahlmail nicht weiterleitest!'}</p>
       <p>{'Es ist möglich, dass im laufenden Prozess neue Features eingebaut werden.'} <br />
