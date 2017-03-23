@@ -203,8 +203,8 @@ module.exports = class ContestantApiController {
         error: {text: 'Missing lastName parameter'}});
     }
     const {token} = request.query;
-    const firstName = StringHelper.rtrim(request.body.firstName);
-    const lastName = StringHelper.rtrim(request.body.lastName);
+    const firstName = StringHelper.rtrim(request.query.firstName);
+    const lastName = StringHelper.rtrim(request.query.lastName);
 
     Contestant.findOneAndRemove({token,
       firstName,
