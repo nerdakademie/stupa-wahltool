@@ -4,11 +4,9 @@ const Vote = require('../db').model('Vote');
 const uuid = require('uuid/v4');
 const Mailer = require('./mailer');
 const config = require('../config');
-const bcrypt = require('bcrypt');
-const saltRounds = 12;
+const argon2 = require('argon2');
 
 module.exports = class VoteHelper {
-
   static sendVoteMailWithPromise(students) {
     const transporter = Mailer.createMailTransporter();
     return students.map((student) => {
@@ -35,23 +33,22 @@ module.exports = class VoteHelper {
       });
 
       Mailer.sendMailWithTemplate(transporter, data)
-          .then(() => {
-            bcrypt.hash(student.email, saltRounds)
-                .then((hash) => {
-                  const vote = new Vote({token,
-                    studentEmail: hash});
-                  vote.save((error2) => {
-                    if (error2) {
-                      return reject(student.email);
-                    }
-                    return resolve();
-                  });
-                });
-          })
-          .catch((promiseError) => {
-            return reject(promiseError);
-          });
+        .then(() => {
+          argon2.hash(student.email)
+            .then((hash) => {
+              const vote = new Vote({token,
+                studentEmail: hash});
+              vote.save((error2) => {
+                if (error2) {
+                  return reject(student.email);
+                }
+                return resolve();
+              });
+            });
+        })
+        .catch((promiseError) => {
+          return reject(promiseError);
+        });
     });
   }
-
 };

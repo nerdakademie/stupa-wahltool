@@ -9,7 +9,6 @@ import AutoComplete from 'material-ui/AutoComplete';
 import request from 'superagent';
 import miniToastr from 'mini-toastr';
 
-
 class ContestantRegister extends Component {
   constructor() {
     super();
@@ -42,7 +41,7 @@ class ContestantRegister extends Component {
       autoProcessQueue: false,
       init() {
         this.on('thumbnail', (file) => {
-                    // do the dimension checks you want to do
+          // do the dimension checks you want to do
           if (file.width > maxImageWidth || file.height > maxImageHeight) {
             file.rejectDimensions();
           } else {
@@ -99,7 +98,7 @@ class ContestantRegister extends Component {
     const $description = $('#description');
     this.resetErrors();
     let errors = 0;
-      // TODO: check for image
+    // TODO: check for image
     if ($firstName.val().length < 1) {
       this.setState({firstName_error: 'Bitte gebe Vornamen an'});
       errors++;
@@ -139,23 +138,23 @@ class ContestantRegister extends Component {
       form.append('description', $description.val());
 
       request.post('/api/contestants/')
-          .send(form)
-          .end((error, resp) => {
-            if (error) {
-              console.error(error);
+        .send(form)
+        .end((error, resp) => {
+          if (error) {
+            miniToastr.error(error, 'Error');
+          }
+          if (resp.statusCode === 200) {
+            if (resp.body.success === false) {
+              miniToastr.error(resp.body.error.text, 'Error');
+            } else {
+              this.setState({
+                activeRender: this.successRender.bind(this),
+                responseBody: resp.body
+              });
             }
-            if (resp.statusCode === 200) {
-              if (resp.body.success === false) {
-                miniToastr.error(resp.body.error.text, 'Error');
-              } else {
-                this.setState({
-                  activeRender: this.successRender.bind(this),
-                  responseBody: resp.body
-                });
-              }
-            }
-            return resp;
-          });
+          }
+          return resp;
+        });
     }
   }
 
@@ -186,24 +185,34 @@ class ContestantRegister extends Component {
     };
 
     return (
-      <form id='form' method='post'>
+      <form
+        id='form'
+        method='post'
+      >
         <div className='group'>
           <TextField
-            id='firstName' name='firstName' floatingLabelText='Vorname' hintText='Max'
+            id='firstName'
+            name='firstName'
+            floatingLabelText='Vorname'
+            hintText='Max'
             style={fullwidth}
             errorText={this.state.firstName_error}
           />
         </div>
         <div className='group'>
           <TextField
-            id='lastName' name='lastName' floatingLabelText='Nachname' hintText='Mustermann'
+            id='lastName'
+            name='lastName'
+            floatingLabelText='Nachname'
+            hintText='Mustermann'
             style={fullwidth}
             errorText={this.state.lastName_error}
           />
         </div>
         <div className='group'>
           <AutoComplete
-            id='course' name='course'
+            id='course'
+            name='course'
             hintText='Wirtschaftsinformatik'
             floatingLabelText='Studiengang'
             filter={AutoComplete.caseInsensitiveFilter}
@@ -216,7 +225,8 @@ class ContestantRegister extends Component {
         </div>
         <div className='group'>
           <AutoComplete
-            id='year' name='year'
+            id='year'
+            name='year'
             hintText='2015'
             floatingLabelText='Jahrgang'
             filter={AutoComplete.caseInsensitiveFilter}
@@ -242,12 +252,20 @@ class ContestantRegister extends Component {
           <center>{this.state.characters}/1500</center>
         </div>
         <div className='group'>
-          <DropzoneComponent config={this.componentConfig} eventHandlers={eventHandlers} djsConfig={this.djsConfig} />
+          <DropzoneComponent
+            config={this.componentConfig}
+            eventHandlers={eventHandlers}
+            djsConfig={this.djsConfig}
+          />
         </div>
         <center>Max Auflösung: 1024x1024. In der Liste als 125x125.</center>
         <FlatButton
-          label='Registrieren' onClick={this.createContestant.bind(this)} backgroundColor='#4a89dc'
-          hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={fullwidth}
+          label='Registrieren'
+          onClick={this.createContestant.bind(this)}
+          backgroundColor='#4a89dc'
+          hoverColor='#357bd8'
+          labelStyle={{color: '#fff'}}
+          style={fullwidth}
         />
       </form>
     );
