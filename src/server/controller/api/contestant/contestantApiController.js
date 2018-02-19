@@ -99,12 +99,12 @@ module.exports = class ContestantApiController {
         StringHelper.isNullOrEmptyString(request.body.year) ||
         StringHelper.isNullOrEmptyString(request.body.description) ||
         request.file === undefined) {
-      return response.status(400).json({success: false,
+      return response.status(200).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
 
     if (request.body.description.length > 1500) {
-      return response.status(400).json({success: false,
+      return response.status(200).json({success: false,
         error: {text: 'Bewerbungstext ist zu lang'}});
     }
     const contestantJSON = request.body;
@@ -155,21 +155,21 @@ module.exports = class ContestantApiController {
               });
         })
         .catch(() => {
-          return response.status(400).json({success: false,
+          return response.status(200).json({success: false,
             error: {text: 'Deine Angaben konnten nicht validiert werden. \nVersuche es erneut'}});
         });
   }
 
   static activate(request, response) {
     if (StringHelper.isNullOrEmptyString(request.query.token)) {
-      return response.status(400).json({success: false,
+      return response.status(200).json({success: false,
         error: {text: 'Missing token parameter'}});
     }
 
     Contestant.findOne({token: request.query.token}).exec()
         .then((contestant) => {
           if (contestant === null) {
-            return response.status(400).json({
+            return response.status(200).json({
               success: false,
               error: {text: 'Error while validating token'}
             });
@@ -191,15 +191,15 @@ module.exports = class ContestantApiController {
 
   static invalidate(request, response) {
     if (StringHelper.isNullOrEmptyString(request.query.token)) {
-      return response.status(400).json({success: false,
+      return response.status(200).json({success: false,
         error: {text: 'Missing token parameter'}});
     }
     if (StringHelper.isNullOrEmptyString(request.query.firstName)) {
-      return response.status(400).json({success: false,
+      return response.status(200).json({success: false,
         error: {text: 'Missing firstName parameter'}});
     }
     if (StringHelper.isNullOrEmptyString(request.query.lastName)) {
-      return response.status(400).json({success: false,
+      return response.status(200).json({success: false,
         error: {text: 'Missing lastName parameter'}});
     }
     const {token} = request.query;

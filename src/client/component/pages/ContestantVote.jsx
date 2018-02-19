@@ -90,7 +90,7 @@ class ContestantVote extends Component {
       contentType: 'application/json',
       dataType: 'json'
     }).done((data, status, xhr) => {
-      if (xhr.status === 200) {
+      if (xhr.status === 200 || xhr.status) {
         if (data.success === false) {
           miniToastr.error(data.error.text, 'Error');
         } else {

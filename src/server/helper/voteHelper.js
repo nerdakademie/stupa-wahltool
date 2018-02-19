@@ -15,7 +15,7 @@ module.exports = class VoteHelper {
 
   static sendVoteMail(transporter, student) {
     return new Promise((resolve, reject) => {
-      const token = uuid();
+      const generatedToken = uuid();
       const data = {};
       data.to = student.email;
       data.subject = config.get('mailer:voteSubject');
@@ -28,14 +28,15 @@ module.exports = class VoteHelper {
       });
       data.template.replace.push({
         placeholder: 'voteLink',
-        value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list/${token}`
+        value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list/${generatedToken}`
       });
 
       Mailer.sendMailWithTemplate(transporter, data)
         .then(() => {
-              const token = new Token({token,
+              const token = new Token({token: generatedToken,
                 studentEmail: student.email});
               token.save((error2) => {
+                console.log(error2);
                 if (error2) {
                   return reject(student.email);
                 }

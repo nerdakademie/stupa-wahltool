@@ -140,18 +140,15 @@ class ContestantRegister extends Component {
       request.post('/api/contestants/')
         .send(form)
         .end((error, resp) => {
-          if (error) {
-            miniToastr.error(error, 'Error');
-          }
-          if (resp.statusCode === 200) {
-            if (resp.body.success === false) {
+          if (resp.body.success === false) {
               miniToastr.error(resp.body.error.text, 'Error');
-            } else {
+            } else if (resp.body.success === true){
               this.setState({
                 activeRender: this.successRender.bind(this),
                 responseBody: resp.body
               });
-            }
+            } else {
+            miniToastr.error(error, 'Error');
           }
           return resp;
         });
