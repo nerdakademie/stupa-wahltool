@@ -57,7 +57,6 @@ module.exports = class VoteApiController {
       return response.status(200).json({success: false,
         error: {text: 'Bewerber mehrfach gewählt'}});
     }
-    console.log(request.body);
 
     Token.findOne({token}).exec()
       .then((token) => {
@@ -75,16 +74,13 @@ module.exports = class VoteApiController {
         } else {
           Student.findOne({'email': token.studentEmail}).exec()
             .then((student) => {
-              console.log(contestantIDs);
               for (const id of contestantIDs){
                 const vote = new Vote({
                   voterCourse: student.course,
                   voterYear: student.year,
                   contestantID:id
                 });
-                console.log(vote);
                 vote.save((saveError) => {
-                  console.log(saveError);
                   if(saveError) {
                     return response.status(500)
                       .json({
@@ -117,7 +113,6 @@ module.exports = class VoteApiController {
 
   static sendVoteTokens(request, response) {
       const {authToken} = request.body;
-      console.log(request.body);
       if (StringHelper.isNullOrEmptyString(authToken)) {
           return response.status(400).json({
               success: false,
