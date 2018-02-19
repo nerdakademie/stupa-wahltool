@@ -5,17 +5,18 @@ const mongo = require('../db');
 class TokenSchema extends mongo.Schema {
   constructor() {
     super({
-      token: {
+      voterCourse: {
         type: String,
         required: true
       },
-      studentEmail: {
-        type: String,
+      voterYear: {
+        type: Number,
         required: true
       },
-      contestantIDs: {
-        type: [mongo.Schema.Types.ObjectId],
-        default: []
+      contestantID: {
+        type: Number,
+        required: true
+
       }
     });
   }

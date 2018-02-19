@@ -49,10 +49,10 @@ class ContestantVote extends Component {
   }
 
   loadExistingVote() {
-    $.getJSON(`/api/votes/${this.props.params.token}`, (votedContestants) => {
-      if (votedContestants.success !== false) {
+    $.getJSON(`/api/votes/${this.props.params.token}`, (voted) => {
+      if (voted.success !== false) {
         this.setState({
-          votedContestants
+          voted: voted.voted
         });
       }
     });
@@ -78,14 +78,8 @@ class ContestantVote extends Component {
     }
   }
 
-  addExistingVotes() {
-    for (const votedID of this.state.votedContestants) {
-      this.state.activeCheckboxes.add(votedID);
-    }
-  }
 
   handleFormSubmit(formSubmitEvent) {
-    this.addExistingVotes();
     formSubmitEvent.preventDefault();
     const $token = $('#token');
     $.ajax({
@@ -150,8 +144,7 @@ class ContestantVote extends Component {
           <Checkbox
             label='Wählen'
             onCheck={(event, isChecked) => { this.handleCheck(isChecked, contestant._id); }}
-            defaultChecked={this.alreadyVoted(contestant._id)}
-            disabled={this.alreadyVoted(contestant._id)}
+            disabled={this.state.voted}
           />
         </CardActions>
         <Scrollbars
