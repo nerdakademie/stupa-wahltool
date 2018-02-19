@@ -188,7 +188,7 @@ class ContestantVote extends Component {
     return (
       <form id='form'>
         <p>Vielen Dank, dass du abgestimmt hast. <br />
-          Die Ergebnisse der Wahl werden zum Ende der Stupa-Wahl veröffentlicht<br />
+          Die Ergebnisse der Wahl werden zum Ende der Stupa-Wahl veröffentlicht. <br />
         </p>
       </form>
     );

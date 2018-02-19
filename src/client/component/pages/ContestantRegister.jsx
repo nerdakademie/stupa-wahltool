@@ -35,10 +35,10 @@ class ContestantRegister extends Component {
       addRemoveLinks: true,
       maxFiles: 1,
       acceptedFiles: 'image/jpeg,image/png',
-      dictDefaultMessage: 'Ziehe die Datei hier hinein, um sie hochzuladen',
-      dictFileTooBig: 'Datei ist zu groß',
-      dictRemoveFile: 'Datei entfernen',
-      dictMaxFilesExceeded: 'Es darf nur eine Datei hochgeladen werden',
+      dictDefaultMessage: 'Ziehe die Datei hier hinein, um sie hochzuladen.',
+      dictFileTooBig: 'Datei ist zu groß.',
+      dictRemoveFile: 'Datei entfernen.',
+      dictMaxFilesExceeded: 'Es darf nur eine Datei hochgeladen werden.',
       autoProcessQueue: false,
       init() {
         this.on('thumbnail', (file) => {
@@ -101,32 +101,32 @@ class ContestantRegister extends Component {
     let errors = 0;
       // TODO: check for image
     if ($firstName.val().length < 1) {
-      this.setState({firstName_error: 'Bitte gebe Vornamen an'});
+      this.setState({firstName_error: 'Bitte gebe Vornamen an.'});
       errors++;
     }
     if ($lastName.val().length < 1) {
-      this.setState({lastName_error: 'Bitte gebe Nachnamen an'});
+      this.setState({lastName_error: 'Bitte gebe Nachnamen an.'});
       errors++;
     }
     if ($course.val().length < 1) {
-      this.setState({course_error: 'Bitte gebe einen Studiengang an'});
+      this.setState({course_error: 'Bitte gebe einen Studiengang an.'});
       errors++;
     }
     if ($year.val().length < 1) {
-      this.setState({year_error: 'Bitte gebe einen Jahrgang an'});
+      this.setState({year_error: 'Bitte gebe einen Jahrgang an.'});
       errors++;
     }
     if ($description.val().length < 1) {
-      this.setState({description_error: 'Bitte gebe eine Beschreibung an'});
+      this.setState({description_error: 'Bitte gebe eine Beschreibung an.'});
       errors++;
     }
     if ($description.val().length > 1500) {
-      this.setState({description_error: 'Zu viele Zeichen'});
+      this.setState({description_error: 'Zu viele Zeichen.'});
       errors++;
     }
     // TODO: make picture upload optional again
     if (!this.state.file) {
-      miniToastr.error('Bitte wähle ein Bild aus', 'Error');
+      miniToastr.error('Bitte wähle ein Bild aus.', 'Error');
       errors++;
     }
     if (errors === 0) {
