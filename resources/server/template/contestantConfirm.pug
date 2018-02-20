@@ -8,6 +8,8 @@ html
         p Um den Prozess abzuschließen, klicke bitte auf den folgenden Link:
         a(href=acceptLink) Bestätigen
         p Dein Aufstellungs-Token lautet: #{token}
+          br
+          | Du kannst diesen Token nutzen um dein Bild und deinen Bewerbungstext zu ändern.
         p Dein Bewerbungstext lautet wie folgt:
         p!= applicationText.replace(/\n/g, '<br />')
         p
