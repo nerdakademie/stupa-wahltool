@@ -23,7 +23,7 @@ function App(props) {
     <div>
       <AppBar
         className='topbar'
-        title='Stupa-Wahl 2018'
+        title='StuPa-Wahl 2018'
         style={styles.appBar}
         showMenuIconButton={false}
         iconElementRight={<div style={styles.buttons}>

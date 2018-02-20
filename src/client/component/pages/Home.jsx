@@ -3,7 +3,7 @@ import React from 'react';
 function Home() {
   return (
     <div>
-      <h3>{'Willkommen bei der Stupa Wahl 2018'}</h3>
+      <h3>{'Willkommen bei der StuPa-Wahl 2018'}</h3>
       <p>{'Hier kannst du für die aufgestellten Kandidaten deine Stimme abgeben!'} <br />
         {'Du hast insgesamt 4 Stimmen. Es ist möglich, dass du z.B. erst eine Person wählst und später noch welche ergänzt. Bereits abgegebene Stimmen können nicht mehr zurückgezogen werden.'}</p>
         <p>{'Der Aufstellungs-Zeitraum ist: '}<b>{'Mittwoch, 21.02. 00:00 Uhr – 25.02. 23:59 Uhr'}</b>{'. Danach beginnt die Wahl.'}</p>
