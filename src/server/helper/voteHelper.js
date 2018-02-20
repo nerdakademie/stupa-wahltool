@@ -1,10 +1,10 @@
 'use strict';
 
-const Vote = require('../db').model('Vote');
+const Token = require('../db').model('Token');
 const uuid = require('uuid/v4');
 const Mailer = require('./mailer');
 const config = require('../config');
-const argon2 = require('argon2');
+
 
 module.exports = class VoteHelper {
   static sendVoteMailWithPromise(students) {
@@ -16,7 +16,7 @@ module.exports = class VoteHelper {
 
   static sendVoteMail(transporter, student) {
     return new Promise((resolve, reject) => {
-      const token = uuid();
+      const generatedToken = uuid();
       const data = {};
       data.to = student.email;
       data.subject = config.get('mailer:voteSubject');
@@ -29,21 +29,20 @@ module.exports = class VoteHelper {
       });
       data.template.replace.push({
         placeholder: 'voteLink',
-        value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list/${token}`
+        value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list/${generatedToken}`
       });
 
       Mailer.sendMailWithTemplate(transporter, data)
         .then(() => {
-          argon2.hash(student.email)
-            .then((hash) => {
-              const vote = new Vote({token,
-                studentEmail: hash});
-              vote.save((error2) => {
+
+          const token = new Token({token: generatedToken,
+                studentEmail: student.email});
+              token.save((error2) => {
+                console.log(error2);
                 if (error2) {
                   return reject(student.email);
                 }
-                return resolve();
-              });
+
             });
         })
         .catch((promiseError) => {

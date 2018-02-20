@@ -18,7 +18,9 @@ module.exports = class StageCheckController {
           error: {text: 'Keine Aufstellungsphase gefunden'}
         });
       }
+      console.log(stage);
       const currentDate = new Date();
+      console.log(currentDate);
       if (currentDate > stage.endTime) {
         return response.status(400).json({
           success: false,

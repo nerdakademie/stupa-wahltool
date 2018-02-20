@@ -23,7 +23,7 @@ function App(props) {
     <div>
       <AppBar
         className='topbar'
-        title='Stupa-Wahl 2017'
+        title='Stupa-Wahl 2018'
         style={styles.appBar}
         showMenuIconButton={false}
         iconElementRight={<div style={styles.buttons}>
@@ -37,7 +37,7 @@ function App(props) {
       <div className='appContent'>
         {props.children || <Home />}
       </div>
-      <Footer>{'(c) 2017 '}<a className='nerdakademie' href='https://nerdakademie.xyz'>{'Nerdakademie'}</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>{'v1.3.0'}</a></Footer>
+      <Footer>{'(c) 2018 '}<a className='nerdakademie' href='https://nerdakademie.xyz'>{'Nerdakademie'}</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>{'v1.3.0'}</a></Footer>
     </div>
   );
 }

@@ -33,10 +33,10 @@ class ContestantEdit extends Component {
       addRemoveLinks: true,
       maxFiles: 1,
       acceptedFiles: 'image/jpeg,image/png',
-      dictDefaultMessage: 'Ziehe die Datei hier hinein, um sie hochzuladen',
-      dictFileTooBig: 'Datei ist zu groß',
-      dictRemoveFile: 'Datei entfernen',
-      dictMaxFilesExceeded: 'Es darf nur eine Datei hochgeladen werden',
+      dictDefaultMessage: 'Ziehe die Datei hier hinein, um sie hochzuladen.',
+      dictFileTooBig: 'Datei ist zu groß.',
+      dictRemoveFile: 'Datei entfernen.',
+      dictMaxFilesExceeded: 'Es darf nur eine Datei hochgeladen werden.',
       autoProcessQueue: false,
       init() {
         this.on('thumbnail', (file) => {
@@ -73,23 +73,23 @@ class ContestantEdit extends Component {
     let errors = 0;
     // TODO: check for image
     if (this.state.firstName.length < 1) {
-      this.setState({firstName_error: 'Bitte gebe Vornamen an'});
+      this.setState({firstName_error: 'Bitte gebe Vornamen an.'});
       errors++;
     }
     if (this.state.lastName.length < 1) {
-      this.setState({lastName_error: 'Bitte gebe Nachnamen an'});
+      this.setState({lastName_error: 'Bitte gebe Nachnamen an.'});
       errors++;
     }
     if (this.state.token.length !== 36) {
-      this.setState({token_error: 'Bitte gebe einen validen Token'});
+      this.setState({token_error: 'Bitte gebe einen validen Token an.'});
       errors++;
     }
     if ($description.val().length < 1) {
-      this.setState({description_error: 'Bitte gebe eine Beschreibung an'});
+      this.setState({description_error: 'Bitte gebe eine Beschreibung an.'});
       errors++;
     }
     if ($description.val().length > 1500) {
-      this.setState({description_error: 'Zu viele Zeichen'});
+      this.setState({description_error: 'Zu viele Zeichen.'});
       errors++;
     }
     // TODO: make picture upload optional again
@@ -131,15 +131,15 @@ class ContestantEdit extends Component {
     let errors = 0;
     // TODO: check for image
     if ($firstName.val().length < 1) {
-      this.setState({firstName_error: 'Bitte gebe Vornamen an'});
+      this.setState({firstName_error: 'Bitte gebe Vornamen an.'});
       errors++;
     }
     if ($lastName.val().length < 1) {
-      this.setState({lastName_error: 'Bitte gebe Nachnamen an'});
+      this.setState({lastName_error: 'Bitte gebe Nachnamen an.'});
       errors++;
     }
     if ($token.val().length !== 36) {
-      this.setState({token_error: 'Bitte gebe einen validen Token'});
+      this.setState({token_error: 'Bitte gebe einen validen Token an.'});
       errors++;
     }
     if (errors === 0) {
