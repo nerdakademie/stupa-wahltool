@@ -203,8 +203,8 @@ module.exports = class ContestantApiController {
         error: {text: 'Missing lastName parameter'}});
     }
     const {token} = request.query;
-    const firstName = StringHelper.rtrim(request.body.firstName);
-    const lastName = StringHelper.rtrim(request.body.lastName);
+    const firstName = StringHelper.rtrim(request.query.firstName);
+    const lastName = StringHelper.rtrim(request.query.lastName);
 
     Contestant.findOneAndRemove({token,
       firstName,
@@ -213,7 +213,7 @@ module.exports = class ContestantApiController {
         .then((contestant) => {
           if (contestant === null) {
             return response.status(200).json({success: false,
-              error: {text: 'Kein Bewerber mit diesen Paramtern gefunden'}});
+              error: {text: 'Kein Bewerber mit diesen Paramtern gefunden oder Aufstellung wurde bereits bestätigt'}});
           }
           if (fs.existsSync(`resources/server/public/img/${contestant.image}`)) {
             fs.unlink(`resources/server/public/img/${contestant.image}`, (error2) => {
