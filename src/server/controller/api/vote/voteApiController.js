@@ -176,6 +176,7 @@ module.exports = class VoteApiController {
 
     SendVote.findOne({token: authToken}).exec((error, sendVote) => {
       if (error) {
+        console.log(error)
         return response.status(500).json({
           success: false,
           error: {text: 'Fehler beim Bearbeiten aufgetreten'}
