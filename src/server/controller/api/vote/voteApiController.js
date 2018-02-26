@@ -212,7 +212,8 @@ module.exports = class VoteApiController {
             });
           });
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         return response.status(500).json({
           success: false,
           error: {text: 'Fehler beim Bearbeiten aufgetreten'}
