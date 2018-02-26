@@ -73,7 +73,17 @@ module.exports = class VoteApiController {
             success: false,
             error: {text: 'Du hast bereits gewählt'}
           });
-        }
+        } else {
+          token.voted = true;
+          token.save((saveError) => {
+            if (saveError) {
+              return response.status(500)
+                .json({
+                  success: false,
+                  error: {text: 'Interner Serverfehler. Stimmen gespeichert, Token allerdings nicht modifiziert. Bitte schreibe uns eine E-Mail und erwähne deinen RevocationToken: ${revocationToken}'}
+                });
+            }
+          });
         Student.findOne({email: token.studentEmail}).exec()
           .then((student) => {
             const revocationToken = uuid();
@@ -94,18 +104,9 @@ module.exports = class VoteApiController {
                 }
               });
             }
+            return response.status(200).json({success: true});
           });
-        token.voted = true;
-        token.save((saveError) => {
-          if (saveError) {
-            return response.status(500)
-              .json({
-                success: false,
-                error: {text: 'Interner Serverfehler. Stimmen gespeichert, Token allerdings nicht modifiziert. Bitte schreibe uns eine E-Mail und erwähne deinen RevocationToken: ${revocationToken}'}
-              });
-          }
-          return response.status(200).json({success: true});
-        });
+      }
       })
       .catch(() => {
         return response.status(500).json({success: false,

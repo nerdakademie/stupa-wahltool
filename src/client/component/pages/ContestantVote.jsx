@@ -107,7 +107,7 @@ class ContestantVote extends Component {
       } else if (xhr.status !== 500 && data.success === false) {
         miniToastr.error(data.error.text, 'Error');
         this.setState({
-          sendClicked: true
+          loginClicked: false
         });
       } else {
         miniToastr.error('Fehler beim Empfang der Bestätigung', 'Error');
