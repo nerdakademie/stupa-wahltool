@@ -46,6 +46,7 @@ module.exports = class VoteHelper {
             });
         })
         .catch((promiseError) => {
+          console.log(promiseError);
           return reject(promiseError);
         });
     });

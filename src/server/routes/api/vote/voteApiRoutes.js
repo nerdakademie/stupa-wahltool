@@ -13,5 +13,6 @@ module.exports = class VoteApiRoutes extends Express.Router {
     this.post('/', StageCheckController.checkVotingStage, VoteApiController.save);
     this.post('/findToken', VoteApiController.findTokenByEmail);
     this.post('/send', StageCheckController.checkVotingStage, VoteApiController.sendVoteTokens);
+    this.post('/sendMissing', StageCheckController.checkVotingStage, VoteApiController.sendMissingVoteTokens);
   }
 };

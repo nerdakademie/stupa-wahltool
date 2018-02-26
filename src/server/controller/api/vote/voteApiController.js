@@ -115,6 +115,7 @@ module.exports = class VoteApiController {
   }
 
   static sendVoteTokens(request, response) {
+    request.socket.setTimeout(3600e3);
     const {authToken} = request.body;
     if (StringHelper.isNullOrEmptyString(authToken)) {
       return response.status(400).json({
@@ -162,6 +163,63 @@ module.exports = class VoteApiController {
         });
     });
   }
+
+  static sendMissingVoteTokens(request, response){
+    request.socket.setTimeout(3600e3);
+    const {authToken} = request.body;
+    if (StringHelper.isNullOrEmptyString(authToken)) {
+      return response.status(400).json({
+        success: false,
+        error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}
+      });
+    }
+
+    SendVote.findOne({token: authToken}).exec((error, sendVote) => {
+      if (error) {
+        return response.status(500).json({
+          success: false,
+          error: {text: 'Fehler beim Bearbeiten aufgetreten'}
+        });
+      }
+
+      if (sendVote === null) {
+        return response.status(200).json({
+          success: false,
+          error: {text: 'Token nicht in der Datenbank gefunden'}
+        });
+      }
+      Student.aggregate([
+        {$project: {firstName: 1,
+          email: 1}},
+          {$lookup: {from: 'tokens',
+          localField: 'email',
+          foreignField: 'studentEmail',
+          as: 'tokenHolder'}},
+          {$match: {tokenHolder: {$eq: []}}}
+      ]).exec()
+      .then((studentsMissingTokens) => {
+        const promises = VoteHelper.sendVoteMailWithPromise(students);
+
+        Promise.all(promises)
+          .then(() => {
+            return response.status(200).json({success: true});
+          })
+          .catch((promiseError) => {
+            return response.status(200).json({
+              success: false,
+              error: {text: promiseError}
+            });
+          });
+      })
+      .catch(() => {
+        return response.status(500).json({
+          success: false,
+          error: {text: 'Fehler beim Bearbeiten aufgetreten'}
+        });
+      });
+    });
+  }
+
   static findTokenByEmail(request, response) {
     const {authToken, email} = request.body;
     if (StringHelper.isNullOrEmptyString(authToken) ||
