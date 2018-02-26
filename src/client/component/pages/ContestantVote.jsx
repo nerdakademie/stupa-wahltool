@@ -22,7 +22,8 @@ class ContestantVote extends Component {
       verticalDirection: 'top',
       containerHeight: null,
       activeCheckboxes: new Set(),
-      activeRender: this.formRender.bind(this)
+      activeRender: this.formRender.bind(this),
+      sendClicked: false
     };
     miniToastr.init();
   }
@@ -81,6 +82,9 @@ class ContestantVote extends Component {
   handleFormSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault();
     const $token = $('#token');
+    this.setState({
+      sendClicked: true
+    });
     $.ajax({
       method: 'POST',
       url: '/api/votes/',
@@ -100,16 +104,28 @@ class ContestantVote extends Component {
         }
       } else if (xhr.status === 500 && data.success === false) {
         miniToastr.error(data.error.text, 'Error', 1800000);
+        this.setState({
+          sendClicked: true
+        });
       } else if (xhr.status !== 500 && data.success === false) {
         miniToastr.error(data.error.text, 'Error');
+        this.setState({
+          sendClicked: true
+        });
       } else {
         miniToastr.error('Fehler beim Empfang der Bestätigung', 'Error');
+        this.setState({
+          sendClicked: true
+        });
       }
     })
       .fail((xhr) => {
         if (xhr.responseJSON.success === false) {
           miniToastr.error(xhr.responseJSON.error.text, 'Error');
         }
+        this.setState({
+          sendClicked: false
+        });
       });
   }
 
@@ -183,6 +199,7 @@ class ContestantVote extends Component {
         />
         <FlatButton
           label='Wahl abschließen'
+          disabled={this.state.sendClicked}
           onClick={this.handleFormSubmit.bind(this)}
           backgroundColor='#4a89dc'
           hoverColor='#357bd8'
