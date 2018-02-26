@@ -7,6 +7,7 @@ const SendVote = mongo.model('SendVote');
 const Student = mongo.model('Student');
 const VoteHelper = require('../../../helper/voteHelper');
 const StringHelper = require('../../../helper/stringHelper');
+const uuid = require('uuid/v4');
 
 module.exports = class VoteApiController {
   static findOne(request, response) {
@@ -75,18 +76,20 @@ module.exports = class VoteApiController {
         }
         Student.findOne({email: token.studentEmail}).exec()
           .then((student) => {
+            const revocationToken = uuid();
             for (const id of contestantIDs) {
               const vote = new Vote({
                 voterCourse: student.course,
                 voterYear: student.year,
-                contestantID: id
+                contestantID: id,
+                revocationToken
               });
               vote.save((saveError) => {
                 if (saveError) {
                   return response.status(500)
                     .json({
                       success: false,
-                      error: {text: 'Interner Serverfehler. Stimmen wurden nicht oder nur teilweise gespeichert'}
+                      error: {text: 'Interner Serverfehler. Stimmen wurden nicht oder nur teilweise gespeichert. Bitte schreibe uns eine E-Mail und erwähne deinen RevocationToken: ${revocationToken}'}
                     });
                 }
               });
@@ -98,7 +101,7 @@ module.exports = class VoteApiController {
             return response.status(500)
               .json({
                 success: false,
-                error: {text: 'Interner Serverfehler. Stimmen gespeichert, Token allerdings nicht modifiziert'}
+                error: {text: 'Interner Serverfehler. Stimmen gespeichert, Token allerdings nicht modifiziert. Bitte schreibe uns eine E-Mail und erwähne deinen RevocationToken: ${revocationToken}'}
               });
           }
           return response.status(200).json({success: true});
