@@ -32,23 +32,24 @@ module.exports = class VoteHelper {
         value: `${config.get('webserver:defaultProtocol')}://${config.get('webserver:url')}/list/${generatedToken}`
       });
 
-      Mailer.sendMailWithTemplate(transporter, data)
-        .then(() => {
+      const token = new Token({token: generatedToken,
+        studentEmail: student.email});
+      token.save((error2) => {
+        console.log(error2);
+        if (error2) {
+          return reject(student.email);
+        } else {
+          Mailer.sendMailWithTemplate(transporter, data)
+          .then(() => {
+          })
+          .catch((promiseError) => {
+            console.log(promiseError);
+            return reject(promiseError);
+          });
+        }
+    });
 
-          const token = new Token({token: generatedToken,
-                studentEmail: student.email});
-              token.save((error2) => {
-                console.log(error2);
-                if (error2) {
-                  return reject(student.email);
-                }
 
-            });
-        })
-        .catch((promiseError) => {
-          console.log(promiseError);
-          return reject(promiseError);
-        });
     });
   }
 };
