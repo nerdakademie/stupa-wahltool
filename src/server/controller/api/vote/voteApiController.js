@@ -199,7 +199,7 @@ module.exports = class VoteApiController {
           {$match: {tokenHolder: {$eq: []}}}
       ]).exec()
       .then((studentsMissingTokens) => {
-        const promises = VoteHelper.sendVoteMailWithPromise(students);
+        const promises = VoteHelper.sendVoteMailWithPromise(studentsMissingTokens);
 
         Promise.all(promises)
           .then(() => {
