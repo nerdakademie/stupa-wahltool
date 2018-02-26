@@ -78,7 +78,6 @@ class ContestantVote extends Component {
     }
   }
 
-
   handleFormSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault();
     const $token = $('#token');
@@ -90,8 +89,8 @@ class ContestantVote extends Component {
       contentType: 'application/json',
       dataType: 'json'
     }).done((data, status, xhr) => {
-      if (xhr.status === 200 || xhr.status) {
-        if (data.success === false) {
+      if (xhr.status === 200) {
+         if (data.success === false) {
           miniToastr.error(data.error.text, 'Error');
         } else {
           this.setState({
@@ -99,17 +98,19 @@ class ContestantVote extends Component {
             responseBody: data
           });
         }
-      } else if (data.success === false) {
+      } else if (xhr.status === 500 && data.success === false) {
+        miniToastr.error(data.error.text, 'Error', 1800000);
+      } else if (xhr.status !== 500 && data.success === false) {
         miniToastr.error(data.error.text, 'Error');
       } else {
         miniToastr.error('Fehler beim Empfang der Bestätigung', 'Error');
       }
     })
-        .fail((xhr) => {
-          if (xhr.responseJSON.success === false) {
-            miniToastr.error(xhr.responseJSON.error.text, 'Error');
-          }
-        });
+      .fail((xhr) => {
+        if (xhr.responseJSON.success === false) {
+          miniToastr.error(xhr.responseJSON.error.text, 'Error');
+        }
+      });
   }
 
   alreadyVoted(contestantID) {
@@ -126,10 +127,13 @@ class ContestantVote extends Component {
     };
     return (
       <Card
-        key={contestant._id} style={style} containerStyle={{
+        key={contestant._id}
+        style={style}
+        containerStyle={{
           width,
           height
-        }} zDepth={shadow}
+        }}
+        zDepth={shadow}
       >
         <CardHeader
           title={`${contestant.firstName} ${contestant.lastName}`}
@@ -138,7 +142,7 @@ class ContestantVote extends Component {
             src={`../img/${contestant.image}`}
             style={{borderRadius: 0}}
             size={125}
-                  />}
+          />}
         />
         <CardActions>
           <Checkbox
@@ -159,7 +163,10 @@ class ContestantVote extends Component {
 
   formRender() {
     return (
-      <form className='voteForm' method='post'>
+      <form
+                className='voteForm'
+        method='post'
+      >
         <AutoResponsive
           ref={(c) => {
             this.AutoResponsiveContainer = c;
@@ -168,10 +175,19 @@ class ContestantVote extends Component {
         >
           {this.state.contestants.map(ContestantVote.createCard, this)}
         </AutoResponsive>
-        <input type='text' hidden='hidden' id='token' value={this.props.params.token} />
+        <input
+                    type='text'
+          hidden='hidden'
+          id='token'
+          value={this.props.params.token}
+        />
         <FlatButton
-          label='Wahl abschließen' onClick={this.handleFormSubmit.bind(this)} backgroundColor='#4a89dc'
-          hoverColor='#357bd8' labelStyle={{color: '#fff'}} style={{width: '100%'}}
+          label='Wahl abschließen'
+          onClick={this.handleFormSubmit.bind(this)}
+          backgroundColor='#4a89dc'
+          hoverColor='#357bd8'
+          labelStyle={{color: '#fff'}}
+          style={{width: '100%'}}
         />
       </form>
     );

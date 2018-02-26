@@ -17,6 +17,10 @@ class TokenSchema extends mongo.Schema {
         type: String,
         required: true
 
+      },
+      revocationToken: {
+        type: String,
+        required: true
       }
     });
   }
