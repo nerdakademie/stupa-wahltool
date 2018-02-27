@@ -16,7 +16,10 @@ class TokenSchema extends mongo.Schema {
       contestantID: {
         type: String,
         required: true
-
+      },
+      oldID: {
+        type:String,
+        required:true
       },
       revocationToken: {
         type: String,

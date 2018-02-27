@@ -1,6 +1,7 @@
 'use strict';
 
 const mongo = require('../../../db');
+const mongoose = require('mongoose');
 const Vote = mongo.model('Vote');
 const Token = mongo.model('Token');
 const SendVote = mongo.model('SendVote');
@@ -91,7 +92,8 @@ module.exports = class VoteApiController {
               const vote = new Vote({
                 voterCourse: student.course,
                 voterYear: student.year,
-                contestantID: id,
+                contestantID: mongoose.Types.ObjectId(id),
+                oldID: id,
                 revocationToken
               });
               vote.save((saveError) => {

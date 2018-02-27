@@ -6,10 +6,9 @@ module.exports = class VoteResultApiController {
 
   static basicResults(request, response) {
     Vote.aggregate([
-      {$unwind: '$contestantIDs'},
-      {$group: {_id: '$contestantIDs',
+      {$group: {_id: '$contestantID',
         votes: {$sum: 1}}},
-      {$project: {_id: 0,
+    	{$project: {_id: 0,
         contestantID: '$_id',
         votes: 1}},
       {$lookup: {from: 'contestants',

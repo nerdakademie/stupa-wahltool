@@ -37,7 +37,7 @@ function App(props) {
       <div className='appContent'>
         {props.children || <Home />}
       </div>
-      <Footer>{'(c) 2018 '}<a className='nerdakademie' href='https://nerdakademie.xyz'>{'Nerdakademie'}</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>{'v1.3.2'}</a></Footer>
+      <Footer>{'(c) 2018 '}<a className='nerdakademie' href='https://nerdakademie.xyz'>{'Nerdakademie'}</a> | <a className='nerdakademie' href='https://github.com/nerdakademie/stupa-wahltool'>{'v1.3.3'}</a></Footer>
     </div>
   );
 }
