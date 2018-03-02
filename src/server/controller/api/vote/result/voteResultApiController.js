@@ -86,8 +86,6 @@ module.exports = class VoteResultApiController {
           {$sort: {votes: -1}}
         ]).exec()
           .then((totalUsedVotes) => {
-            console.log(totalUsedVotes);
-            console.log(totalAvailableVotes);
             const [availableVotes] = totalAvailableVotes;
             const [usedVotes] = totalUsedVotes;
             const participation = usedVotes.votes / availableVotes.votes * 100;
