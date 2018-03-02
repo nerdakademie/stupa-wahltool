@@ -59,7 +59,7 @@ class VotesPerCourse extends Component {
           height: '80%'
         }}
       >
-        <h3>{'Abgegebene Stimmen pro Wähler'}</h3>
+        <h3>{'Abgegebene Stimmen pro Studiengang'}</h3>
         {this.state.errorText.length === 0 ?
           <Pie
             data={this.state}
