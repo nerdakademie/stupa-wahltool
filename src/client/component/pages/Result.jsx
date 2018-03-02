@@ -1,7 +1,7 @@
 import React from 'react';
 import ResultChart from '../charts/ResultChart';
 import Participation from '../charts/Participation';
-import VotesPerVoter from '../charts/VotesPerVoter';
+import VotesPerCourse from '../charts/VotesPerCourse';
 
 function Result() {
   return (
@@ -9,7 +9,7 @@ function Result() {
       <ResultChart />
       <div style={{height: '50%'}}>
         <Participation />
-        <VotesPerVoter />
+        <VotesPerCourse />
       </div>
     </div>
   );

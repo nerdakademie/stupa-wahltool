@@ -4,7 +4,6 @@ const Vote = require('../../../../db').model('Vote');
 const Token = require('../../../../db').model('Token');
 
 module.exports = class VoteResultApiController {
-
   static basicResults(request, response) {
     Vote.aggregate([
       {$group: {_id: '$contestantID',
@@ -23,13 +22,13 @@ module.exports = class VoteResultApiController {
         lastName: '$contestant.lastName'}},
       {$sort: {votes: 1}}
     ]).exec()
-        .then((result) => {
-          return response.json(result);
-        })
-        .catch(() => {
-          return response.status(500).json({success: false,
-            error: {text: 'Datenbankfehler'}});
-        });
+      .then((result) => {
+        return response.json(result);
+      })
+      .catch(() => {
+        return response.status(500).json({success: false,
+          error: {text: 'Datenbankfehler'}});
+      });
   }
 
   static participation(request, response) {
@@ -50,19 +49,19 @@ module.exports = class VoteResultApiController {
         activeVoters: 1,
         inactiveVoters: {$subtract: ['$voters', '$activeVoters']}}}
     ]).exec()
-        .then((result) => {
-          const [resultObject] = result;
-          const {voters, activeVoters, inactiveVoters} = resultObject;
-          const participation = activeVoters / voters * 100;
-          return response.json({voters,
-            activeVoters,
-            inactiveVoters,
-            participation});
-        })
-        .catch(() => {
-          return response.status(500).json({success: false,
-            error: {text: 'Datenbankfehler'}});
-        });
+      .then((result) => {
+        const [resultObject] = result;
+        const {voters, activeVoters, inactiveVoters} = resultObject;
+        const participation = activeVoters / voters * 100;
+        return response.json({voters,
+          activeVoters,
+          inactiveVoters,
+          participation});
+      })
+      .catch(() => {
+        return response.status(500).json({success: false,
+          error: {text: 'Datenbankfehler'}});
+      });
   }
 
   static votesUsed(request, response) {
@@ -76,71 +75,48 @@ module.exports = class VoteResultApiController {
       {$project: {_id: 0,
         votes: {$multiply: ['$voters', 4]}}}
     ]).exec()
-        .then((totalAvailableVotes) => {
-          Vote.aggregate([
-            {$group: {_id: '$contestantID',
-              votes: {$sum: 1}}},
-            {$group: {_id: null,
-              votes: {$sum: '$votes'}}},
-            {$project: {_id:0,
-                votes: 1}},
-            {$sort: {votes: -1}}
-          ]).exec()
-              .then((totalUsedVotes) => {
-                console.log(totalUsedVotes);
-                console.log(totalAvailableVotes);
-                const [availableVotes] = totalAvailableVotes;
-                const [usedVotes] = totalUsedVotes;
-                const participation = usedVotes.votes / availableVotes.votes * 100;
-                return response.json({usedVotes: usedVotes.votes,
-                  availableVotes: availableVotes.votes,
-                  participation});
-              })
-              .catch(() => {
-                return response.status(500).json({success: false,
-                  error: {text: 'Datenbankfehler'}});
-              });
-        })
-        .catch(() => {
-          return response.status(500).json({success: false,
-            error: {text: 'Datenbankfehler'}});
-        });
+      .then((totalAvailableVotes) => {
+        Vote.aggregate([
+          {$group: {_id: '$contestantID',
+            votes: {$sum: 1}}},
+          {$group: {_id: null,
+            votes: {$sum: '$votes'}}},
+          {$project: {_id: 0,
+            votes: 1}},
+          {$sort: {votes: -1}}
+        ]).exec()
+          .then((totalUsedVotes) => {
+            console.log(totalUsedVotes);
+            console.log(totalAvailableVotes);
+            const [availableVotes] = totalAvailableVotes;
+            const [usedVotes] = totalUsedVotes;
+            const participation = usedVotes.votes / availableVotes.votes * 100;
+            return response.json({usedVotes: usedVotes.votes,
+              availableVotes: availableVotes.votes,
+              participation});
+          })
+          .catch(() => {
+            return response.status(500).json({success: false,
+              error: {text: 'Datenbankfehler'}});
+          });
+      })
+      .catch(() => {
+        return response.status(500).json({success: false,
+          error: {text: 'Datenbankfehler'}});
+      });
   }
 
   static votesPerCourse(request, response) {
     Vote.aggregate([
       {$group: {_id: '$voterCourse',
-      votes: {$sum: 1}}},
-      {$project: {_id:0,
-        votes:1, course: "$_id"}}
-    ])
-  }
-
-  static votesPerVoter(request, response) {
-    Vote.aggregate([
-      {$project: {_id: 1,
-        one: {$cond: [{$eq: [{$size: '$contestantIDs'}, 1]}, 1, 0]},
-        two: {$cond: [{$eq: [{$size: '$contestantIDs'}, 2]}, 1, 0]},
-        three: {$cond: [{$eq: [{$size: '$contestantIDs'}, 3]}, 1, 0]},
-        four: {$cond: [{$eq: [{$size: '$contestantIDs'}, 4]}, 1, 0]}}},
-      {$group: {_id: 'null',
-        one: {$sum: '$one'},
-        two: {$sum: '$two'},
-        three: {$sum: '$three'},
-        four: {$sum: '$four'}}},
+        votes: {$sum: 1}}},
       {$project: {_id: 0,
-        one: 1,
-        two: 1,
-        three: 1,
-        four: 1}}
+        votes: 1,
+        course: '$_id'}},
+      {$sort: {votes: -1}}
     ]).exec()
       .then((voteCount) => {
-        const [voteCountObject] = voteCount;
-        const {one, two, three, four} = voteCountObject;
-        return response.json({one,
-          two,
-          three,
-          four});
+        return response.json(voteCount);
       })
       .catch(() => {
         return response.status(500).json({success: false,

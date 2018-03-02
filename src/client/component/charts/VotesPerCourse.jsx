@@ -2,16 +2,11 @@ import React, {Component} from 'react';
 import {Pie} from 'react-chartjs-2';
 import $ from 'jquery';
 
-class VotesPerVoter extends Component {
+class VotesPerCourse extends Component {
   constructor() {
     super();
     this.state = {
-      labels: [
-        '1',
-        '2',
-        '3',
-        '4'
-      ],
+      labels: [],
       datasets: [{
         label: 'Stupa-Wahl 2017 Wahlbeteiligung',
         backgroundColor: [
@@ -33,22 +28,24 @@ class VotesPerVoter extends Component {
   }
 
   componentWillMount() {
-    this.loadsVotesPerVoter();
+    this.loadsVotesPerCourse();
   }
 
-  loadsVotesPerVoter() {
-    $.getJSON('/api/votes/results/votesPerVoter', (votesPerVoter) => {
-      if (votesPerVoter.success !== false) {
+  loadsVotesPerCourse() {
+    $.getJSON('/api/votes/results/votesPerCourse', (votesPerCourse) => {
+      if (votesPerCourse.success === true) {
+        const labels = [];
         const data = [];
-        data.push(votesPerVoter.one);
-        data.push(votesPerVoter.two);
-        data.push(votesPerVoter.three);
-        data.push(votesPerVoter.four);
+        for (const courseVotes of votesPerCourse) {
+          labels.push(`${courseVotes.course}`);
+          data.push(courseVotes.votes);
+        }
         const {datasets} = this.state;
+        datasets.labels = labels;
         datasets[0].data = data;
         this.setState({datasets});
       } else {
-        this.setState({errorText: votesPerVoter.error.text});
+        this.setState({errorText: votesPerCourse.error.text});
       }
     });
   }
@@ -77,4 +74,4 @@ class VotesPerVoter extends Component {
   }
 }
 
-export default VotesPerVoter;
+export default votesPerCourse;
