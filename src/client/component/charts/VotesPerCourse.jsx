@@ -74,4 +74,4 @@ class VotesPerCourse extends Component {
   }
 }
 
-export default votesPerCourse;
+export default VotesPerCourse;
