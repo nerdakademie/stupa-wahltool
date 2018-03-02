@@ -1,6 +1,7 @@
 'use strict';
 
 const Vote = require('../../../../db').model('Vote');
+const Token = require('../../../../db').model('Token');
 
 module.exports = class VoteResultApiController {
 
@@ -32,9 +33,9 @@ module.exports = class VoteResultApiController {
   }
 
   static participation(request, response) {
-    Vote.aggregate([
+    Token.aggregate([
       {$project: {_id: 1,
-        votes: {$cond: [{$gt: [{$size: '$contestantIDs'}, 0]}, 1, 0]}}},
+        votes: {$cond: ['$voted', 1, 0]}}},
       {$group: {_id: '$_id',
         voters: {$sum: 1},
         activeVoters: {$sum: '$votes'}}},
@@ -77,13 +78,12 @@ module.exports = class VoteResultApiController {
     ]).exec()
         .then((totalAvailableVotes) => {
           Vote.aggregate([
-            {$unwind: '$contestantIDs'},
-            {$group: {_id: '$contestantIDs',
+            {$group: {_id: '$contestantID',
               votes: {$sum: 1}}},
-            {$project: {_id: 0,
-              votes: 1}},
             {$group: {_id: null,
               votes: {$sum: '$votes'}}},
+            {$project: {_id:0,
+                votes: 1}},
             {$sort: {votes: -1}}
           ]).exec()
               .then((totalUsedVotes) => {
@@ -105,6 +105,15 @@ module.exports = class VoteResultApiController {
           return response.status(500).json({success: false,
             error: {text: 'Datenbankfehler'}});
         });
+  }
+
+  static votesPerCourse(request, response) {
+    Vote.aggregate([
+      {$group: {_id: '$voterCourse',
+      votes: {$sum: 1}}},
+      {$project: {_id:0,
+        votes:1, course: "$_id"}}
+    ])
   }
 
   static votesPerVoter(request, response) {
