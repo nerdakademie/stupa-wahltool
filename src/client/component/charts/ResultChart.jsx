@@ -9,7 +9,7 @@ class ResultChart extends Component {
     this.state = {
       labels: [],
       datasets: [{
-        label: 'Stupa-Wahl 2017',
+        label: 'StuPa-Wahl 2018',
         backgroundColor: 'rgba(1,31,83,0.2)',
         borderColor: 'rgba(1,31,83,1)',
         borderWidth: 1,
