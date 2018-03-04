@@ -24,7 +24,7 @@ class ResultChart extends Component {
 
   loadResult() {
     $.getJSON('/api/votes/results', (result) => {
-      if (result.success !== false) {
+      if (result.success === true) {
         const labels = [];
         const data = [];
         for (const contestant of result) {

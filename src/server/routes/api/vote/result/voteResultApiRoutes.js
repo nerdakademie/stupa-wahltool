@@ -10,5 +10,7 @@ module.exports = class VoteResultApiRoutes extends Express.Router {
     this.get('/', StageCheckController.checkAfterVotingStage, VoteResultApiController.basicResults);
     this.get('/participation', StageCheckController.checkAfterVotingStage, VoteResultApiController.participation);
     this.get('/votesPerCourse', StageCheckController.checkAfterVotingStage, VoteResultApiController.votesPerCourse);
+    this.get('/votesPerYear', StageCheckController.checkAfterVotingStage, VoteResultApiController.votesPerYear);
+    this.get('/votesPerCourseAndYear', StageCheckController.checkAfterVotingStage, VoteResultApiController.votesPerCourseAndYear);
   }
 };

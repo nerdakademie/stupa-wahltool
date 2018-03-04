@@ -14,12 +14,12 @@ class TokenSchema extends mongo.Schema {
         required: true
       },
       contestantID: {
-        type: String,
+        type: mongo.Schema.Types.ObjectId,
         required: true
       },
       oldID: {
-        type:String,
-        required:true
+        type: String,
+        required: true
       },
       revocationToken: {
         type: String,

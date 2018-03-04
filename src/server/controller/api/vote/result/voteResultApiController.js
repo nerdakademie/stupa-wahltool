@@ -121,4 +121,43 @@ module.exports = class VoteResultApiController {
           error: {text: 'Datenbankfehler'}});
       });
   }
+
+  static votesPerYear(request, response) {
+    Vote.aggregate([
+      {$group: {_id: '$voterYear',
+        votes: {$sum: 1}}},
+      {$project: {_id: 0,
+        votes: 1,
+        year: '$_id'}},
+      {$sort: {votes: -1}}
+    ]).exec()
+      .then((voteCount) => {
+        return response.json(voteCount);
+      })
+      .catch(() => {
+        return response.status(500).json({success: false,
+          error: {text: 'Datenbankfehler'}});
+      });
+  }
+
+  static votesPerCourseAndYear(request, response) {
+    Vote.aggregate([
+      {$group: {_id: {
+        year: '$voterYear',
+        course: '$voterCourse'},
+      votes: {$sum: 1}}},
+      {$project: {_id: 0,
+        votes: 1,
+        course: '$_id.course',
+        year: '$_id.year'}},
+      {$sort: {votes: -1}}
+    ]).exec()
+      .then((voteCount) => {
+        return response.json(voteCount);
+      })
+      .catch(() => {
+        return response.status(500).json({success: false,
+          error: {text: 'Datenbankfehler'}});
+      });
+  }
 };

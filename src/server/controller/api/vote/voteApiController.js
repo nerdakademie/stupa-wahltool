@@ -19,7 +19,6 @@ module.exports = class VoteApiController {
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
 
-
     Token.findOne({token}).select('-token -__v -_id -studentEmail')
       .lean()
       .exec()
@@ -29,7 +28,6 @@ module.exports = class VoteApiController {
             error: {text: 'Keine Daten gefunden'}});
         }
         return response.json(vote.voted);
-
       })
       .catch(() => {
         return response.status(500).json({success: false,
@@ -74,17 +72,17 @@ module.exports = class VoteApiController {
             success: false,
             error: {text: 'Du hast bereits gewählt'}
           });
-        } else {
-          token.voted = true;
-          token.save((saveError) => {
-            if (saveError) {
-              return response.status(500)
-                .json({
-                  success: false,
-                  error: {text: 'Interner Serverfehler. Stimmen gespeichert, Token allerdings nicht modifiziert. Bitte schreibe uns eine E-Mail und erwähne deinen RevocationToken: ${revocationToken}'}
-                });
-            }
-          });
+        }
+        token.voted = true;
+        token.save((saveError) => {
+          if (saveError) {
+            return response.status(500)
+              .json({
+                success: false,
+                error: {text: 'Interner Serverfehler. Stimmen gespeichert, Token allerdings nicht modifiziert. Bitte schreibe uns eine E-Mail und erwähne deinen RevocationToken: ${revocationToken}'}
+              });
+          }
+        });
         Student.findOne({email: token.studentEmail}).exec()
           .then((student) => {
             const revocationToken = uuid();
@@ -92,7 +90,7 @@ module.exports = class VoteApiController {
               const vote = new Vote({
                 voterCourse: student.course,
                 voterYear: student.year,
-                contestantID: mongoose.Types.ObjectId(id),
+                contestantID: id,
                 oldID: id,
                 revocationToken
               });
@@ -108,7 +106,6 @@ module.exports = class VoteApiController {
             }
             return response.status(200).json({success: true});
           });
-      }
       })
       .catch(() => {
         return response.status(500).json({success: false,
@@ -166,7 +163,7 @@ module.exports = class VoteApiController {
     });
   }
 
-  static sendMissingVoteTokens(request, response){
+  static sendMissingVoteTokens(request, response) {
     request.socket.setTimeout(3600e3);
     const {authToken} = request.body;
     if (StringHelper.isNullOrEmptyString(authToken)) {
@@ -178,7 +175,7 @@ module.exports = class VoteApiController {
 
     SendVote.findOne({token: authToken}).exec((error, sendVote) => {
       if (error) {
-        console.log(error)
+        console.log(error);
         return response.status(500).json({
           success: false,
           error: {text: 'Fehler beim Bearbeiten aufgetreten'}
@@ -194,33 +191,33 @@ module.exports = class VoteApiController {
       Student.aggregate([
         {$project: {firstName: 1,
           email: 1}},
-          {$lookup: {from: 'tokens',
+        {$lookup: {from: 'tokens',
           localField: 'email',
           foreignField: 'studentEmail',
           as: 'tokenHolder'}},
-          {$match: {tokenHolder: {$eq: []}}}
+        {$match: {tokenHolder: {$eq: []}}}
       ]).exec()
-      .then((studentsMissingTokens) => {
-        const promises = VoteHelper.sendVoteMailWithPromise(studentsMissingTokens);
+        .then((studentsMissingTokens) => {
+          const promises = VoteHelper.sendVoteMailWithPromise(studentsMissingTokens);
 
-        Promise.all(promises)
-          .then(() => {
-            return response.status(200).json({success: true});
-          })
-          .catch((promiseError) => {
-            return response.status(200).json({
-              success: false,
-              error: {text: promiseError}
+          Promise.all(promises)
+            .then(() => {
+              return response.status(200).json({success: true});
+            })
+            .catch((promiseError) => {
+              return response.status(200).json({
+                success: false,
+                error: {text: promiseError}
+              });
             });
+        })
+        .catch((error) => {
+          console.log(error);
+          return response.status(500).json({
+            success: false,
+            error: {text: 'Fehler beim Bearbeiten aufgetreten'}
           });
-      })
-      .catch((error) => {
-        console.log(error);
-        return response.status(500).json({
-          success: false,
-          error: {text: 'Fehler beim Bearbeiten aufgetreten'}
         });
-      });
     });
   }
 
@@ -231,6 +228,5 @@ module.exports = class VoteApiController {
       return response.status(400).json({success: false,
         error: {text: 'Es wurden nicht alle notwendingen Felder ausgefüllt'}});
     }
-
+  }
 };
-}
