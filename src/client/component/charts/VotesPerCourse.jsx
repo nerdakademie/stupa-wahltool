@@ -37,7 +37,7 @@ class VotesPerCourse extends Component {
         const labels = [];
         const data = [];
         for (const courseVotes of votesPerCourse) {
-          labels.push(`${courseVotes.course}`);
+          labels.push(courseVotes.course);
           data.push(courseVotes.votes);
         }
         const {datasets} = this.state;
