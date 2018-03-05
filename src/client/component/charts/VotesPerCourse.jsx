@@ -97,7 +97,10 @@ class VotesPerCourse extends Component {
             data={this.state}
             options={{
               responsive: true,
-              maintainAspectRatio: false
+              maintainAspectRatio: false,
+              legend: {
+                display: false
+              }
             }}
           /> : <p>{this.state.errorText}</p>}
 
