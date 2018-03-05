@@ -8,7 +8,7 @@ class VotesPerCourse extends Component {
     this.state = {
       labels: [],
       datasets: [{
-        label: 'Stupa-Wahl 2017 Wahlbeteiligung',
+        label: 'Stupa-Wahl 2018 Wahlbeteiligung',
         backgroundColor: [
           '#3366CC',
           '#DC3912',
