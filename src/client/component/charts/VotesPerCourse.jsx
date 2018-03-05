@@ -65,17 +65,17 @@ class VotesPerCourse extends Component {
 
   loadsVotesPerCourse() {
     $.getJSON('/api/votes/results/votesPerCourse', (votesPerCourse) => {
-      if (votesPerCourse.success === true) {
+      if (votesPerCourse.success !== false) {
         const labels = [];
         const data = [];
         for (const courseVotes of votesPerCourse) {
-          labels.push(`${courseVotes.course}`);
+          labels.push(courseVotes.course);
           data.push(courseVotes.votes);
         }
-        const {datasets} = this.state;
-        datasets.labels = labels;
-        datasets[0].data = data;
-        this.setState({datasets});
+        const dataState = this.state;
+        dataState.labels = labels;
+        dataState.datasets[0].data = data;
+        this.setState({data: dataState});
       } else {
         this.setState({errorText: votesPerCourse.error.text});
       }

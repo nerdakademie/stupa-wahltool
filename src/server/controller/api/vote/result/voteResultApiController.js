@@ -160,4 +160,37 @@ module.exports = class VoteResultApiController {
           error: {text: 'Datenbankfehler'}});
       });
   }
+
+  static participationPerCourseAndYear(request, response) {
+    Token.aggregate([
+      {$project: {_id: 1,
+        studentEmail: 1,
+        participant: {$cond: ['$voted', 1, 0]}}},
+      {$lookup: {from: 'students',
+        localField: 'studentEmail',
+        foreignField: 'email',
+        as: 'student'}},
+      {$match: {student: {$ne: []}}},
+      {$unwind: '$student'},
+      {$project: {participant: 1,
+        course: '$student.course',
+        year: '$student.year'}},
+      {$group: {_id: {
+        year: '$year',
+        course: '$course'},
+      participants: {$sum: '$participant'}}},
+      {$project: {_id: 0,
+        participants: 1,
+        course: '$_id.course',
+        year: '$_id.year'}},
+      {$sort: {participants: -1}}
+    ]).exec()
+      .then((participation) => {
+        return response.json(participation);
+      })
+      .catch(() => {
+        return response.status(500).json({success: false,
+          error: {text: 'Datenbankfehler'}});
+      });
+  }
 };
