@@ -40,10 +40,10 @@ class VotesPerCourse extends Component {
           labels.push(courseVotes.course);
           data.push(courseVotes.votes);
         }
-        const {datasets} = this.state;
-        datasets.labels = labels;
-        datasets[0].data = data;
-        this.setState({data: datasets});
+        const dataState = this.state;
+        dataState.labels = labels;
+        dataState.datasets[0].data = data;
+        this.setState({data: dataState});
       } else {
         this.setState({errorText: votesPerCourse.error.text});
       }
