@@ -33,7 +33,7 @@ class VotesPerCourse extends Component {
 
   loadsVotesPerCourse() {
     $.getJSON('/api/votes/results/votesPerCourse', (votesPerCourse) => {
-      if (votesPerCourse.success === true) {
+      if (votesPerCourse.success !== false) {
         const labels = [];
         const data = [];
         for (const courseVotes of votesPerCourse) {
