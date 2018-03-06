@@ -165,25 +165,33 @@ module.exports = class VoteResultApiController {
     Token.aggregate([
       {$project: {_id: 1,
         studentEmail: 1,
-        participant: {$cond: ['$voted', 1, 0]}}},
+        activeParticipant: {$cond: ['$voted', 1, 0]}}},
+      {$group: {_id: {_id: '$_id',
+        studentEmail: '$studentEmail'},
+      totalParticipant: {$sum: 1},
+      activeParticipants: {$sum: '$activeParticipant'}}},
       {$lookup: {from: 'students',
-        localField: 'studentEmail',
+        localField: '_id.studentEmail',
         foreignField: 'email',
         as: 'student'}},
       {$match: {student: {$ne: []}}},
       {$unwind: '$student'},
-      {$project: {participant: 1,
+      {$project: {activeParticipants: 1,
+        totalParticipant: 1,
         course: '$student.course',
         year: '$student.year'}},
       {$group: {_id: {
         year: '$year',
         course: '$course'},
-      participants: {$sum: '$participant'}}},
+      activeParticipants: {$sum: '$activeParticipants'},
+      totalParticipants: {$sum: '$totalParticipant'}
+      }},
       {$project: {_id: 0,
-        participants: 1,
+        activeParticipants: 1,
+        totalParticipants: 1,
         course: '$_id.course',
         year: '$_id.year'}},
-      {$sort: {participants: -1}}
+      {$sort: {totalParticipants: -1}}
     ]).exec()
       .then((participation) => {
         return response.json(participation);
