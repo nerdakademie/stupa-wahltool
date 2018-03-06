@@ -189,6 +189,7 @@ module.exports = class VoteResultApiController {
       {$project: {_id: 0,
         activeParticipants: 1,
         totalParticipants: 1,
+        participation: {$divide: ['$activeParticipants', '$totalParticipants']},
         course: '$_id.course',
         year: '$_id.year'}},
       {$sort: {totalParticipants: -1}}
